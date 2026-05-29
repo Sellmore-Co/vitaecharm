@@ -1,0 +1,16 @@
+<footer class="footer_section">
+  <div class="container">
+    <div class="footer_layout">
+      <div class="footer_copy-info">
+        <div class="footer_link-wrapper">
+          <a href="{{ campaign.store_shipping }}" target="_blank" class="footer_legal-link">Shipping Policy</a>
+          <a href="{{ campaign.store_returns }}" target="_blank" class="footer_legal-link">Refund Policy</a>
+          <a href="{{ campaign.store_privacy }}" target="_blank" class="footer_legal-link">Privacy Policy</a>
+          <a href="{{ campaign.store_terms }}" target="_blank" class="footer_legal-link">Terms of Service</a>
+        </div>
+        <div class="text-xs">Copyright © <span class="copyright-year"></span> {{ campaign.store_name }}</div>
+<script>(function(){ var y = new Date().getFullYear(); document.querySelectorAll(".copyright-year").forEach(function(el){ el.textContent = y; }); })();</script>
+      </div>
+    </div>
+  </div>
+</footer>

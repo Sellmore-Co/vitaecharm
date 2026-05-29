@@ -1,0 +1,131 @@
+---
+title: "Shop — Upsell (bundle tier pills)"
+page_type: upsell
+next_url: upsell-bundle-tier-cards.html
+decline_url: upsell-bundle-tier-cards.html
+styles:
+  - https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css
+scripts:
+  - https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js
+  - js/upsells.js
+upsell_offer:
+  package_id: 3
+  selector_id: "upsell-bundle"
+  display_selector_id: "upsell-bundle-1x"
+  display_bundle_id: "upsell-bundle-1x-card"
+  accept_text: "Yes, Add to My Order"
+  decline_text: "No thank you, I don't want this one-time offer"
+upsell_bundle_tiers:
+  - id: "upsell-bundle-1x"
+    button_value: "1"
+    items_json: '[{"packageId":3,"quantity":1}]'
+    vouchers_json: '["UP50"]'
+    selected: true
+  - id: "upsell-bundle-2x"
+    button_value: "2"
+    items_json: '[{"packageId":3,"quantity":2}]'
+    vouchers_json: '["UP60"]'
+  - id: "upsell-bundle-3x"
+    button_value: "3"
+    items_json: '[{"packageId":3,"quantity":3}]'
+    vouchers_json: '["UP70"]'
+  - id: "upsell-bundle-4x"
+    button_value: "4"
+    items_json: '[{"packageId":3,"quantity":4}]'
+    vouchers_json: '["UP50"]'
+  - id: "upsell-bundle-5x"
+    button_value: "5"
+    items_json: '[{"packageId":3,"quantity":5}]'
+    vouchers_json: '["UP50"]'
+swiper_slides:
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+swiper_thumbs:
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+---
+
+<!--
+  APPROACH B — Bundle upsell (data-next-bundle-selector + data-next-upsell-context).
+  See upsell-bundle-stepper.html for one-card + native bundleQuantity stepper (not tier pills).
+  See upsell-bundle-tier-cards.html for visible tier cards (no initBundleQtyToggle).
+
+  Primary intent: one upsell package with a quantity-style control (1×–5× here) driving which
+  bundle tier is selected — not “stack N separate bundles of the same tier.” Per-step voucher
+  codes (e.g. UP50 / UP60 / UP70) are optional campaign examples of different coupons per qty;
+  simplify to one code or match your real Campaigns setup when cloning.
+
+  Reference pattern (0.4.x; match sdk_version in campaigns.json):
+    • Accept sends the selected tier’s voucher(s) via AddUpsellLine (example: 1× UP50, 2× UP60,
+      3× UP70, 4×–5× UP50 — configure codes in Campaigns).
+    • calculateBundlePrice merges tier vouchers at init and on card change.
+    • Quantity UI: hidden bundle cards per qty tier; initBundleQtyToggle() in assets/js/upsells.js
+      wires data-bundle-qty-btn to programmatically select the matching card (see file footer).
+    • Remote summary uses data-next-display="bundle.upsell-bundle.*" OUTSIDE cards — keep
+      data-next-format="currency" / "percentage" on those nodes (see https://developers.nextcommerce.com/docs/campaigns/campaign-cart/).
+    • data-next-upsell="offer" on .upsell-wrapper scopes add/skip actions.
+    • Header 1× price / % uses a display-only selector id upsell-bundle-1x outside the offer so
+      the first in-offer selector remains upsell-bundle (submit path); not data-next-upsell-action-for.
+
+  Optional upgrade (SDK 0.4.18+): for a single-tier offer, native bundle quantity (data-next-bundle-qty-for)
+  fits upsell-bundle-stepper.html; this page keeps tier cards + initBundleQtyToggle for per-tier vouchers.
+  See campaign-cart BundleSelector attributes.md — «Inline bundle-quantity controls».
+
+  Display note: remote bundle.upsell-bundle.unitPrice is not a supported remote path — use
+  per-card data-next-bundle-display for per-unit amounts on tier cards.
+-->
+{% assign upsell_package_id = upsell_offer.package_id | default: 3 -%}
+{% assign upsell_display_selector_id = upsell_offer.display_selector_id | default: 'upsell-bundle-1x' -%}
+{% assign upsell_package_name_path = 'package.' | append: upsell_package_id | append: '.name' -%}
+{% assign upsell_display_price_path = 'bundle.' | append: upsell_display_selector_id | append: '.price' -%}
+{% assign upsell_display_discount_path = 'bundle.' | append: upsell_display_selector_id | append: '.discountPercentage' -%}
+
+<div class="page-wrapper">
+  <div class="main-wrapper">
+    <div class="announcement">
+      <div class="announcement__block">
+        <div class="announcement__text"><strong>Special Offer Unlocked - Do Not Close This Page</strong></div>
+      </div>
+    </div>
+    {% campaign_include 'upsell-header-bar.html' %}
+    <section class="section upsell-header">
+      <div class="container">
+        <div class="upsell-header__inner">
+          <div class="upsell-header__title">Wait! Your Order Isn't Complete</div>
+          <!-- bundle.upsell-bundle.price updates with qty selection — use bundle.upsell-bundle-1x.price
+               (from the display-only selector below) for the header so it always shows the 1x price.
+               package path reads the product name from campaign package data (packageId comes from upsell_offer). -->
+          <div class="upsell-header__offer">Special Discount: Get 1 More <span data-next-display="{{ upsell_package_name_path }}">Product Title</span> For Only <span data-next-display="{{ upsell_display_price_path }}" data-next-format="currency">$14.95</span></div>
+          <div class="upsell-header__suboffer">Add this to your order and get a <span data-next-display="{{ upsell_display_discount_path }}" data-next-format="percentage">50%</span> discount<br></div>
+        </div>
+      </div>
+    </section>
+    {% campaign_include 'upsell-bundle-tier-pills-offer.html' %}
+    {% campaign_include 'footer.html' %}
+  </div>
+</div>
+
+<script>
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', () => initSwiperGalleries()); } else { initSwiperGalleries(); }
+  window.addEventListener('next:initialized', function () { initBundleQtyToggle(); });
+</script>

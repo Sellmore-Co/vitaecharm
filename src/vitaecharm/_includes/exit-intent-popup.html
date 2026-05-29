@@ -1,0 +1,53 @@
+<!-- Exit intent popup — template approach
+     Include on checkout pages that use initExitIntentTemplate().
+     Requires css/exit-intent-popup.css in page frontmatter styles.
+     Args:
+       coupon_code   — coupon to apply on CTA click   (default: SAVE10)
+       popup_image   — left-column image URL          (required)
+       headline      — large headline text            (default: Wait!)
+       subheadline   — line below headline            (default: Are you sure you want to leave?)
+       offer_title   — bold offer heading             (default: Don't Miss Out on this Exclusive Offer)
+       offer_label   — short offer callout            (default: Save a further <strong>10% Off</strong>)
+       offer_detail  — small print below offer        (default: This extra 10% off coupon could disappear any time!)
+       cta_label     — CTA button text                (default: Apply My Discount Coupon)
+-->
+<template data-template="exit-intent">
+  <div class="exit-intent-popup">
+    <div class="exit-intent-popup__dialog">
+
+      <div class="exit-intent-popup__image">
+        <picture>
+          <img src="{% if popup_image %}{{ popup_image }}{% else %}https://placehold.co/400x500{% endif %}" alt="">
+        </picture>
+      </div>
+
+      <div class="exit-intent-popup__content">
+        <div class="exit-intent-popup__inner">
+
+          <div class="exit-intent-popup__header">
+            <h3>{% if headline %}{{ headline }}{% else %}Wait!{% endif %}</h3>
+            <p>{% if subheadline %}{{ subheadline }}{% else %}Are you sure you want to leave?{% endif %}</p>
+            <h4>{% if offer_title %}{{ offer_title }}{% else %}Don't Miss Out on this Exclusive Offer{% endif %}</h4>
+          </div>
+
+          <div class="exit-intent-popup__offer-label">
+            {% if offer_label %}{{ offer_label }}{% else %}Save a further <strong>10% Off</strong>{% endif %}
+          </div>
+
+          <p class="exit-intent-popup__offer-detail">
+            {% if offer_detail %}{{ offer_detail }}{% else %}This extra <strong>10% off</strong> coupon could disappear any time!{% endif %}
+          </p>
+
+          <button type="button"
+                  class="exit-intent-popup__cta"
+                  data-exit-intent-action="apply-coupon"
+                  data-coupon-code="{% if coupon_code %}{{ coupon_code }}{% else %}SAVE10{% endif %}">
+            {% if cta_label %}{{ cta_label }}{% else %}Apply My Discount Coupon{% endif %}
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</template>

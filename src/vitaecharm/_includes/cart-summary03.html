@@ -1,0 +1,163 @@
+<div class="cart-heading">
+  <div class="cart-box__title">Your&nbsp;Cart</div>
+  <div class="cart-box__subtitle">Free shipping on all orders.</div>
+</div>
+<div class="cart-line-display">
+  <div class="cart-line">
+    <div class="os-card__content" data-next-package-id="1">
+      <div class="cart-feature-line__media cart-feature-line__media--cart">
+        <img width="280" data-next-display="package.image" alt="" class="cart-feature-line__image">
+      </div>
+      <div class="cart-feature-line__details cart-feature-line__details--centered">
+        <div class="cart-pill">
+          <div><svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.2095 5.63383C12.2618 5.3722 12.0525 5.05824 11.7909 5.05824L8.80834 4.63964L7.44787 1.91871C7.39555 1.81406 7.34322 1.76173 7.23857 1.70941C6.97694 1.55243 6.66299 1.65708 6.50601 1.91871L5.19787 4.63964L2.21531 5.05824C2.05834 5.05824 1.95369 5.11057 1.90136 5.21522C1.69206 5.42452 1.69206 5.73848 1.90136 5.94778L4.04671 8.0408L3.52345 11.0234C3.52345 11.128 3.52345 11.2327 3.57578 11.3373C3.73276 11.5989 4.04671 11.7036 4.30834 11.5466L6.97694 10.1338L9.64555 11.5466C9.69787 11.5989 9.80252 11.5989 9.90717 11.5989C9.9595 11.5989 9.9595 11.5989 10.0118 11.5989C10.2735 11.5466 10.4828 11.285 10.4304 10.971L9.90717 7.98848L12.0525 5.89545C12.1572 5.84313 12.2095 5.73848 12.2095 5.63383Z" fill="white"></path></svg></div>
+          <div>Most Popular</div>
+        </div>
+        <div class="cart-subtext">Cart subtext</div>
+        <div class="card-title" data-next-display="package.name"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="summary-wrapper" data-next-cart-summary>
+  <template>
+    <div class="order-summary">
+      <div class="order-summary__content">
+
+        <div data-os-cart-summary="line-wrapper" class="cart-items">
+          <div class="cart-summary__line pb--header">
+            <div class="cart-summary__line-item"><div>Item</div></div>
+            <div class="cart-summary__line-item"><div>Amount</div></div>
+          </div>
+          <div data-os-cart-summary="summary-scroll" class="cart-items__scroll-hint cart-items__scroll-hint--active hide">
+            <div>Scroll for more items</div>
+            <div class="icon__view-more"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z"></path></svg></div>
+          </div>
+          <div class="cart-items__list" data-summary-lines>
+            <template>
+              <div class="cart-item" data-package-id="{item.packageId}">
+                <div class="cart-item__wrapper">
+                  <div class="cart-item__details cc-left-0">
+                    <div class="cart-item__content">
+                      <div class="cart-item__description">
+                        <div class="cart-item__header">
+                          <div class="cart-item__title os-bold">
+                            {item.quantity}x {item.name}
+                            <div>
+                              <div class="text-2xs text-muted text-weight-normal diagonal-strike {item.hasDiscount}">{item.originalUnitPrice}/ea</div>
+                              <div class="text-2xs text-muted text-weight-normal">{item.unitPrice}/ea</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cart-item__pricing">
+                        <div class="cart-price diagonal-strike line-compare {item.hasDiscount}">{item.originalPrice}</div>
+                        <div class="checkout__line-item__final-price">{item.price}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <div class="order-totals os-cart-summary-totals">
+          <div class="order-totals__line">
+            <div class="order-totals__label">Subtotal</div>
+            <div class="order-totals__value">{subtotal}</div>
+          </div>
+
+          <div class="order-totals__section">
+            <ul class="order-totals__discount-list" data-next-discounts="offer" aria-label="Offer discounts">
+              <template>
+                <li class="order-totals__line">
+                  <div class="order-totals__label text-muted">{discount.name} - Save {discount.percentage}</div>
+                  <div class="order-totals__value text-muted">−{discount.amount}</div>
+                </li>
+              </template>
+            </ul>
+            <ul class="order-totals__discount-list" data-next-discounts="voucher" aria-label="Coupon discounts">
+              <template>
+                <li class="order-totals__line">
+                  <div class="order-totals__label text-muted">{discount.name} - Save {discount.percentage}</div>
+                  <div class="order-totals__value text-muted">−{discount.amount}</div>
+                </li>
+              </template>
+            </ul>
+          </div>
+
+          <div class="order-totals__section order-totals__section--inset os-cart-summary-row--discount">
+            <div class="order-totals__line">
+              <div class="order-totals__label-group">
+                <div class="order-totals__label">Today you saved</div>
+                <div class="badge badge--small">
+                  <div class="label__wrapper cc-sm">
+                    <div class="badge__text"><span data-next-display="cart.totalDiscountPercentage"></span> OFF</div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion__right">
+                <div class="order-totals__value">- {discounts}</div>
+              </div>
+            </div>
+            <!-- Coupon tag badge — uncomment to show applied coupon code below the savings row.
+            <div class="coupon-tags" data-next-show="cart.hasCoupon" style="display:none">
+              <div class="order-totals__line items-center">
+                <div class="cart-subtext">Code applied</div>
+                <div data-next-discounts="voucher">
+                  <template>
+                    <div class="badge badge--small">
+                      <div class="label__wrapper cc-sm">
+                        <div class="badge__text">{discount.description}</div>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+            -->
+          </div>
+
+          <div class="order-totals__line os-cart-summary-row--tax">
+            <div class="order-totals__label">Tax</div>
+            <div class="order-totals__value">{tax}</div>
+          </div>
+
+          <div class="order-totals__section">
+            <div class="order-totals__line">
+              <div class="accordion__right">
+                <div class="order-totals__label">Shipping</div>
+              </div>
+              <div class="accordion__right">
+                <div class="order-totals__value">{shipping}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-totals__section cc-total">
+            <div class="order-totals__line order-totals__line--total">
+              <div class="order-totals__label order-totals__label--total">Grand Total:</div>
+              <div class="order-totals__value-group">
+                <div class="summary-total__coin">{currency}</div>
+                <div class="order-totals__value order-totals__value--total">{total}</div>
+              </div>
+            </div>
+            <div class="os-cart-summary-row--discount order-totals__savings">
+              <div class="order-totals__savings-content">
+                <div class="order-totals__savings-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 18 18" focusable="false" aria-hidden="true" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m10.802 15.686 5.367-5.368a.15.15 0 0 0 .046-.109V4.144m-2.998-.95h-5.67a.16.16 0 0 0-.11.046L1.779 8.897a.154.154 0 0 0 0 .219l5.594 5.593c.06.06.158.06.218 0l5.658-5.657a.15.15 0 0 0 .045-.11v-5.67a.077.077 0 0 0-.077-.077Zm-3.06 3.749a.643.643 0 1 1-1.286 0 .643.643 0 0 1 1.286 0m-.648-.005h.01v.01h-.01z"></path></svg>
+                </div>
+                <div class="order-totals__savings-text">
+                  TODAY YOU SAVED {discounts}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </template>
+</div>

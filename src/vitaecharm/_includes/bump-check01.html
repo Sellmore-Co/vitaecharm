@@ -1,0 +1,68 @@
+{% if show_per_unit_price == nil %}{% assign show_per_unit_price = true %}{% endif -%}
+{% if show_line_total_price == nil %}{% assign show_line_total_price = false %}{% endif -%}
+<!-- Prepurchase upsell: checkbox bump (check01) — SDK 0.4.x
+     Uses data-next-package-toggle / data-next-toggle-card / data-next-toggle-display
+     Pick ONE pricing row — rendering both confuses the customer.
+     Option A (per-unit, stable, DEFAULT): originalUnitPrice/ea + unitPrice/ea — does not scale with synced qty
+     Option B (line total, scales, opt-in): originalPrice + price — multiplies with data-next-package-sync qty
+       To switch: pass show_per_unit_price=false show_line_total_price=true to {% campaign_include %} -->
+<div data-component="prepurchase-upsell" data-variant="check01" data-next-await="">
+  <div data-next-package-toggle>
+    <div class="bump-card" data-next-toggle-card data-next-is-upsell="true" data-next-package-sync="1" data-next-package-id="7">
+      <!-- Bump header — visual only, whole card is the toggle target -->
+      <div class="bump__header-left">
+        <div class="bump__header-content">
+          <div class="bump__checkbox">
+            <div os-component="check" class="checkbox__icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--fe" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m6 10l-2 2l6 6L20 8l-2-2l-8 8z"></path></svg></div>
+          </div>
+          <div class="bump__title">Get Extended Warranty</div>
+        </div>
+      </div>
+      <!-- Bump body: price, list, image -->
+      <div class="bump__body">
+        <div class="bump__content">
+          <div class="bump__content-wrap">
+            <div class="bump__price">
+              {% if show_per_unit_price %}
+              <!-- Option A: per-unit pricing — stable across tier changes (SDK 0.4.14+) -->
+              <div class="bump__price-row">
+                <div class="bump__price-unit"><span data-next-toggle-display="originalUnitPrice" class="bump__price-reg">--</span></div>
+                <div class="bump__price-unit"><span data-next-toggle-display="unitPrice" class="bump__price-sale">--</span><span class="text-xl">/ea</span></div>
+              </div>
+              {% endif %}
+              {% if show_line_total_price %}
+              <!-- Option B: line total pricing — scales with synced qty -->
+              <div class="bump__price-row">
+                <div data-next-toggle-display="originalPrice" class="bump__price-reg">--</div>
+                <div data-next-toggle-display="price" class="bump__price-total">--</div>
+              </div>
+              {% endif %}
+            </div>
+            
+            <div class="list-container cc-2xs">
+              <ul role="list" class="list w-list-unstyled">
+                <li class="list__item">
+                  <div class="list_icon"><svg width="100%" height="100%" viewBox="0 0 13 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" fill="CurrentColor"><path d="M12.265 0.182296C12.0219 -0.0607654 11.6279 -0.0607654 11.3848 0.182296L3.92853 7.63866L1.06245 4.77258C0.819416 4.52952 0.425382 4.52955 0.182296 4.77258C-0.0607654 5.01562 -0.0607654 5.40966 0.182296 5.65272L3.48845 8.95882C3.73142 9.20186 4.12574 9.20169 4.36861 8.95882L12.265 1.06245C12.508 0.819416 12.508 0.425358 12.265 0.182296Z" fill="inherit"></path></svg></div>
+                  <div>1 year with our replacement and protection</div>
+                </li>
+                <li class="list__item">
+                  <div class="list_icon"><svg width="100%" height="100%" viewBox="0 0 13 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" fill="CurrentColor"><path d="M12.265 0.182296C12.0219 -0.0607654 11.6279 -0.0607654 11.3848 0.182296L3.92853 7.63866L1.06245 4.77258C0.819416 4.52952 0.425382 4.52955 0.182296 4.77258C-0.0607654 5.01562 -0.0607654 5.40966 0.182296 5.65272L3.48845 8.95882C3.73142 9.20186 4.12574 9.20169 4.36861 8.95882L12.265 1.06245C12.508 0.819416 12.508 0.425358 12.265 0.182296Z" fill="inherit"></path></svg></div>
+                  <div>Accidental Damage Protection</div>
+                </li>
+                <li class="list__item">
+                  <div class="list_icon"><svg width="100%" height="100%" viewBox="0 0 13 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" fill="CurrentColor"><path d="M12.265 0.182296C12.0219 -0.0607654 11.6279 -0.0607654 11.3848 0.182296L3.92853 7.63866L1.06245 4.77258C0.819416 4.52952 0.425382 4.52955 0.182296 4.77258C-0.0607654 5.01562 -0.0607654 5.40966 0.182296 5.65272L3.48845 8.95882C3.73142 9.20186 4.12574 9.20169 4.36861 8.95882L12.265 1.06245C12.508 0.819416 12.508 0.425358 12.265 0.182296Z" fill="inherit"></path></svg></div>
+                  <div>Express Replacement Service</div>
+                </li>
+                <li class="list__item">
+                  <div class="list_icon"><svg width="100%" height="100%" viewBox="0 0 13 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" fill="CurrentColor"><path d="M12.265 0.182296C12.0219 -0.0607654 11.6279 -0.0607654 11.3848 0.182296L3.92853 7.63866L1.06245 4.77258C0.819416 4.52952 0.425382 4.52955 0.182296 4.77258C-0.0607654 5.01562 -0.0607654 5.40966 0.182296 5.65272L3.48845 8.95882C3.73142 9.20186 4.12574 9.20169 4.36861 8.95882L12.265 1.06245C12.508 0.819416 12.508 0.425358 12.265 0.182296Z" fill="inherit"></path></svg></div>
+                  <div>24/7 Priority Customer Support</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <img data-next-toggle-image loading="lazy" alt="" src="{{ 'images/1x1_1.svg' | campaign_asset }}" class="bump__image">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

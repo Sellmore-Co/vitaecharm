@@ -1,0 +1,103 @@
+<style>
+  @keyframes icons5-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .icons5-track {
+    animation: icons5-scroll 40s linear infinite;
+    will-change: transform;
+  }
+  .icons5-track:hover {
+    animation-play-state: paused;
+  }
+</style>
+
+<section class="bg-white py-6 md:py-8 lg:py-10 overflow-hidden">
+  <div class="icons5-track flex items-center gap-[48px] w-max">
+
+    <!-- Set 1 -->
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-cuff-checking.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_1 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-movement-error.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_2 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-heartbeat.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_3 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-wrist-comfort.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_4 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-fda-cleared.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_5 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-lcd-display.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_6 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-reading-memory.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_7 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-dual-user.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_8 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-batteries.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_9 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-portable.png' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_10 }}</span>
+    </div>
+
+    <!-- Set 2 — duplicate for seamless loop -->
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-cuff-checking.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_1 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-movement-error.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_2 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-heartbeat.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_3 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-wrist-comfort.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_4 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-fda-cleared.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_5 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-lcd-display.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_6 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-reading-memory.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_7 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-dual-user.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_8 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-batteries.svg' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_9 }}</span>
+    </div>
+    <div class="flex items-center gap-[15px] md:gap-[20px] shrink-0">
+      <img src="{{ 'images/landing/icons-5/icon-portable.png' | campaign_asset }}" alt="" class="w-8 h-8 object-contain shrink-0">
+      <span class="font-bold text-[16px] md:text-[18px] text-[color:var(--text-primary)] tracking-[-0.08px] md:tracking-[-0.09px] leading-[1.5] whitespace-nowrap">{{ icons_5_item_10 }}</span>
+    </div>
+
+  </div>
+</section>

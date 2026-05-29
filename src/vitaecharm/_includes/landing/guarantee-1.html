@@ -1,0 +1,53 @@
+<section class="w-full overflow-hidden bg-[var(--brand-secondary)]">
+  <div class="max-w-[1440px] mx-auto px-[15px] md:px-[26px] lg:px-[80px] xl:px-[160px] py-[40px] md:py-[48px] lg:py-[60px]">
+    <div class="w-full max-w-[1120px] mx-auto rounded-[16px] md:rounded-[20px] lg:rounded-[24px] overflow-hidden bg-white">
+      <div class="w-full hidden md:flex items-center min-h-[290px] relative">
+        <div class="absolute top-0 right-0 h-full w-[261px] md:w-[179px] lg:w-[261px]">
+          <img src="{{ guarantee_1_side_image | campaign_asset }}" alt="{{ guarantee_1_side_image_alt }}" class="w-full h-full object-cover">
+          <div class="absolute inset-y-0 left-0 w-[99px] md:w-[68px] bg-gradient-to-r from-white to-transparent"></div>
+        </div>
+
+        <div class="relative z-[1] w-full px-[27px] lg:px-[40px]">
+          <div class="w-full flex items-center gap-[26px] lg:gap-[32px]">
+            <div class="relative w-[170px] h-[170px] shrink-0">
+              <img src="{{ guarantee_1_badge_image | campaign_asset }}" alt="{{ guarantee_1_badge_alt }}" class="w-full h-full object-contain">
+            </div>
+
+            <div class="w-full max-w-[647px] text-[var(--text-primary)]">
+              <h2 class="font-bold leading-[1.2] tracking-[-0.16px] lg:tracking-[-0.2px] text-[32px] lg:text-[40px]">
+                {{ guarantee_1_heading }}
+              </h2>
+              <p class="mt-[16px] lg:mt-[20px] text-[18px] leading-[1.5] tracking-[-0.09px]">
+                {{ guarantee_1_body_text }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full md:hidden p-[20px_10px]">
+        <div class="w-full rounded-[16px] bg-white overflow-hidden">
+          <div class="px-[20px] pt-[20px] pb-[20px] flex flex-col items-center text-center gap-[20px]">
+            <div class="relative w-[140px] h-[140px] shrink-0">
+              <img src="{{ guarantee_1_badge_image | campaign_asset }}" alt="{{ guarantee_1_badge_alt }}" class="w-full h-full object-contain">
+            </div>
+
+            <div class="w-full text-[var(--text-primary)]">
+              <h2 class="font-bold leading-[1.2] tracking-[-0.14px] text-[28px]">
+                {{ guarantee_1_heading }}
+              </h2>
+              <p class="mt-[12px] text-[16px] leading-[1.5] tracking-[-0.08px]">
+                {{ guarantee_1_body_text }}
+              </p>
+            </div>
+          </div>
+
+          <div class="relative h-[261px]">
+            <img src="{{ guarantee_1_side_image | campaign_asset }}" alt="{{ guarantee_1_side_image_alt }}" class="w-full h-full object-cover object-bottom">
+            <div class="absolute top-0 left-0 right-0 h-[160px] bg-gradient-to-b from-white to-transparent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

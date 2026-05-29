@@ -1,0 +1,110 @@
+---
+title: "Shop — Upsell (bundle stepper)"
+page_type: upsell
+next_url: upsell-bundle-tier-pills.html
+decline_url: upsell-bundle-tier-pills.html
+styles:
+  - https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css
+scripts:
+  - https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js
+  - js/upsells.js
+upsell_offer:
+  package_id: 3
+  selector_id: "upsell-bundle"
+  bundle_id: "upsell-bundle-1x"
+  items_json: '[{"packageId":3,"quantity":1}]'
+  vouchers_json: '["UP50"]'
+  default_quantity: 1
+  min_quantity: 1
+  max_quantity: 5
+  accept_text: "Yes, Add to My Order"
+  decline_text: "No thank you, I don't want this one-time offer"
+swiper_slides:
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+swiper_thumbs:
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+---
+
+<!--
+  Single-tier bundle upsell (SDK 0.4.x, pin in campaigns.json): one hidden data-next-bundle-card
+  + data-next-upsell-context. Same voucher + calculateBundlePrice mechanics as upsell-bundle-tier-pills.html,
+  without per-tier card picking — vouchers ride AddUpsellLine on accept.
+
+  SDK 0.4.18+ native bundle quantity: visible stepper (data-next-bundle-qty-for + data-next-quantity-*)
+  above the price block — markup uses generic `.next-bundle-qty*` (next-core.css; limos checkout adds `.next-bundle-qty--anchor-br` for card corner). Card carries data-next-quantity / min / max.
+  To ship fixed single qty only: remove/hide the stepper block in markup and remove those three attrs from the card.
+
+  Align packageId in data-next-bundle-items with data-next-display="package.<id>.name" and Campaigns.
+  Remote pricing: bundle.upsell-bundle.* — keep data-next-format="currency" / "percentage" on those
+  nodes (remote bundle.* display often needs explicit format; see https://developers.nextcommerce.com/docs/campaigns/campaign-cart/).
+
+  Only one [data-next-bundle-selector] here (inside offer) — no sibling-order pitfall vs a separate
+  display-only selector. data-next-upsell-action-for is not read by UpsellEnhancer.
+-->
+{% assign upsell_package_id = upsell_offer.package_id | default: 3 -%}
+{% assign upsell_selector_id = upsell_offer.selector_id | default: 'upsell-bundle' -%}
+{% assign upsell_package_name_path = 'package.' | append: upsell_package_id | append: '.name' -%}
+{% assign upsell_price_path = 'bundle.' | append: upsell_selector_id | append: '.price' -%}
+{% assign upsell_discount_path = 'bundle.' | append: upsell_selector_id | append: '.discountPercentage' -%}
+<div class="page-wrapper">
+  <div class="main-wrapper">
+    <div class="announcement">
+      <div class="announcement__block">
+        <div class="announcement__text"><strong>Special Offer Unlocked - Do Not Close This Page</strong></div>
+      </div>
+    </div>
+    {% campaign_include 'upsell-header-bar.html' %}
+
+    <section class="section upsell-header">
+      <div class="container">
+        <div class="upsell-header__inner">
+          <div class="upsell-header__title">Wait! Your Order Isn't Complete</div>
+          <div class="upsell-header__offer">
+            Special Discount: Get 1 More
+            <span data-next-display="{{ upsell_package_name_path }}">Product Title</span>
+            For Only
+            <span data-next-display="{{ upsell_price_path }}" data-next-format="currency">$14.95</span>
+          </div>
+          <div class="upsell-header__suboffer">
+            Add this to your order and get a
+            <span data-next-display="{{ upsell_discount_path }}" data-next-format="percentage">50%</span>
+            discount
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% campaign_include 'upsell-bundle-stepper-offer.html' %}
+    {% campaign_include 'footer.html' %}
+  </div>
+</div>
+
+<script>
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initSwiperGalleries());
+  } else {
+    initSwiperGalleries();
+  }
+</script>

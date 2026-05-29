@@ -1,0 +1,63 @@
+<section class="bg-white">
+  <div class="max-w-[1440px] mx-auto px-[15px] md:px-[26px] lg:px-[60px] xl:px-[120px] py-[40px] md:py-[48px] lg:py-[60px]">
+    <div class="flex flex-col lg:flex-row items-start gap-[32px] md:gap-[40px] lg:gap-[48px]">
+      <div class="w-full lg:flex-1">
+        <img src="{{ bottomcta_1_hero_image | campaign_asset }}" alt="{{ bottomcta_1_hero_image_alt }}" class="w-full h-auto object-cover md:aspect-[128/128] lg:aspect-auto">
+      </div>
+
+      <div class="w-full lg:w-[580px] flex flex-col gap-[20px] md:gap-[26px] lg:gap-[32px] text-[var(--text-primary)]">
+        <div class="flex flex-col gap-[12px] md:gap-[16px] lg:gap-[20px]">
+          <div class="flex flex-wrap items-center gap-[8px] md:gap-[12px]">
+            <p class="font-bold text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] lg:tracking-[-0.09px]">
+              {{ bottomcta_1_rating_label }}
+            </p>
+            <p class="font-bold text-[14px] lg:text-[16px] leading-[1.5] tracking-[2px] text-white bg-[#1FB67C] px-[4px]">
+              ★★★★★
+            </p>
+            <p class="text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] lg:tracking-[-0.09px]">
+              <strong>{{ bottomcta_1_rating_value }}</strong> out of <strong>{{ bottomcta_1_review_count }}</strong> reviews
+            </p>
+          </div>
+
+          <h2 class="font-bold text-[42px] md:text-[53px] lg:text-[55px] leading-[1.2] tracking-[-0.14px] md:tracking-[-0.16px] lg:tracking-[-0.2px]">
+            {{ bottomcta_1_heading }}
+          </h2>
+
+          <p class="font-normal text-[18px] md:text-[20px] leading-[1.5] tracking-[-0.09px] md:tracking-[-0.1px]">
+            {{ bottomcta_1_subheading }}
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-[8px] md:gap-[10px] lg:gap-[12px]">
+          <div class="flex items-start gap-[8px] md:gap-[10px] lg:gap-[12px]">
+            <img src="{{ bottomcta_1_bullet_icon | campaign_asset }}" alt="" class="w-[30px] h-[30px] object-contain shrink-0" aria-hidden="true">
+            <p class="font-bold text-[18px] md:text-[18px] md:text-[20px] leading-[1.5] tracking-[-0.09px] md:tracking-[-0.09px] lg:tracking-[-0.1px]">{{ bottomcta_1_bullet_1 }}</p>
+          </div>
+          <div class="flex items-start gap-[8px] md:gap-[10px] lg:gap-[12px]">
+            <img src="{{ bottomcta_1_bullet_icon | campaign_asset }}" alt="" class="w-[30px] h-[30px] object-contain shrink-0" aria-hidden="true">
+            <p class="font-bold text-[18px] md:text-[18px] md:text-[20px] leading-[1.5] tracking-[-0.09px] md:tracking-[-0.09px] lg:tracking-[-0.1px]">{{ bottomcta_1_bullet_2 }}</p>
+          </div>
+          <div class="flex items-start gap-[8px] md:gap-[10px] lg:gap-[12px]">
+            <img src="{{ bottomcta_1_bullet_icon | campaign_asset }}" alt="" class="w-[30px] h-[30px] object-contain shrink-0" aria-hidden="true">
+            <p class="font-bold text-[18px] md:text-[18px] md:text-[20px] leading-[1.5] tracking-[-0.09px] md:tracking-[-0.09px] lg:tracking-[-0.1px]">{{ bottomcta_1_bullet_3 }}</p>
+          </div>
+        </div>
+
+        <div class="w-full max-w-none md:max-w-[440px] flex flex-col items-center gap-[8px] md:gap-[10px] lg:gap-[12px]">
+          <a href="{{ next_url | campaign_link }}{{ cta_params }}" class="w-full rounded-[6px] bg-[var(--brand-primary)] px-[24px] py-[20px] flex items-center justify-center gap-[20px]">
+            <span class="text-[20px] leading-[1.5] tracking-[-0.1px] font-bold text-white text-center">
+              {{ cta_text }}
+            </span>
+            <img src="{{ 'images/landing/_shared/arrow-right.svg' | campaign_asset }}" alt="" class="w-[12px] h-[12px] shrink-0" aria-hidden="true">
+          </a>
+          <div class="flex items-center justify-center gap-[8px]">
+            <img src="{{ 'images/landing/_shared/cta-guarantee-icon.png' | campaign_asset }}" alt="" class="w-[20px] h-[19px] object-contain shrink-0" aria-hidden="true">
+            <p class="text-[16px] leading-[1.5] tracking-[-0.08px] font-semibold text-[var(--text-primary)] whitespace-nowrap">
+              {{ guarantee_text }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

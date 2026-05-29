@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <meta content="{{ title }}" property="og:title">
+    <meta content="{{ title }}" property="twitter:title">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <link rel="dns-prefetch" href="//campaigns.apps.29next.com">
+    <link rel="dns-prefetch" href="//cdn-countries.muddy-wind-c7ca.workers.dev">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+
+    <!-- Campaign Configuration -->
+    <script src="{{ 'config.js' | campaign_asset }}"></script>
+
+    <!-- NEXT Metatags -->
+    {% if meta_tags and meta_tags != empty %}
+    {% for tag in meta_tags %}
+    {% if tag[1] %}<meta name="{{ tag[0] }}" content="{{ tag[1] }}">{% endif %}
+    {% endfor %}
+    {% else %}
+    <meta name="next-funnel" content="{{ campaign.name }}">
+    {% if next_url %}<meta name="next-success-url" content="{{ next_url | campaign_link }}">{% endif %}
+    {% if next_url %}<meta name="next-upsell-accept-url" content="{{ next_url | campaign_link }}">{% endif %}
+    {% if decline_url %}<meta name="next-upsell-decline-url" content="{{ decline_url | campaign_link }}">{% endif %}
+    <meta name="next-page-type" content="{{ page_type }}">
+    {% endif %}
+    <!-- BS-013 / Known #8 diagnostic only: <meta name="next-clear-cart" content="true"> clears session cart every load (masks merge bugs; breaks persistence — do not ship). -->
+
+    <!-- Campaign Cart SDK -->
+    <script src="https://cdn.jsdelivr.net/gh/NextCommerceCo/campaign-cart@v{{ campaign.sdk_version }}/dist/loader.js" type="module"></script>
+
+    {% unless environment == "development" %}
+    {% if campaign.gtm_id != "" %}
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','{{ campaign.gtm_id }}');
+    </script>
+    {% endif %}
+    {% if campaign.fb_pixel_id != "" %}
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '{{ campaign.fb_pixel_id }}');
+      fbq('track', 'PageView');
+    </script>
+    {% endif %}
+    {% endunless %}
+
+    <link href="{{ 'css/next-core.css' | campaign_asset }}" rel="stylesheet" type="text/css">
+    {% for style in styles %}
+    <link href="{{ style | campaign_asset }}" rel="stylesheet" type="text/css">
+    {% endfor %}
+
+    <link href="{{ 'images/favicon.png' | campaign_asset }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ 'images/webclip.png' | campaign_asset }}" rel="apple-touch-icon">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    {% unless environment == "development" %}
+    {% if campaign.gtm_id != "" %}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ campaign.gtm_id }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    {% endif %}
+    {% if campaign.fb_pixel_id != "" %}
+    <!-- Meta Pixel (noscript) -->
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id={{ campaign.fb_pixel_id }}&ev=PageView&noscript=1"></noscript>
+    {% endif %}
+    {% endunless %}
+    {{ content }}
+    {% for script in scripts %}
+    <script defer src="{{ script | campaign_asset }}"></script>
+    {% endfor %}
+  </body>
+</html>

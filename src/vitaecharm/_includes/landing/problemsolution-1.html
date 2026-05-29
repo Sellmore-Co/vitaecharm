@@ -1,0 +1,81 @@
+<section class="bg-[var(--brand-tint,#edf2ff)] py-10 md:py-12 lg:py-[60px]">
+  <div class="max-w-[1440px] mx-auto px-[15px] md:px-[26px] lg:px-[60px] xl:px-[120px]">
+    <div class="flex flex-col items-center gap-8 md:gap-10 lg:gap-12">
+
+      <!-- Row 1: Problem -->
+      <div class="flex flex-col md:flex-row items-start gap-5 md:gap-12 lg:gap-[60px] w-full">
+
+        <!-- Image -->
+        <div class="w-full md:w-[320px] lg:w-[560px] shrink-0 overflow-hidden rounded-[16px] md:rounded-[20px] lg:rounded-[24px]" style="aspect-ratio: 560/320;">
+          <img
+            src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+            alt="{{ problemsolution_1_problem_image_alt }}"
+            class="w-full h-full object-cover"
+          >
+        </div>
+
+        <!-- Content -->
+        <div class="flex flex-col gap-3 md:gap-4 lg:gap-5 items-start justify-center flex-1 self-stretch">
+          <div class="flex flex-col gap-2 md:gap-[10px] lg:gap-3 items-start w-full">
+            <p class="text-[20px] lg:text-[24px] font-bold leading-[1.4] tracking-[-0.1px] lg:tracking-[-0.12px] text-[#b70101]">
+              {{ problemsolution_1_problem_label }}
+            </p>
+            <h2 class="text-[28px] md:text-[32px] lg:text-[40px] font-bold leading-[1.2] tracking-[-0.14px] md:tracking-[-0.16px] lg:tracking-[-0.2px] text-[var(--text-primary)]">
+              {{ problemsolution_1_problem_heading }}
+            </h2>
+          </div>
+          <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-secondary)]">
+            {{ problemsolution_1_problem_body }}
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Row 2: Solution -->
+      <div class="flex flex-col md:flex-row items-start gap-5 md:gap-12 lg:gap-[60px] w-full">
+
+        <!-- Image -->
+        <div class="w-full md:w-[320px] lg:w-[560px] shrink-0 overflow-hidden rounded-[16px] md:rounded-[20px] lg:rounded-[24px]" style="aspect-ratio: 560/320;">
+          <img
+            src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+            alt="{{ problemsolution_1_solution_image_alt }}"
+            class="w-full h-full object-cover object-right"
+          >
+        </div>
+
+        <!-- Content -->
+        <div class="flex flex-col gap-3 md:gap-4 lg:gap-5 items-start justify-center flex-1 self-stretch">
+          <div class="flex flex-col gap-2 md:gap-[10px] lg:gap-3 items-start w-full">
+            <p class="text-[20px] lg:text-[24px] font-bold leading-[1.4] tracking-[-0.1px] lg:tracking-[-0.12px] text-[var(--brand-primary)]">
+              {{ problemsolution_1_solution_label }}
+            </p>
+            <h2 class="text-[28px] md:text-[32px] lg:text-[40px] font-bold leading-[1.2] tracking-[-0.14px] md:tracking-[-0.16px] lg:tracking-[-0.2px] text-[var(--text-primary)]">
+              {{ problemsolution_1_solution_heading }}
+            </h2>
+          </div>
+          <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-secondary)]">
+            {{ problemsolution_1_solution_body }}
+          </p>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="w-[345px] md:w-[440px] flex flex-col items-center gap-[8px] md:gap-[10px] lg:gap-[12px]">
+        <a href="{{ next_url | campaign_link }}{{ cta_params }}" class="w-full rounded-[6px] bg-[var(--brand-primary)] px-[24px] py-[20px] flex items-center justify-center gap-[20px]">
+          <span class="text-[20px] leading-[1.5] tracking-[-0.1px] font-bold text-white text-center">
+            {{ cta_text }}
+          </span>
+          <img src="{{ 'images/landing/_shared/arrow-right.svg' | campaign_asset }}" alt="" class="w-[16px] h-[12px] shrink-0" aria-hidden="true">
+        </a>
+        <div class="flex items-center gap-[8px]">
+          <img src="{{ 'images/landing/_shared/cta-guarantee-icon.png' | campaign_asset }}" alt="" class="w-[20px] h-[19px] object-contain" aria-hidden="true">
+          <p class="text-[16px] leading-[1.5] tracking-[-0.08px] font-semibold text-[var(--text-primary)] whitespace-nowrap">
+            {{ guarantee_text }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

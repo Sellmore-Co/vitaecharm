@@ -1,0 +1,141 @@
+<section class="bg-[var(--brand-secondary)] py-[40px] md:py-[48px] lg:py-[60px]">
+  <div class="max-w-[1440px] mx-auto px-[15px] md:px-[26px] lg:px-[80px] xl:px-[160px]">
+    <div class="flex flex-col items-center gap-[32px] md:gap-[40px] lg:gap-[48px]">
+
+      <!-- Heading: stacked on mobile, inline on tablet/desktop -->
+      <div class="flex flex-col items-center gap-[4px] md:flex-row md:gap-[12px] md:justify-center">
+        <p class="font-bold text-[32px] md:text-[36px] lg:text-[44px] tracking-[-0.16px] md:tracking-[-0.18px] lg:tracking-[-0.22px] text-[var(--text-primary)] leading-[1.2] text-center">
+          {{ testimonials_2_heading_prefix }}
+        </p>
+        <div class="bg-[var(--brand-primary)] rounded-[4px] md:rounded-[8px] px-[9px] py-[2px]">
+          <p class="font-bold text-[32px] md:text-[36px] lg:text-[44px] tracking-[-0.16px] md:tracking-[-0.18px] lg:tracking-[-0.22px] text-white leading-[1.2] whitespace-nowrap">
+            {{ testimonials_2_heading_stat }}
+          </p>
+        </div>
+        <p class="font-bold text-[32px] md:text-[36px] lg:text-[44px] tracking-[-0.16px] md:tracking-[-0.18px] lg:tracking-[-0.22px] text-[var(--text-primary)] leading-[1.2] text-center">
+          {{ testimonials_2_heading_suffix }}
+        </p>
+      </div>
+
+      <!-- Cards — stacked mobile, 3-col tablet/desktop -->
+      <div class="flex flex-col md:flex-row md:items-start gap-[16px] md:gap-[24px] lg:gap-[32px] w-full">
+
+        <!-- Card 1: Sarah Swanson -->
+        <div class="flex-1 flex flex-col gap-[16px] md:gap-[20px]">
+          <div class="flex items-center gap-[16px]">
+            <img src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+                 alt="Sarah Swanson"
+                 class="w-[56px] h-[56px] rounded-full object-cover shrink-0">
+            <p class="font-bold text-[18px] md:text-[20px] tracking-[-0.09px] md:tracking-[-0.1px] text-[var(--text-primary)] leading-[1.4]">
+              {{ testimonials_2_review_1_name }}
+            </p>
+          </div>
+          <div class="bg-white rounded-[12px] p-[20px] flex flex-col items-end gap-[16px]">
+            <div class="flex flex-col gap-[16px] w-full">
+              <div class="flex gap-[2px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+              </div>
+              <p class="font-normal text-[16px] md:text-[18px] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] leading-[1.5]">
+                {{ testimonials_2_review_1_text }}
+              </p>
+              <div class="w-full overflow-hidden rounded-[4px]">
+                <img src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+                     alt="Customer photo"
+                     class="w-full aspect-square object-cover">
+              </div>
+            </div>
+            <div class="bg-white rounded-full px-[8px] py-[4px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] flex items-center gap-[2px] shrink-0">
+              <img src="{{ 'images/landing/testimonials-2/testimonials-2-reactions.svg' | campaign_asset }}" alt="" class="w-[39px] h-[24px]">
+              <p class="font-medium text-[14px] text-[var(--text-primary)] leading-[20px] whitespace-nowrap">{{ testimonials_2_review_1_likes }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Kelly Peterson -->
+        <div class="flex-1 flex flex-col gap-[16px] md:gap-[20px]">
+          <div class="flex items-center gap-[16px]">
+            <img src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+                 alt="Kelly Peterson"
+                 class="w-[56px] h-[56px] rounded-full object-cover shrink-0">
+            <p class="font-bold text-[18px] md:text-[20px] tracking-[-0.09px] md:tracking-[-0.1px] text-[var(--text-primary)] leading-[1.4]">
+              {{ testimonials_2_review_2_name }}
+            </p>
+          </div>
+          <div class="bg-white rounded-[12px] p-[20px] flex flex-col items-end gap-[16px]">
+            <div class="flex flex-col gap-[16px] w-full">
+              <div class="flex gap-[2px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+              </div>
+              <p class="font-normal text-[16px] md:text-[18px] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] leading-[1.5]">
+                {{ testimonials_2_review_2_text }}
+              </p>
+              <div class="w-full overflow-hidden rounded-[4px]">
+                <img src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+                     alt="Customer photo"
+                     class="w-full aspect-square object-cover">
+              </div>
+            </div>
+            <div class="bg-white rounded-full px-[8px] py-[4px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] flex items-center gap-[2px] shrink-0">
+              <img src="{{ 'images/landing/testimonials-2/testimonials-2-reactions.svg' | campaign_asset }}" alt="" class="w-[39px] h-[24px]">
+              <p class="font-medium text-[14px] text-[var(--text-primary)] leading-[20px] whitespace-nowrap">{{ testimonials_2_review_2_likes }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Amanda L. -->
+        <div class="flex-1 flex flex-col gap-[16px] md:gap-[20px]">
+          <div class="flex items-center gap-[16px]">
+            <img src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+                 alt="Amanda L."
+                 class="w-[56px] h-[56px] rounded-full object-cover shrink-0">
+            <p class="font-bold text-[18px] md:text-[20px] tracking-[-0.09px] md:tracking-[-0.1px] text-[var(--text-primary)] leading-[1.4]">
+              {{ testimonials_2_review_3_name }}
+            </p>
+          </div>
+          <div class="bg-white rounded-[12px] p-[20px] flex flex-col items-end gap-[16px]">
+            <div class="flex flex-col gap-[16px] w-full">
+              <div class="flex gap-[2px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+                <img src="{{ 'images/landing/testimonials-2/testimonials-2-stars.svg' | campaign_asset }}" alt="" class="w-[28px] h-[28px]">
+              </div>
+              <p class="font-normal text-[16px] md:text-[18px] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] leading-[1.5]">
+                {{ testimonials_2_review_3_text }}
+              </p>
+              <div class="w-full overflow-hidden rounded-[4px]">
+                <img src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+                     alt="Customer photo"
+                     class="w-full aspect-square object-cover">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="flex flex-col items-center gap-[8px] md:gap-[10px] lg:gap-[12px] w-full max-w-[440px]">
+        <a href="{{ next_url | campaign_link }}{{ cta_params }}"
+          class="w-full bg-[var(--brand-primary)] rounded-[6px] py-[20px] px-[24px] flex items-center justify-center gap-[20px] no-underline">
+            <span class="font-bold text-[20px] text-white text-center tracking-[-0.1px] leading-[1.5] whitespace-nowrap">{{ cta_text }}</span>
+            <img src="{{ 'images/landing/_shared/arrow-right.svg' | campaign_asset }}" alt="" class="w-[16px] h-[12px] shrink-0">
+        </a>
+        <div class="flex items-center gap-[8px]">
+            <img src="{{ 'images/landing/_shared/cta-guarantee-icon.png' | campaign_asset }}" alt="" class="w-[20px] h-[19px] shrink-0">
+            <p class="font-semibold text-[16px] text-[var(--text-primary)] text-center tracking-[-0.08px] leading-[1.5] whitespace-nowrap">{{ guarantee_text }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

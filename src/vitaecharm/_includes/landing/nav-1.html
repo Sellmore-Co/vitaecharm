@@ -1,0 +1,140 @@
+<style>
+  .nav1-link {
+    transition: color 0.2s ease;
+  }
+  .nav1-link:hover {
+    color: var(--brand-primary);
+  }
+  .nav1-link.is-active {
+    color: var(--text-primary);
+  }
+  .nav1-link-indicator {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .nav1-link.is-active .nav1-link-indicator {
+    opacity: 1;
+  }
+
+  .nav1-drawer {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease, opacity 0.2s ease;
+  }
+  .nav1-drawer.is-open {
+    max-height: 320px;
+    opacity: 1;
+  }
+  @media (max-width: 767px) {
+    .nav1-mobile-link {
+      font-size: 14px;
+      letter-spacing: -0.07px;
+      line-height: 1;
+    }
+    .nav1-mobile-link.is-active {
+      color: var(--brand-primary);
+    }
+    .nav1-mobile-link .nav1-link-indicator {
+      display: none;
+    }
+  }
+</style>
+
+<section class="bg-white py-[12px] md:py-[16px] lg:py-[20px] border-b border-[var(--border-default)]">
+  <div class="max-w-[1440px] mx-auto px-[15px] md:px-[26px]">
+    <div class="flex items-center justify-between">
+      <img
+        src="{{ nav_logo_image | campaign_asset }}"
+        alt="{{ nav_logo_alt }}"
+        class="h-[32px] md:h-[32px] lg:h-[40px] w-auto object-contain shrink-0"
+      >
+
+      <div class="hidden md:flex items-end gap-[60px] lg:gap-[140px]">
+        <nav class="flex items-center gap-[32px] lg:gap-[40px]">
+          <a href="{{ nav_1_url }}" class="nav1-link is-active relative font-bold text-[14px] lg:text-[16px] leading-none tracking-[-0.07px] lg:tracking-[-0.08px] text-[var(--text-primary)] pb-[8px]" data-nav1-link>
+            {{ nav_1_text }}
+            <span class="nav1-link-indicator absolute left-0 right-0 -bottom-[4px] h-[4px] bg-[var(--brand-primary)]"></span>
+          </a>
+          <a href="{{ nav_1_nav_2_url }}" class="nav1-link relative font-bold text-[14px] lg:text-[16px] leading-none tracking-[-0.07px] lg:tracking-[-0.08px] text-[var(--text-primary)] pb-[8px]" data-nav1-link>{{ nav_1_nav_2_text }}<span class="nav1-link-indicator absolute left-0 right-0 -bottom-[4px] h-[4px] bg-[var(--brand-primary)]"></span></a>
+          <a href="{{ nav_1_nav_3_url }}" class="nav1-link relative font-bold text-[14px] lg:text-[16px] leading-none tracking-[-0.07px] lg:tracking-[-0.08px] text-[var(--text-primary)] pb-[8px]" data-nav1-link>{{ nav_1_nav_3_text }}<span class="nav1-link-indicator absolute left-0 right-0 -bottom-[4px] h-[4px] bg-[var(--brand-primary)]"></span></a>
+        </nav>
+
+        <a href="{{ next_url | campaign_link }}{{ cta_params }}" class="flex items-center gap-[12px]">
+          <span class="font-extrabold text-[18px] leading-none tracking-[-0.09px] text-[var(--text-primary)] underline">{{ nav_1_cta_text }}</span>
+          <img src="{{ nav_1_cta_flag | campaign_asset }}" alt="{{ nav_1_cta_flag_alt }}" class="w-[28px] h-[16px] lg:w-[32px] lg:h-[18px] object-cover">
+        </a>
+      </div>
+
+      <button
+        type="button"
+        class="md:hidden w-[34px] h-[20px] flex items-center justify-center"
+        aria-expanded="false"
+        aria-controls="nav1-mobile-menu"
+        data-nav1-toggle
+      >
+        <span class="relative block w-[34px] h-[20px]">
+          <span class="absolute left-0 top-1/2 block h-[3px] w-[28px] rounded-[20px] bg-[var(--text-primary)] -translate-y-[8px] transition-transform duration-200 ease-out" data-nav1-line-top></span>
+          <span class="absolute left-0 top-1/2 block h-[3px] w-[28px] rounded-[20px] bg-[var(--text-primary)] transition-opacity duration-150 ease-out" data-nav1-line-mid></span>
+          <span class="absolute left-0 top-1/2 block h-[3px] w-[28px] rounded-[20px] bg-[var(--text-primary)] translate-y-[8px] transition-transform duration-200 ease-out" data-nav1-line-bot></span>
+        </span>
+      </button>
+    </div>
+
+    <div id="nav1-mobile-menu" class="nav1-drawer md:hidden" data-nav1-menu>
+      <nav class="flex flex-col">
+        <a href="{{ nav_1_url }}" class="nav1-link nav1-mobile-link is-active relative px-[0] py-[20px] font-bold text-[14px] leading-none tracking-[-0.07px] text-[var(--text-primary)]" data-nav1-link>
+          {{ nav_1_text }}
+          <span class="nav1-link-indicator absolute left-0 right-auto bottom-0 h-[4px] w-[68px] bg-[var(--brand-primary)]"></span>
+        </a>
+        <a href="{{ nav_1_nav_2_url }}" class="nav1-link nav1-mobile-link relative px-[0] py-[20px] font-bold text-[14px] leading-none tracking-[-0.07px] text-[var(--text-primary)] border-t border-[var(--border-default)]" data-nav1-link>
+          {{ nav_1_nav_2_text }}
+          <span class="nav1-link-indicator absolute left-0 right-auto bottom-0 h-[4px] w-[92px] bg-[var(--brand-primary)]"></span>
+        </a>
+        <a href="{{ nav_1_nav_3_url }}" class="nav1-link nav1-mobile-link relative px-[0] py-[20px] font-bold text-[14px] leading-none tracking-[-0.07px] text-[var(--text-primary)] border-t border-[var(--border-default)]" data-nav1-link>
+          {{ nav_1_nav_3_text }}
+          <span class="nav1-link-indicator absolute left-0 right-auto bottom-0 h-[4px] w-[62px] bg-[var(--brand-primary)]"></span>
+        </a>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.currentScript && document.currentScript.previousElementSibling;
+    if (!root) return;
+    var toggle = root.querySelector("[data-nav1-toggle]");
+    var menu = root.querySelector("[data-nav1-menu]");
+    var topLine = root.querySelector("[data-nav1-line-top]");
+    var midLine = root.querySelector("[data-nav1-line-mid]");
+    var botLine = root.querySelector("[data-nav1-line-bot]");
+    var links = root.querySelectorAll("[data-nav1-link]");
+    if (!toggle || !menu) return;
+
+    function setOpen(open) {
+      menu.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      if (topLine && midLine && botLine) {
+        topLine.style.transform = open ? "translateY(0) rotate(45deg)" : "translateY(-8px) rotate(0deg)";
+        midLine.style.opacity = open ? "0" : "1";
+        botLine.style.transform = open ? "translateY(0) rotate(-45deg)" : "translateY(8px) rotate(0deg)";
+      }
+    }
+
+    toggle.addEventListener("click", function () {
+      var isOpen = menu.classList.contains("is-open");
+      setOpen(!isOpen);
+    });
+
+    links.forEach(function (link) {
+      link.addEventListener("click", function () {
+        links.forEach(function (x) { x.classList.remove("is-active"); });
+        link.classList.add("is-active");
+        if (window.matchMedia("(max-width: 767px)").matches) {
+          setOpen(false);
+        }
+      });
+    });
+  })();
+</script>

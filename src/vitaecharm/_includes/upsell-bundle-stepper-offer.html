@@ -1,0 +1,175 @@
+<!--
+  next_component: upsell-bundle-stepper-offer
+  next_version: 1
+  next_sdk_owns: bundle selector, bundle cards, quantity control, upsell add/skip actions
+  next_sdk_surface: upsell offer
+  next_params:
+    upsell_offer: object. package_id, selector_id, bundle_id, items_json, vouchers_json, quantity bounds, accept/decline text.
+  next_dont_touch: data-next-bundle-*, data-next-quantity-*, data-next-upsell-*
+-->
+{% assign offer = upsell_offer -%}
+{% assign package_id = offer.package_id | default: 3 -%}
+{% assign selector_id = offer.selector_id | default: 'upsell-bundle' -%}
+{% assign bundle_id = offer.bundle_id | default: 'upsell-bundle-1x' -%}
+{% assign items_json = offer.items_json | default: '[{"packageId":3,"quantity":1}]' -%}
+{% assign vouchers_json = offer.vouchers_json | default: '["UP50"]' -%}
+{% assign default_quantity = offer.default_quantity | default: 1 -%}
+{% assign min_quantity = offer.min_quantity | default: 1 -%}
+{% assign max_quantity = offer.max_quantity | default: 5 -%}
+{% assign package_name_path = 'package.' | append: package_id | append: '.name' -%}
+{% assign bundle_price_path = 'bundle.' | append: selector_id | append: '.price' -%}
+{% assign bundle_original_price_path = 'bundle.' | append: selector_id | append: '.originalPrice' -%}
+{% assign bundle_discount_path = 'bundle.' | append: selector_id | append: '.discountPercentage' -%}
+<div data-next-catalog-component="upsell-bundle-stepper-offer">
+      <section class="section upsell-box">
+        <div class="container">
+          <div class="upsell-wrapper" data-next-upsell="offer" data-next-await="">
+
+            <!-- Hidden bundle: single card only (voucher merged into price fetch + sent on accept) -->
+            <div
+              data-next-bundle-selector
+              data-next-upsell-context
+              data-next-selector-id="{{ selector_id }}"
+              class="os-option"
+              style="display:none"
+            >
+              <div
+                role="button"
+                data-next-bundle-card
+                data-next-bundle-id="{{ bundle_id }}"
+                data-next-bundle-items='{{ items_json }}'
+                data-next-bundle-vouchers='{{ vouchers_json }}'
+                data-next-quantity="{{ default_quantity }}"
+                data-next-min-quantity="{{ min_quantity }}"
+                data-next-max-quantity="{{ max_quantity }}"
+                data-next-selected="true"
+                class="os-card next-selected"
+              ></div>
+            </div>
+
+            <div class="upsell-container">
+              <div class="grid-full flex-col flex-horizontal-lg-up">
+                <div class="upsell-content__column">
+                  <div class="upsell-offer__card">
+                    <h2 class="display-lg"><span data-next-display="{{ package_name_path }}">Product Title</span></h2>
+                    <div class="review_component cc-sm margin-12">
+                      <div class="review_component-wrapper">
+                        <div class="review_stars-wrapper cc-color cc-black">
+                          <div class="review_component-star"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--heroicons" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007l5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527l1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354L7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273l-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433l2.082-5.006Z" clip-rule="evenodd"></path></svg></div>
+                          <div class="review_component-star"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--heroicons" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007l5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527l1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354L7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273l-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433l2.082-5.006Z" clip-rule="evenodd"></path></svg></div>
+                          <div class="review_component-star"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--heroicons" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007l5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527l1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354L7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273l-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433l2.082-5.006Z" clip-rule="evenodd"></path></svg></div>
+                          <div class="review_component-star"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--heroicons" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007l5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527l1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354L7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273l-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433l2.082-5.006Z" clip-rule="evenodd"></path></svg></div>
+                          <div class="review_component-star"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--heroicons" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007l5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527l1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354L7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273l-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433l2.082-5.006Z" clip-rule="evenodd"></path></svg></div>
+                        </div>
+                        <div class="font-bold">(19,569 Ratings)</div>
+                      </div>
+                    </div>
+                    <div class="divider_line _25"></div>
+                    <div class="upsell-offer__bullets">
+                      <div class="bullet_inner-one">
+                        <div class="hero_bullet-features-box-inner">
+                          <div class="bullet-features-icon-box"><div class="bullet_features-icon-svg"><svg width="100%" height="100%" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_upsell_u1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0.930023C4.48 0.930023 0 5.41002 0 10.93C0 16.45 4.48 20.93 10 20.93C15.52 20.93 20 16.45 20 10.93C20 5.41002 15.52 0.930023 10 0.930023ZM9.99994 18.9302C5.58994 18.9302 1.99994 15.3402 1.99994 10.9302C1.99994 6.52025 5.58994 2.93025 9.99994 2.93025C14.4099 2.93025 17.9999 6.52025 17.9999 10.9302C17.9999 15.3402 14.4099 18.9302 9.99994 18.9302ZM8.00003 13.1002L14.59 6.51021L16 7.93021L8.00003 15.9302L4.00003 11.9302L5.41003 10.5202L8.00003 13.1002Z" fill="currentColor"></path></g><defs><clipPath id="clip0_upsell_u1"><rect width="20" height="20" fill="white" transform="translate(0 0.930023)"></rect></clipPath></defs></svg></div></div>
+                          <div class="bullet-features-text-box"><div class="text-size-regular text-weight-bold">The standard chunk of Lorem Ipsum</div></div>
+                        </div>
+                        <div class="hero_bullet-features-box-inner">
+                          <div class="bullet-features-icon-box"><div class="bullet_features-icon-svg"><svg width="100%" height="100%" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_upsell_u2)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0.930023C4.48 0.930023 0 5.41002 0 10.93C0 16.45 4.48 20.93 10 20.93C15.52 20.93 20 16.45 20 10.93C20 5.41002 15.52 0.930023 10 0.930023ZM9.99994 18.9302C5.58994 18.9302 1.99994 15.3402 1.99994 10.9302C1.99994 6.52025 5.58994 2.93025 9.99994 2.93025C14.4099 2.93025 17.9999 6.52025 17.9999 10.9302C17.9999 15.3402 14.4099 18.9302 9.99994 18.9302ZM8.00003 13.1002L14.59 6.51021L16 7.93021L8.00003 15.9302L4.00003 11.9302L5.41003 10.5202L8.00003 13.1002Z" fill="currentColor"></path></g><defs><clipPath id="clip0_upsell_u2"><rect width="20" height="20" fill="white" transform="translate(0 0.930023)"></rect></clipPath></defs></svg></div></div>
+                          <div class="bullet-features-text-box"><div class="text-size-regular text-weight-bold">Contrary to popular belief, Lorem Ipsum</div></div>
+                        </div>
+                        <div class="hero_bullet-features-box-inner">
+                          <div class="bullet-features-icon-box"><div class="bullet_features-icon-svg"><svg width="100%" height="100%" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_upsell_u3)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0.930023C4.48 0.930023 0 5.41002 0 10.93C0 16.45 4.48 20.93 10 20.93C15.52 20.93 20 16.45 20 10.93C20 5.41002 15.52 0.930023 10 0.930023ZM9.99994 18.9302C5.58994 18.9302 1.99994 15.3402 1.99994 10.9302C1.99994 6.52025 5.58994 2.93025 9.99994 2.93025C14.4099 2.93025 17.9999 6.52025 17.9999 10.9302C17.9999 15.3402 14.4099 18.9302 9.99994 18.9302ZM8.00003 13.1002L14.59 6.51021L16 7.93021L8.00003 15.9302L4.00003 11.9302L5.41003 10.5202L8.00003 13.1002Z" fill="currentColor"></path></g><defs><clipPath id="clip0_upsell_u3"><rect width="20" height="20" fill="white" transform="translate(0 0.930023)"></rect></clipPath></defs></svg></div></div>
+                          <div class="bullet-features-text-box"><div class="text-size-regular text-weight-bold">Lorem Ipsum has been the industry's</div></div>
+                        </div>
+                        <div class="hero_bullet-features-box-inner">
+                          <div class="bullet-features-icon-box"><div class="bullet_features-icon-svg"><svg width="100%" height="100%" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_upsell_u4)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 0.930023C4.48 0.930023 0 5.41002 0 10.93C0 16.45 4.48 20.93 10 20.93C15.52 20.93 20 16.45 20 10.93C20 5.41002 15.52 0.930023 10 0.930023ZM9.99994 18.9302C5.58994 18.9302 1.99994 15.3402 1.99994 10.9302C1.99994 6.52025 5.58994 2.93025 9.99994 2.93025C14.4099 2.93025 17.9999 6.52025 17.9999 10.9302C17.9999 15.3402 14.4099 18.9302 9.99994 18.9302ZM8.00003 13.1002L14.59 6.51021L16 7.93021L8.00003 15.9302L4.00003 11.9302L5.41003 10.5202L8.00003 13.1002Z" fill="currentColor"></path></g><defs><clipPath id="clip0_upsell_u4"><rect width="20" height="20" fill="white" transform="translate(0 0.930023)"></rect></clipPath></defs></svg></div></div>
+                          <div class="bullet-features-text-box"><div class="text-size-regular text-weight-bold">Lorem Ipsum is simply dummy text</div></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="divider_line margin-32"></div>
+
+                    <div class="checkout-button-wrapper">
+                      <!--
+                        SDK 0.4.18+ bundleQuantity: data-next-bundle-qty-for matches data-next-selector-id on the hidden selector;
+                        card uses data-next-quantity / min / max. Tiered line qty + per-step vouchers → upsell-bundle-tier-pills.html / upsell-bundle-tier-cards.html.
+                        Single fixed qty only: remove or hide this entire .next-bundle-qty block and drop data-next-quantity (and min/max) from the hidden bundle card above.
+                      -->
+                      <div class="next-bundle-qty">
+                        <div class="next-bundle-qty__label">
+                          <div>Select Quantity</div>
+                          <div class="right-bullet-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M16.01 11H4v2h12.01v3L20 12l-3.99-4z"></path></svg></div>
+                        </div>
+                        <div class="next-bundle-qty__row" data-next-bundle-qty-for="{{ selector_id }}">
+                          <button type="button" class="next-bundle-qty__btn" data-next-quantity-decrease aria-label="Decrease quantity">−</button>
+                          <span class="text-lg tw-600" data-next-quantity-display style="min-width: 1.5rem; text-align: center;">{{ default_quantity }}</span>
+                          <button type="button" class="next-bundle-qty__btn" data-next-quantity-increase aria-label="Increase quantity">+</button>
+                        </div>
+                      </div>
+
+                      <div class="prices-text-wrapper">
+                        <div class="price-wrapper">
+                          <div class="text-sm tw-600">Retail Price</div>
+                          <div
+                            class="upsell-offer__price diagonal-strike color-muted"
+                            data-next-display="{{ bundle_original_price_path }}"
+                            data-next-format="currency"
+                          >$49.99</div>
+                          <div class="text-xs font-bold"><strike>+$4.95 SHIPPING</strike></div>
+                        </div>
+                        <div class="upsell-offer__divider"></div>
+                        <div class="price-wrapper">
+                          <div class="upsell-offer__price-heading">
+                            <div class="text-sm tw-600">Offer Price</div>
+                            <div class="text-sm font-bold color-primary">
+                              (<span data-next-display="{{ bundle_discount_path }}" data-next-format="percentage"></span> OFF)
+                            </div>
+                          </div>
+                          <div
+                            class="upsell-offer__price"
+                            data-next-display="{{ bundle_price_path }}"
+                            data-next-format="currency"
+                          >$24.95</div>
+                          <div class="text-xs font-bold color-primary">+ FREE SHIPPING</div>
+                        </div>
+                      </div>
+
+                      <a
+                        data-next-upsell-action="add"
+                        href="#"
+                        class="button"
+                        pb-animate="pulse-upsell"
+                      >
+                        <div data-button="content" class="button_content"><div>{{ offer.accept_text | default: 'Yes, Add to My Order' }}</div></div>
+                      </a>
+
+                      <div class="upsell-ships-info">
+                        <img class="upsell-ships-info__icon" src="{{ 'images/usps.png' | campaign_asset }}" alt="USPS">
+                        <p class="upsell-ships-info__text">
+                          All orders ship from the USA
+                          <img class="upsell-ships-info__flag" src="{{ 'images/united-states-flag-icon.webp' | campaign_asset }}" alt="">
+                          via USPS within 1 business day. A tracking number will be issued to your email.
+                        </p>
+                      </div>
+                      {% campaign_include 'upsell-payment-logos.html' wrapper_class="hide-tablet-up" %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="upsell-offer__image-column">
+                  <div>
+                    {% campaign_include 'swiper-gallery.html' main_slides=swiper_slides thumbs=swiper_thumbs variant='sw1' %}
+                  </div>
+                  {% campaign_include 'upsell-payment-logos.html' wrapper_class="hide-tablet-down" %}
+                </div>
+              </div>
+            </div>
+
+            <div class="cc-decline-wrapper">
+              <a data-next-upsell-action="skip" href="#" class="upsell-link cc-decline cc-upsell4">
+                <div class="next-icon cc-1-25em"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--carbon" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M16 2C8.2 2 2 8.2 2 16s6.2 14 14 14s14-6.2 14-14S23.8 2 16 2m0 26C9.4 28 4 22.6 4 16S9.4 4 16 4s12 5.4 12 12s-5.4 12-12 12"></path><path fill="currentColor" d="M21.4 23L16 17.6L10.6 23L9 21.4l5.4-5.4L9 10.6L10.6 9l5.4 5.4L21.4 9l1.6 1.6l-5.4 5.4l5.4 5.4z"></path></svg></div>
+                <div class="text-sm tw-600 cc-upsell4">{{ offer.decline_text | default: "No thank you, I don't want this one-time offer" }}</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+</div>

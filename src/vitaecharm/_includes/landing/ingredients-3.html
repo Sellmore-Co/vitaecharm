@@ -1,0 +1,253 @@
+<style>
+  .ingredients3-extra {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+</style>
+
+<section class="bg-[#f4f5f4] py-[40px] md:py-[48px] lg:py-[60px]">
+  <div class="max-w-[1440px] mx-auto px-[15px] md:px-[26px] lg:px-[60px] xl:px-[120px]">
+    <div class="flex flex-col items-center gap-[32px] md:gap-[40px] lg:gap-[48px]">
+      <div class="w-full max-w-[800px] text-center flex flex-col gap-[12px] md:gap-[20px]">
+        <h2 class="font-bold text-[28px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-[-0.14px] md:tracking-[-0.16px] lg:tracking-[-0.2px] text-[var(--text-primary)]">
+          {{ ingredients_3_heading }}
+        </h2>
+        <p class="font-normal text-[18px] md:text-[20px] leading-[1.5] tracking-[-0.09px] md:tracking-[-0.1px] text-[var(--text-primary)]">
+          {{ ingredients_3_subheading }}
+        </p>
+      </div>
+
+      <div class="w-full flex flex-col items-center gap-[24px] md:gap-[32px] lg:gap-[40px]">
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[12px] md:gap-[16px] lg:gap-[20px]">
+          <div class="relative border-2 border-[var(--brand-primary)] rounded-[10px] bg-white px-[12px] py-[24px] md:px-[16px] md:py-[32px] lg:px-[20px] lg:py-[40px]">
+            <img src="{{ ingredients_3_card_1_image | campaign_asset }}" alt="{{ ingredients_3_card_1_title }}" class="absolute top-[20px] right-[10px] w-[80px] h-[64px] object-contain md:static md:w-[150px] md:h-[80px] md:mx-auto md:mb-[12px] lg:mb-[12px]">
+            <div class="pr-[92px] md:pr-0 flex flex-col gap-[12px] md:gap-[16px] items-start md:items-center">
+              <div class="w-full flex flex-col gap-[4px] text-left md:text-center">
+                <h3 class="font-extrabold text-[20px] md:text-[20px] lg:text-[24px] leading-[1.5] tracking-[-0.1px] md:tracking-[-0.12px] text-[var(--text-primary)]">{{ ingredients_3_card_1_title }}</h3>
+                <p class="font-normal text-[14px] md:text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_card_1_subtitle }}</p>
+              </div>
+              <div class="w-[40px] h-[3px] bg-[var(--brand-primary)]"></div>
+              <p class="font-normal text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] text-left md:text-center">
+                {{ ingredients_3_card_1_body }}
+              </p>
+            </div>
+          </div>
+
+          <div class="relative border-2 border-[var(--brand-primary)] rounded-[10px] bg-white px-[12px] py-[24px] md:px-[16px] md:py-[32px] lg:px-[20px] lg:py-[40px]">
+            <img src="{{ ingredients_3_card_2_image | campaign_asset }}" alt="{{ ingredients_3_card_2_title }}" class="absolute top-[20px] right-[10px] w-[80px] h-[64px] object-contain md:static md:w-[150px] md:h-[80px] md:mx-auto md:mb-[12px] lg:mb-[12px]">
+            <div class="pr-[92px] md:pr-0 flex flex-col gap-[12px] md:gap-[16px] items-start md:items-center">
+              <div class="w-full flex flex-col gap-[4px] text-left md:text-center">
+                <h3 class="font-extrabold text-[20px] md:text-[20px] lg:text-[24px] leading-[1.5] tracking-[-0.1px] md:tracking-[-0.12px] text-[var(--text-primary)]">{{ ingredients_3_card_2_title }}</h3>
+                <p class="font-normal text-[14px] md:text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_card_2_subtitle }}</p>
+              </div>
+              <div class="w-[40px] h-[3px] bg-[var(--brand-primary)]"></div>
+              <p class="font-normal text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] text-left md:text-center">
+                {{ ingredients_3_card_2_body }}
+              </p>
+            </div>
+          </div>
+
+          <div class="relative border-2 border-[var(--brand-primary)] rounded-[10px] bg-white px-[12px] py-[24px] md:px-[16px] md:py-[32px] lg:px-[20px] lg:py-[40px]">
+            <img src="{{ ingredients_3_card_3_image | campaign_asset }}" alt="{{ ingredients_3_card_3_title }}" class="absolute top-[20px] right-[10px] w-[80px] h-[64px] object-contain md:static md:w-[150px] md:h-[80px] md:mx-auto md:mb-[12px] lg:mb-[12px]">
+            <div class="pr-[92px] md:pr-0 flex flex-col gap-[12px] md:gap-[16px] items-start md:items-center">
+              <div class="w-full flex flex-col gap-[4px] text-left md:text-center">
+                <h3 class="font-extrabold text-[20px] md:text-[20px] lg:text-[24px] leading-[1.5] tracking-[-0.1px] md:tracking-[-0.12px] text-[var(--text-primary)]">{{ ingredients_3_card_3_title }}</h3>
+                <p class="font-normal text-[14px] md:text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_card_3_subtitle }}</p>
+              </div>
+              <div class="w-[40px] h-[3px] bg-[var(--brand-primary)]"></div>
+              <p class="font-normal text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] text-left md:text-center">
+                {{ ingredients_3_card_3_body }}
+              </p>
+            </div>
+          </div>
+
+          <div class="relative border-2 border-[var(--brand-primary)] rounded-[10px] bg-white px-[12px] py-[24px] md:px-[16px] md:py-[32px] lg:px-[20px] lg:py-[40px]">
+            <img src="{{ ingredients_3_card_4_image | campaign_asset }}" alt="{{ ingredients_3_card_4_title }}" class="absolute top-[20px] right-[10px] w-[80px] h-[64px] object-contain md:static md:w-[150px] md:h-[80px] md:mx-auto md:mb-[12px] lg:mb-[12px]">
+            <div class="pr-[92px] md:pr-0 flex flex-col gap-[12px] md:gap-[16px] items-start md:items-center">
+              <div class="w-full flex flex-col gap-[4px] text-left md:text-center">
+                <h3 class="font-extrabold text-[20px] md:text-[20px] lg:text-[24px] leading-[1.5] tracking-[-0.1px] md:tracking-[-0.12px] text-[var(--text-primary)]">{{ ingredients_3_card_4_title }}</h3>
+                <p class="font-normal text-[14px] md:text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_card_4_subtitle }}</p>
+              </div>
+              <div class="w-[40px] h-[3px] bg-[var(--brand-primary)]"></div>
+              <p class="font-normal text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] text-left md:text-center">
+                {{ ingredients_3_card_4_body }}
+              </p>
+            </div>
+          </div>
+        </div>  
+
+        <div class="ingredients3-extra w-full" data-ingredients3-extra>
+          <div class="pt-[12px] md:pt-[16px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[12px] md:gap-[16px] lg:gap-[20px]">
+            <div class="relative border-2 border-[var(--brand-primary)] rounded-[10px] bg-white px-[12px] py-[24px] md:px-[16px] md:py-[32px] lg:px-[20px] lg:py-[40px]">
+              <img src="{{ ingredients_3_card_5_image | campaign_asset }}" alt="{{ ingredients_3_card_5_title }}" class="absolute top-[20px] right-[10px] w-[80px] h-[64px] object-contain md:static md:w-[150px] md:h-[80px] md:mx-auto md:mb-[12px] lg:mb-[12px]">
+              <div class="pr-[92px] md:pr-0 flex flex-col gap-[12px] md:gap-[16px] items-start md:items-center">
+                <div class="w-full flex flex-col gap-[4px] text-left md:text-center">
+                  <h3 class="font-extrabold text-[20px] md:text-[20px] lg:text-[24px] leading-[1.5] tracking-[-0.1px] md:tracking-[-0.12px] text-[var(--text-primary)]">{{ ingredients_3_card_5_title }}</h3>
+                  <p class="font-normal text-[14px] md:text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_card_5_subtitle }}</p>
+                </div>
+                <div class="w-[40px] h-[3px] bg-[var(--brand-primary)]"></div>
+                <p class="font-normal text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] text-left md:text-center">
+                  {{ ingredients_3_card_5_body }}
+                </p>
+              </div>
+            </div>
+
+            <div class="relative border-2 border-[var(--brand-primary)] rounded-[10px] bg-white px-[12px] py-[24px] md:px-[16px] md:py-[32px] lg:px-[20px] lg:py-[40px]">
+              <img src="{{ ingredients_3_card_6_image | campaign_asset }}" alt="{{ ingredients_3_card_6_title }}" class="absolute top-[20px] right-[10px] w-[80px] h-[64px] object-contain md:static md:w-[150px] md:h-[80px] md:mx-auto md:mb-[12px] lg:mb-[12px]">
+              <div class="pr-[92px] md:pr-0 flex flex-col gap-[12px] md:gap-[16px] items-start md:items-center">
+                <div class="w-full flex flex-col gap-[4px] text-left md:text-center">
+                  <h3 class="font-extrabold text-[20px] md:text-[20px] lg:text-[24px] leading-[1.5] tracking-[-0.1px] md:tracking-[-0.12px] text-[var(--text-primary)]">{{ ingredients_3_card_6_title }}</h3>
+                  <p class="font-normal text-[14px] md:text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_card_6_subtitle }}</p>
+                </div>
+                <div class="w-[40px] h-[3px] bg-[var(--brand-primary)]"></div>
+                <p class="font-normal text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] text-left md:text-center">
+                  {{ ingredients_3_card_6_body }}
+                </p>
+              </div>
+            </div>
+
+            <div class="relative border-2 border-[var(--brand-primary)] rounded-[10px] bg-white px-[12px] py-[24px] md:px-[16px] md:py-[32px] lg:px-[20px] lg:py-[40px]">
+              <img src="{{ ingredients_3_card_7_image | campaign_asset }}" alt="{{ ingredients_3_card_7_title }}" class="absolute top-[20px] right-[10px] w-[80px] h-[64px] object-contain md:static md:w-[150px] md:h-[80px] md:mx-auto md:mb-[12px] lg:mb-[12px]">
+              <div class="pr-[92px] md:pr-0 flex flex-col gap-[12px] md:gap-[16px] items-start md:items-center">
+                <div class="w-full flex flex-col gap-[4px] text-left md:text-center">
+                  <h3 class="font-extrabold text-[20px] md:text-[20px] lg:text-[24px] leading-[1.5] tracking-[-0.1px] md:tracking-[-0.12px] text-[var(--text-primary)]">{{ ingredients_3_card_7_title }}</h3>
+                  <p class="font-normal text-[14px] md:text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_card_7_subtitle }}</p>
+                </div>
+                <div class="w-[40px] h-[3px] bg-[var(--brand-primary)]"></div>
+                <p class="font-normal text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] text-left md:text-center">
+                  {{ ingredients_3_card_7_body }}
+                </p>
+              </div>
+            </div>
+
+            <div class="relative border-2 border-[var(--brand-primary)] rounded-[10px] bg-white px-[12px] py-[24px] md:px-[16px] md:py-[32px] lg:px-[20px] lg:py-[40px]">
+              <img src="{{ ingredients_3_card_8_image | campaign_asset }}" alt="{{ ingredients_3_card_8_title }}" class="absolute top-[20px] right-[10px] w-[80px] h-[64px] object-contain md:static md:w-[150px] md:h-[80px] md:mx-auto md:mb-[12px] lg:mb-[12px]">
+              <div class="pr-[92px] md:pr-0 flex flex-col gap-[12px] md:gap-[16px] items-start md:items-center">
+                <div class="w-full flex flex-col gap-[4px] text-left md:text-center">
+                  <h3 class="font-extrabold text-[20px] md:text-[20px] lg:text-[24px] leading-[1.5] tracking-[-0.1px] md:tracking-[-0.12px] text-[var(--text-primary)]">{{ ingredients_3_card_8_title }}</h3>
+                  <p class="font-normal text-[14px] md:text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_card_8_subtitle }}</p>
+                </div>
+                <div class="w-[40px] h-[3px] bg-[var(--brand-primary)]"></div>
+                <p class="font-normal text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] text-left md:text-center">
+                  {{ ingredients_3_card_8_body }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          data-ingredients3-toggle
+          class="font-medium text-[18px] md:text-[20px] leading-[1.5] tracking-[-0.09px] md:tracking-[-0.1px] text-[var(--text-primary)] underline bg-transparent border-0 p-0 cursor-pointer"
+        >
+          <span
+            data-ingredients3-label
+            data-label-open="{{ ingredients_3_ingredients_link_text }}"
+            data-label-close="{{ ingredients_3_ingredients_link_text_close }}"
+          >{{ ingredients_3_ingredients_link_text }}</span>
+        </button>
+      </div>
+
+      <div class="w-full flex flex-col items-center gap-[12px] md:gap-[16px] lg:gap-[20px]">
+        <div class="w-full flex items-center gap-[20px]">
+          <div class="h-px bg-[var(--border-default)] flex-1"></div>
+          <h3 class="font-bold text-[20px] md:text-[20px] lg:text-[24px] leading-[1.5] tracking-[-0.1px] lg:tracking-[-0.12px] text-[var(--text-primary)]">{{ ingredients_3_promise_heading }}</h3>
+          <div class="h-px bg-[var(--border-default)] flex-1"></div>
+        </div>
+
+        <div class="w-full grid grid-cols-3 gap-x-[12px] gap-y-[14px] md:hidden">
+          <div class="flex flex-col items-center gap-[8px] text-center">
+            <img src="{{ ingredients_3_promise_1_icon | campaign_asset }}" alt="" class="w-[48px] h-[48px] object-contain">
+            <p class="font-normal text-[16px] leading-[1.5] tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_promise_1_text }}</p>
+          </div>
+          <div class="flex flex-col items-center gap-[8px] text-center">
+            <img src="{{ ingredients_3_promise_2_icon | campaign_asset }}" alt="" class="w-[48px] h-[48px] object-contain">
+            <p class="font-normal text-[16px] leading-[1.5] tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_promise_2_text }}</p>
+          </div>
+          <div class="flex flex-col items-center gap-[8px] text-center">
+            <img src="{{ ingredients_3_promise_3_icon | campaign_asset }}" alt="" class="w-[48px] h-[48px] object-contain">
+            <p class="font-normal text-[16px] leading-[1.5] tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_promise_3_text }}</p>
+          </div>
+          <div class="flex flex-col items-center gap-[8px] text-center">
+            <img src="{{ ingredients_3_promise_4_icon | campaign_asset }}" alt="" class="w-[48px] h-[48px] object-contain">
+            <p class="font-normal text-[16px] leading-[1.5] tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_promise_4_text }}</p>
+          </div>
+          <div class="flex flex-col items-center gap-[8px] text-center">
+            <img src="{{ ingredients_3_promise_5_icon | campaign_asset }}" alt="" class="w-[48px] h-[48px] object-contain">
+            <p class="font-normal text-[16px] leading-[1.5] tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_promise_5_text }}</p>
+          </div>
+          <div class="flex flex-col items-center gap-[8px] text-center">
+            <img src="{{ ingredients_3_promise_6_icon | campaign_asset }}" alt="" class="w-[48px] h-[48px] object-contain">
+            <p class="font-normal text-[16px] leading-[1.5] tracking-[-0.08px] text-[var(--text-primary)]">{{ ingredients_3_promise_6_text }}</p>
+          </div>
+        </div>
+
+        <div class="hidden md:flex w-full items-center">
+          <div class="flex-1 flex flex-col items-center gap-[10px] lg:gap-[12px]">
+            <img src="{{ ingredients_3_promise_1_icon | campaign_asset }}" alt="" class="w-[60px] h-[60px] object-contain">
+            <p class="font-normal text-[18px] leading-[1.5] tracking-[-0.09px] text-[var(--text-primary)] text-center">{{ ingredients_3_promise_1_text }}</p>
+          </div>
+          <div class="w-px h-[70px] bg-[var(--border-default)]"></div>
+          <div class="flex-1 flex flex-col items-center gap-[10px] lg:gap-[12px]">
+            <img src="{{ ingredients_3_promise_2_icon | campaign_asset }}" alt="" class="w-[60px] h-[60px] object-contain">
+            <p class="font-normal text-[18px] leading-[1.5] tracking-[-0.09px] text-[var(--text-primary)] text-center">{{ ingredients_3_promise_2_text }}</p>
+          </div>
+          <div class="w-px h-[70px] bg-[var(--border-default)]"></div>
+          <div class="flex-1 flex flex-col items-center gap-[10px] lg:gap-[12px]">
+            <img src="{{ ingredients_3_promise_3_icon | campaign_asset }}" alt="" class="w-[60px] h-[60px] object-contain">
+            <p class="font-normal text-[18px] leading-[1.5] tracking-[-0.09px] text-[var(--text-primary)] text-center">{{ ingredients_3_promise_3_text }}</p>
+          </div>
+          <div class="w-px h-[70px] bg-[var(--border-default)]"></div>
+          <div class="flex-1 flex flex-col items-center gap-[10px] lg:gap-[12px]">
+            <img src="{{ ingredients_3_promise_4_icon | campaign_asset }}" alt="" class="w-[60px] h-[60px] object-contain">
+            <p class="font-normal text-[18px] leading-[1.5] tracking-[-0.09px] text-[var(--text-primary)] text-center">{{ ingredients_3_promise_4_text }}</p>
+          </div>
+          <div class="w-px h-[70px] bg-[var(--border-default)]"></div>
+          <div class="flex-1 flex flex-col items-center gap-[10px] lg:gap-[12px]">
+            <img src="{{ ingredients_3_promise_5_icon | campaign_asset }}" alt="" class="w-[60px] h-[60px] object-contain">
+            <p class="font-normal text-[18px] leading-[1.5] tracking-[-0.09px] text-[var(--text-primary)] text-center">{{ ingredients_3_promise_5_text }}</p>
+          </div>
+          <div class="w-px h-[70px] bg-[var(--border-default)]"></div>
+          <div class="flex-1 flex flex-col items-center gap-[10px] lg:gap-[12px]">
+            <img src="{{ ingredients_3_promise_6_icon | campaign_asset }}" alt="" class="w-[60px] h-[60px] object-contain">
+            <p class="font-normal text-[18px] leading-[1.5] tracking-[-0.09px] text-[var(--text-primary)] text-center">{{ ingredients_3_promise_6_text }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-[345px] md:w-[440px] flex flex-col items-center gap-[8px] md:gap-[10px] lg:gap-[12px]">
+        <a href="{{ next_url | campaign_link }}{{ cta_params }}" class="w-full bg-[var(--brand-primary)] rounded-[6px] px-[24px] py-[20px] flex items-center justify-center gap-[20px] no-underline">
+          <span class="font-bold text-[20px] text-white text-center tracking-[-0.1px] leading-[1.5]">{{ cta_text }}</span>
+          <img src="{{ 'images/landing/_shared/arrow-right.svg' | campaign_asset }}" alt="" class="w-[12px] h-[16px] object-contain">
+        </a>
+        <div class="flex items-center gap-[8px]">
+          <img src="{{ 'images/landing/_shared/cta-guarantee-icon.png' | campaign_asset }}" alt="" class="w-[20px] h-[19px] object-contain">
+          <p class="font-semibold text-[14px] lg:text-[16px] leading-[1.5] tracking-[-0.07px] md:tracking-[-0.08px] text-[var(--text-primary)] text-center whitespace-nowrap">{{ guarantee_text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var toggle = document.querySelector("[data-ingredients3-toggle]");
+    var extra = document.querySelector("[data-ingredients3-extra]");
+    if (!toggle || !extra) return;
+
+    var label = toggle.querySelector("[data-ingredients3-label]");
+    var open = false;
+
+    toggle.addEventListener("click", function () {
+      open = !open;
+      extra.style.maxHeight = open ? extra.scrollHeight + "px" : "0";
+
+      if (label) {
+        label.textContent = open
+          ? (label.dataset.labelClose || "Hide the Full Ingredients List")
+          : (label.dataset.labelOpen || "View the Full Ingredients List");
+      }
+    });
+  })();
+</script>

@@ -1,0 +1,58 @@
+<section class="w-full overflow-hidden bg-white">
+  <div class="max-w-[1440px] mx-auto px-[15px] md:px-[26px] lg:px-[60px] xl:px-[120px] py-[40px] md:py-[48px] lg:py-[60px]">
+    <div class="w-full flex flex-col gap-[32px] md:gap-[40px] lg:gap-[48px] items-center">
+      <div class="w-full max-w-[800px] flex flex-col gap-[12px] md:gap-[16px] lg:gap-[20px] items-center text-center text-[var(--text-primary)]">
+        <h2 class="font-bold leading-[1.2] tracking-[-0.14px] md:tracking-[-0.16px] lg:tracking-[-0.2px] text-[28px] md:text-[32px] lg:text-[40px]">
+          {{ science_1_heading }}
+        </h2>
+        <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-normal">
+          {{ science_1_intro }}
+        </p>
+      </div>
+
+      <div class="w-full flex flex-col lg:flex-row lg:items-stretch gap-[12px] md:gap-[16px] lg:gap-[20px] lg:min-h-[522px]">
+        <article class="flex flex-1 flex-col border border-[var(--border-default)] px-[8px] md:px-[10px] lg:px-[12px] py-[12px] md:py-[16px] lg:py-[20px] gap-[12px] md:gap-[16px] lg:gap-[20px]">
+          <div class="w-full h-[200px] md:h-[220px] overflow-hidden shrink-0">
+            <img src="{{ science_1_card_1_image | campaign_asset }}" alt="{{ science_1_card_1_image_alt }}" class="w-full h-full object-cover">
+          </div>
+          <div class="flex flex-col gap-[8px] items-start text-left text-[var(--text-primary)] w-full">
+            <h3 class="text-[20px] lg:text-[24px] leading-[1.4] tracking-[-0.1px] lg:tracking-[-0.12px] font-bold w-full">
+              {{ science_1_card_1_title }}
+            </h3>
+            <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-normal w-full">
+              {{ science_1_card_1_body }}
+            </p>
+          </div>
+        </article>
+
+        <article class="flex flex-1 flex-col border border-[var(--border-default)] px-[8px] md:px-[10px] lg:px-[12px] py-[12px] md:py-[16px] lg:py-[20px] gap-[12px] md:gap-[16px] lg:gap-[20px]">
+          <div class="w-full h-[200px] md:h-[220px] overflow-hidden shrink-0">
+            <img src="{{ science_1_card_2_image | campaign_asset }}" alt="{{ science_1_card_2_image_alt }}" class="w-full h-full object-cover">
+          </div>
+          <div class="flex flex-col gap-[8px] items-start text-left text-[var(--text-primary)] w-full">
+            <h3 class="text-[20px] lg:text-[24px] leading-[1.4] tracking-[-0.1px] lg:tracking-[-0.12px] font-bold w-full">
+              {{ science_1_card_2_title }}
+            </h3>
+            <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-normal w-full">
+              {{ science_1_card_2_body }}
+            </p>
+          </div>
+        </article>
+
+        <article class="flex flex-1 flex-col border border-[var(--border-default)] px-[8px] md:px-[10px] lg:px-[12px] py-[12px] md:py-[16px] lg:py-[20px] gap-[12px] md:gap-[16px] lg:gap-[20px]">
+          <div class="w-full h-[200px] md:h-[220px] overflow-hidden shrink-0">
+            <img src="{{ science_1_card_3_image | campaign_asset }}" alt="{{ science_1_card_3_image_alt }}" class="w-full h-full object-cover">
+          </div>
+          <div class="flex flex-col gap-[8px] items-start text-left text-[var(--text-primary)] w-full">
+            <h3 class="text-[20px] lg:text-[24px] leading-[1.4] tracking-[-0.1px] lg:tracking-[-0.12px] font-bold w-full">
+              {{ science_1_card_3_title }}
+            </h3>
+            <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-normal w-full">
+              {{ science_1_card_3_body }}
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

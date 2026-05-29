@@ -1,0 +1,118 @@
+<section class="bg-[var(--brand-secondary,#edf2ff)] py-[40px] md:py-[48px] lg:py-[60px]">
+  <div class="max-w-[1440px] mx-auto px-[15px] md:px-[26px] lg:px-[60px] xl:px-[120px]">
+    <div class="flex flex-col items-center gap-[32px] md:gap-[40px] lg:gap-[48px]">
+
+      <!-- Heading -->
+      <h2 class="font-bold text-[32px] md:text-[36px] lg:text-[44px] text-[var(--text-primary)] text-center tracking-[-0.16px] md:tracking-[-0.19px] lg:tracking-[-0.22px] leading-[1.2] max-w-[720px]">
+        {{ results_4_headline }}
+      </h2>
+
+      <!-- Mobile: landscape product image (hidden md+) -->
+      <div class="md:hidden w-full aspect-[374/233] relative overflow-hidden rounded-[8px]">
+        <img src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+             alt="{{ results_4_product_image_alt }}"
+             class="absolute inset-0 w-full h-full object-cover">
+      </div>
+
+      <!-- Content row: portrait image (md+) + timeline -->
+      <div class="flex gap-[20px] lg:gap-[40px] items-start w-full">
+
+        <!-- Portrait image: hidden on mobile -->
+        <div class="hidden md:block flex-1 aspect-[412/480] relative self-start">
+          <img src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+               alt="{{ results_4_product_image_alt }}"
+               class="absolute inset-0 w-full h-full object-contain">
+        </div>
+
+        <!-- Timeline -->
+        <div class="flex-1 flex flex-col">
+
+          <!-- Phase 1 -->
+          <div class="flex gap-[20px] lg:gap-[40px] items-start">
+            <div class="flex flex-col items-center self-stretch shrink-0">
+              <div class="w-[16px] h-[16px] rounded-[8px] bg-white border-4 border-[var(--brand-primary)] shadow-[0_0_0_5px_#d5ddf3] shrink-0"></div>
+              <div class="w-[2px] flex-1 min-h-[1px] border-l-2 border-dashed border-[var(--text-primary)]"></div>
+            </div>
+            <div class="flex-1 pb-[20px]">
+              <div class="bg-white rounded-[16px] px-[16px] md:px-[20px] lg:px-[24px] py-[12px] md:py-[14px] lg:py-[16px] flex flex-col gap-[4px] md:gap-[8px]">
+                <div class="flex flex-col gap-[2px]">
+                  <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_1_label }}</p>
+                  <p class="font-bold text-[18px] md:text-[20px] text-[var(--text-primary)] tracking-[-0.09px] lg:tracking-[-0.1px] leading-[1.5]">{{ results_4_phase_1_title }}</p>
+                </div>
+                <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_1_body }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="flex gap-[20px] lg:gap-[40px] items-start">
+            <div class="flex flex-col items-center self-stretch shrink-0">
+              <div class="w-[16px] h-[16px] rounded-[8px] bg-white border-4 border-[var(--brand-primary)] shadow-[0_0_0_5px_#d5ddf3] shrink-0"></div>
+              <div class="w-[2px] flex-1 min-h-[1px] border-l-2 border-dashed border-[var(--text-primary)]"></div>
+            </div>
+            <div class="flex-1 pb-[20px]">
+              <div class="bg-white rounded-[16px] px-[16px] md:px-[20px] lg:px-[24px] py-[12px] md:py-[14px] lg:py-[16px] flex flex-col gap-[4px] md:gap-[8px]">
+                <div class="flex flex-col gap-[2px]">
+                  <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_2_label }}</p>
+                  <p class="font-bold text-[18px] md:text-[20px] text-[var(--text-primary)] tracking-[-0.09px] lg:tracking-[-0.1px] leading-[1.5]">{{ results_4_phase_2_title }}</p>
+                </div>
+                <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_2_body }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="flex gap-[20px] lg:gap-[40px] items-start">
+            <div class="flex flex-col items-center self-stretch shrink-0">
+              <div class="w-[16px] h-[16px] rounded-[8px] bg-white border-4 border-[var(--brand-primary)] shadow-[0_0_0_5px_#d5ddf3] shrink-0"></div>
+              <div class="w-[2px] flex-1 min-h-[1px] border-l-2 border-dashed border-[var(--text-primary)]"></div>
+            </div>
+            <div class="flex-1 pb-[20px]">
+              <div class="bg-white rounded-[16px] px-[16px] md:px-[20px] lg:px-[24px] py-[12px] md:py-[14px] lg:py-[16px] flex flex-col gap-[4px] md:gap-[8px]">
+                <div class="flex flex-col gap-[2px]">
+                  <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_3_label }}</p>
+                  <p class="font-bold text-[18px] md:text-[20px] text-[var(--text-primary)] tracking-[-0.09px] lg:tracking-[-0.1px] leading-[1.5]">{{ results_4_phase_3_title }}</p>
+                </div>
+                <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_3_body }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase 4 (last — no line) -->
+          <div class="flex gap-[20px] lg:gap-[40px] items-start">
+            <div class="flex flex-col items-center shrink-0">
+              <div class="w-[16px] h-[16px] rounded-[8px] bg-white border-4 border-[var(--brand-primary)] shadow-[0_0_0_5px_#d5ddf3] shrink-0"></div>
+            </div>
+            <div class="flex-1">
+              <div class="bg-white rounded-[16px] px-[16px] md:px-[20px] lg:px-[24px] py-[12px] md:py-[14px] lg:py-[16px] flex flex-col gap-[4px] md:gap-[8px]">
+                <div class="flex flex-col gap-[2px]">
+                  <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_4_label }}</p>
+                  <p class="font-bold text-[18px] md:text-[20px] text-[var(--text-primary)] tracking-[-0.09px] lg:tracking-[-0.1px] leading-[1.5]">{{ results_4_phase_4_title }}</p>
+                </div>
+                <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_4_body }}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- end timeline -->
+
+      </div>
+      <!-- end content row -->
+
+      <!-- CTA -->
+      <div class="flex flex-col items-center gap-[8px] md:gap-[10px] lg:gap-[12px] w-full max-w-[440px]">
+        <a href="{{ next_url | campaign_link }}{{ cta_params }}"
+          class="w-full bg-[var(--brand-primary)] rounded-[6px] py-[20px] px-[24px] flex items-center justify-center gap-[20px] no-underline">
+            <span class="font-bold text-[20px] text-white text-center tracking-[-0.1px] leading-[1.5] whitespace-nowrap">{{ cta_text }}</span>
+            <img src="{{ 'images/landing/_shared/arrow-right.svg' | campaign_asset }}" alt="" class="w-[16px] h-[12px] shrink-0">
+        </a>
+        <div class="flex items-center gap-[8px]">
+            <img src="{{ 'images/landing/_shared/cta-guarantee-icon.png' | campaign_asset }}" alt="" class="w-[20px] h-[19px] shrink-0">
+            <p class="font-semibold text-[16px] text-[var(--text-primary)] text-center tracking-[-0.08px] leading-[1.5] whitespace-nowrap">30 Day Money Back Guarantee</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

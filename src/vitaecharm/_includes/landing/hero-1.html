@@ -1,0 +1,110 @@
+<section class="bg-white overflow-hidden w-full">
+  <div class="max-w-[1440px] mx-auto md:pr-[26px] lg:pr-[60px] xl:pr-[120px]">
+    <div class="flex flex-col gap-[20px] md:flex-row md:gap-[32px] lg:gap-[60px] md:items-center">
+
+      <!-- ── MOBILE ONLY: stars + headline above image ── -->
+      <div class="md:hidden flex flex-col gap-[8px] items-center text-center px-[15px] pt-[24px]">
+        <div class="flex items-center gap-[16px] justify-center">
+          <div class="flex gap-[2px]">
+            <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="w-[20px] h-[20px]">
+            <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="w-[20px] h-[20px]">
+            <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="w-[20px] h-[20px]">
+            <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="w-[20px] h-[20px]">
+            <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="w-[20px] h-[20px]">
+          </div>
+          <span class="text-[18px] font-medium text-[var(--text-primary)] tracking-[-0.09px]">{{ hero_1_review_count }}</span>
+        </div>
+        <h1 class="text-[32px] font-bold leading-[1.2] text-[var(--text-primary)] tracking-[-0.16px]">{{ hero_1_headline }}</h1>
+      </div>
+
+      <!-- ── IMAGE COLUMN — bleeds left edge, full height on desktop ── -->
+      <div class="md:flex-1 md:self-stretch overflow-hidden">
+        <img src="{{ hero_1_hero_image | campaign_asset }}"
+             alt="{{ hero_1_hero_image_alt }}"
+             class="w-full h-[300px] md:h-full object-cover object-center md:object-bottom">
+      </div>
+
+      <!-- ── CONTENT COLUMN ── -->
+      <div class="md:flex-1 flex flex-col gap-[20px] md:gap-[26px] lg:gap-[32px] px-[15px] md:px-0 pb-[24px] md:py-[32px] lg:py-[40px]">
+
+        <!-- Stars + headline + body — desktop/tablet only -->
+        <div class="hidden md:flex flex-col md:gap-[12px] lg:gap-[20px]">
+          <div class="flex items-center gap-[16px]">
+            <div class="flex md:gap-[2.2px] lg:gap-[2px]">
+              <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="md:w-[22px] md:h-[22px] lg:w-[28px] lg:h-[28px]">
+              <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="md:w-[22px] md:h-[22px] lg:w-[28px] lg:h-[28px]">
+              <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="md:w-[22px] md:h-[22px] lg:w-[28px] lg:h-[28px]">
+              <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="md:w-[22px] md:h-[22px] lg:w-[28px] lg:h-[28px]">
+              <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="md:w-[22px] md:h-[22px] lg:w-[28px] lg:h-[28px]">
+            </div>
+            <span class="md:text-[20px] font-medium text-[var(--text-primary)] tracking-[-0.1px]">{{ hero_1_review_count }}</span>
+          </div>
+          <h1 class="md:text-[36px] lg:text-[44px] font-bold leading-[1.2] text-[var(--text-primary)] tracking-[-0.22px]">{{ hero_1_headline }}</h1>
+          <p class="md:text-[20px] text-[var(--text-secondary)] leading-[1.5] tracking-[-0.1px]">{{ hero_1_body_text }}</p>
+        </div>
+
+        <!-- Body — mobile only (centered) -->
+        <p class="md:hidden text-[18px] text-[var(--text-primary)] text-center leading-[1.5] tracking-[-0.09px]">{{ hero_1_body_text }}</p>
+
+        <!-- Benefit bullets -->
+        <div class="flex flex-col gap-[8px]">
+          <div class="flex items-center gap-[12px]">
+            <img src="{{ 'images/landing/hero-1/icon-check.svg' | campaign_asset }}" alt="" class="w-[24px] h-[24px] shrink-0">
+            <span class="text-[16px] md:text-[18px] font-bold text-[var(--text-primary)] tracking-[-0.1px]">{{ hero_1_benefit_1 }}</span>
+          </div>
+          <div class="flex items-center gap-[12px]">
+            <img src="{{ 'images/landing/hero-1/icon-check.svg' | campaign_asset }}" alt="" class="w-[24px] h-[24px] shrink-0">
+            <span class="text-[16px] md:text-[18px] font-bold text-[var(--text-primary)] tracking-[-0.1px]">{{ hero_1_benefit_2 }}</span>
+          </div>
+          <div class="flex items-center gap-[12px]">
+            <img src="{{ 'images/landing/hero-1/icon-check.svg' | campaign_asset }}" alt="" class="w-[24px] h-[24px] shrink-0">
+            <span class="text-[16px] md:text-[18px] font-bold text-[var(--text-primary)] tracking-[-0.1px]">{{ hero_1_benefit_3 }}</span>
+          </div>
+        </div>
+
+        <!-- CTA block -->
+        <div class="w-full md:max-w-[440px]">
+          <div class="w-full flex flex-col items-center gap-[12px]">
+            <a href="{{ next_url | campaign_link }}{{ cta_params }}"
+               class="w-full bg-[var(--brand-primary)] rounded-[6px] py-[20px] px-[24px] flex items-center justify-center gap-[20px] no-underline">
+              <span class="font-bold text-[20px] text-white text-center tracking-[-0.1px] leading-[1.5] whitespace-nowrap">{{ cta_text | default: "Order Now" }}</span>
+              <img src="{{ cta_button_arrow | default: 'images/landing/_shared/arrow-right.svg' | campaign_asset }}" alt="" class="w-[16px] h-[12px] shrink-0" aria-hidden="true">
+            </a>
+            <div class="flex items-center gap-[8px]">
+              <img src="{{ guarantee_icon | default: 'images/landing/_shared/cta-guarantee-icon.png' | campaign_asset }}" alt="" class="w-[20px] h-[19px] shrink-0 object-contain" aria-hidden="true">
+              <p class="font-semibold text-[16px] text-[var(--text-primary)] text-center tracking-[-0.08px] leading-[1.5]">{{ guarantee_text | default: "30-Day Money Back Guarantee" }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="flex gap-[12px] items-start mt-[20px] md:mt-0">
+          <div class="shrink-0 w-[60px] h-[60px] rounded-full overflow-hidden">
+            <img src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+                 alt="{{ hero_1_review_author }}"
+                 class="w-full h-full object-cover object-top">
+          </div>
+          <div class="flex-1 flex flex-col gap-[8px]">
+            <div class="flex gap-[2px]">
+              <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="w-[18px] h-[18px]">
+              <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="w-[18px] h-[18px]">
+              <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="w-[18px] h-[18px]">
+              <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="w-[18px] h-[18px]">
+              <img src="{{ 'images/landing/hero-1/icon-star.svg' | campaign_asset }}" alt="" class="w-[18px] h-[18px]">
+            </div>
+            <p class="text-[18px] md:text-[20px] font-bold text-[var(--text-primary)] leading-[1.5] tracking-[-0.1px]">{{ hero_1_review_quote }}</p>
+            <p class="text-[14px] lg:text-[16px] text-[var(--text-primary)] leading-[1.5] tracking-[-0.08px]">{{ hero_1_review_body }}</p>
+            <div class="flex items-center justify-between">
+              <span class="text-[16px] font-bold text-[var(--text-primary)] tracking-[-0.08px]">{{ hero_1_review_author }}</span>
+              <div class="flex items-center gap-[2px] bg-[var(--brand-secondary)] border border-[var(--brand-primary)] rounded-full pl-[8px] pr-[10px] py-[6px]">
+                <img src="{{ 'images/landing/hero-1/icon-verified.svg' | campaign_asset }}" alt="" class="w-[16px] h-[16px] shrink-0">
+                <span class="text-[12px] font-medium text-[var(--brand-primary)] tracking-[-0.06px] whitespace-nowrap">Verified Review</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /content column -->
+    </div><!-- /flex wrapper -->
+  </div><!-- /container -->
+</section>

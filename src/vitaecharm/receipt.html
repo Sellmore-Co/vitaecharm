@@ -1,0 +1,114 @@
+---
+title: "Shop — Receipt"
+page_type: receipt
+styles:
+receipt_summary:
+  title: "Order Summary"
+  scroll_hint: "Scroll for more items"
+  mobile_item_template_id: "order-item-template-mobile"
+  desktop_item_template_id: "order-item-template-desktop"
+---
+<div class="page-wrapper">
+
+      <div class="main-wrapper">
+        {% campaign_include 'receipt-skeleton.html' %}
+        <div class="checkout-content">
+          <div class="checkout__content">
+            <div class="checkout__layout">
+              <div class="checkout__column checkout__column--left">
+                <div class="checkout__form-container cc-checkout">
+                  <div class="checkout__header-brand cc-shop"><img src="{{ 'images/next-logo.png' | campaign_asset }}" loading="eager" alt="{{ campaign.store_name }}" class="brand-logo"></div>
+                  {% campaign_include 'receipt-order-summary-mobile.html' %}
+                  <div class="receipt_head">
+                    <div class="receipt-check"><svg width="100%" height="100%" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M49 25C49 38.2548 38.2548 49 25 49C11.7452 49 1 38.2548 1 25C1 11.7452 11.7452 1 25 1C38.2548 1 49 11.7452 49 25Z" stroke="currentColor" stroke-width="2"></path>
+                        <path d="M15 24.5113L22.3067 31.818L35.1247 19" stroke="currentColor" stroke-width="2"></path>
+                      </svg></div>
+                    <div class="receipt-heading">
+                      <div class="receipt-subtitle">Confirmation #<span data-next-display="order.number">DQFDHG5E0</span><br></div>
+                      <h2 class="receipt_order">Thank you, <span data-next-display="order.customer.name">Taylor!</span></h2>
+                    </div>
+                  </div>
+                  <div class="receipt_section">
+                    <div class="receipt_section-head">
+                      <div class="display-xs">Your order is confirmed</div>
+                      <div class="receipt_section-head--desc">You’ll get a confirmation email with your order number soon.</div>
+                    </div>
+                  </div>
+                  <div class="receipt_section">
+                    <div class="receipt_section-head">
+                      <div class="display-xs">Order details</div>
+                    </div>
+                    <div class="order_receipt-grid">
+                      <div class="order_receipt-col">
+                        <div class="order_receipt-sec">
+                          <div class="sec_title">Contact information</div>
+                          <div data-next-display="order.customer.email" class="sec_value">jordan.chen@domain.com</div>
+                        </div>
+                        <div class="order_receipt-sec">
+                          <div class="sec_title">Shipping address</div>
+                          <div class="order_receipt--group">
+                            <div data-next-display="order.customer.name" class="sec_value">Jordan Chen</div>
+                            <div data-next-display="order.shippingAddress.line1" class="sec_value">151 O'Connor St</div>
+                            <div data-next-display="order.shippingAddress.line2" class="sec_value">Apt 1011</div>
+                            <div class="sec_value"><span data-next-display="order.shippingAddress.city">Ottawa</span>, <span data-next-display="order.shippingAddress.state">ON</span>, <span data-next-display="order.shippingAddress.postcode">K2P 2L8</span></div>
+                            <div data-next-display="order.shippingAddress.country" class="sec_value">Canada</div>
+                          </div>
+                        </div>
+                        <div class="order_receipt-sec">
+                          <div class="sec_title">Shipping method</div>
+                          <div class="order_receipt--group">
+                            <div data-next-display="order.shippingMethod" class="sec_value">FedEx Ground</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="order_receipt-col">
+                        <div class="order_receipt-sec">
+                          <div class="sec_title">Payment method</div>
+                          <div data-next-display="order.paymentMethod" class="sec_value">Credit Card</div>
+                        </div>
+                        <div class="order_receipt-sec">
+                          <div class="sec_title">Shipping address</div>
+                          <div class="order_receipt--group">
+                            <div data-next-display="order.billingAddress.name" class="sec_value">Jordan Chen</div>
+                            <div data-next-display="order.billingAddress.line1" class="sec_value">151 O'Connor St</div>
+                            <div data-next-display="order.billingAddress.line2" class="sec_value">Apt 1011</div>
+                            <div class="sec_value"><span data-next-display="order.billingAddress.city">Ottawa</span>, <span data-next-display="order.billingAddress.state">ON</span>, <span data-next-display="order.billingAddress.postcode">K2P 2L8</span></div>
+                            <div data-next-display="order.billingAddress.country" class="sec_value">Canada</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="receipt_info">
+                    <div class="receipt-flex">
+                      <div>Need help?</div>
+                      <a href="{{ campaign.store_contact }}" target="_blank" class="link">
+                        <div>Contact Us</div>
+                      </a>
+                    </div>
+                    <a href="{{ campaign.store_url }}" target="_blank" class="button cc-auto">
+                      <div>Continue shopping</div>
+                    </a>
+                  </div>
+                  <div class="checkout-footer-links">
+                    <a href="{{ campaign.store_returns }}" target="_blank" class="link">
+                      <div>Return policy</div>
+                    </a>
+                    <a href="{{ campaign.store_privacy }}" target="_blank" class="link">
+                      <div>Privacy policy</div>
+                    </a>
+                    <a href="{{ campaign.store_terms }}" target="_blank" class="link">
+                      <div>Terms of service</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="checkout__column checkout__column--right">
+                {% campaign_include 'receipt-order-summary-desktop.html' %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,163 @@
+<section class="w-full overflow-hidden bg-[var(--brand-secondary)]">
+  <div class="max-w-[1440px] mx-auto px-[15px] md:px-[26px] lg:px-[60px] xl:px-[120px] py-[40px] md:py-[48px] lg:py-[60px]">
+    <div class="w-full flex flex-col lg:flex-row items-start gap-[32px] md:gap-[40px] lg:gap-[48px]">
+      <div class="w-full lg:w-[470px] lg:shrink-0 flex flex-col items-center lg:items-start gap-[32px] md:gap-[40px]">
+        <h2 class="hidden lg:block text-[40px] leading-[1.2] tracking-[-0.2px] font-bold text-[var(--text-primary)]">
+          {{ faq_1_heading }}
+        </h2>
+
+        <div class="hidden lg:block w-[420px] h-[420px] mx-auto">
+          <img src="{{ faq_1_product_image | campaign_asset }}" alt="{{ faq_1_product_image_alt }}" class="w-full h-full object-contain">
+        </div>
+
+        <div class="hidden lg:flex w-[440px] flex-col items-center">
+          <div class="w-full flex flex-col items-center gap-[12px]">
+            <a href="{{ next_url | campaign_link }}{{ cta_params }}"
+               class="w-full bg-[var(--brand-primary)] rounded-[6px] py-[20px] px-[24px] flex items-center justify-center gap-[20px] no-underline">
+              <span class="font-bold text-[20px] text-white text-center tracking-[-0.1px] leading-[1.5] whitespace-nowrap">{{ cta_text | default: "Order Now" }}</span>
+              <img src="{{ faq_1_cta_arrow | default: 'images/landing/_shared/arrow-right.svg' | campaign_asset }}" alt="" class="w-[16px] h-[12px] shrink-0" aria-hidden="true">
+            </a>
+            <div class="flex items-center gap-[8px]">
+              <img src="{{ faq_1_guarantee_icon | default: 'images/landing/_shared/cta-guarantee-icon.png' | campaign_asset }}" alt="" class="w-[20px] h-[19px] shrink-0 object-contain" aria-hidden="true">
+              <p class="font-semibold text-[16px] text-[var(--text-primary)] text-center tracking-[-0.08px] leading-[1.5]">{{ guarantee_text | default: "30-Day Money Back Guarantee" }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full flex flex-col items-center gap-[32px] md:gap-[40px] lg:gap-[20px]">
+        <h2 class="lg:hidden text-center text-[28px] md:text-[32px] leading-[1.2] tracking-[-0.14px] md:tracking-[-0.16px] font-bold text-[var(--text-primary)]">
+          {{ faq_1_heading }}
+        </h2>
+
+        <div class="w-full flex flex-col border-t border-[rgba(0,0,0,0.16)]" data-accordion data-allow-multiple="false">
+          <div class="border-b border-[rgba(0,0,0,0.16)] py-[14px] md:py-[16px] lg:py-[20px]" data-accordion-item data-open="true">
+            <button type="button" class="grid w-full grid-cols-[1fr_auto] items-center gap-x-[20px] md:gap-x-[26px] lg:gap-x-[32px] m-0 p-0 border-0 bg-transparent text-left cursor-pointer" data-accordion-toggle>
+              <span class="min-w-0 text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-bold text-[var(--text-primary)]">
+                {{ faq_1_question }}
+              </span>
+              <span class="inline-flex h-[24px] w-[24px] lg:h-[32px] lg:w-[32px] shrink-0 items-center justify-center" aria-hidden="true">
+                <img src="{{ faq_1_accordion_icon | campaign_asset }}" alt="" class="block h-full w-full max-h-full max-w-full object-contain transition-transform duration-300 rotate-180" data-accordion-icon>
+              </span>
+            </button>
+            <div class="overflow-hidden transition-all duration-300 opacity-100 pt-[12px] md:pt-[14px] lg:pt-[16px]" data-accordion-panel>
+              <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)]">
+                {{ faq_1_answer }}
+              </p>
+            </div>
+          </div>
+
+          <div class="border-b border-[rgba(0,0,0,0.16)] py-[14px] md:py-[16px] lg:py-[20px]" data-accordion-item data-open="false">
+            <button type="button" class="grid w-full grid-cols-[1fr_auto] items-center gap-x-[20px] md:gap-x-[26px] lg:gap-x-[32px] m-0 p-0 border-0 bg-transparent text-left cursor-pointer" data-accordion-toggle>
+              <span class="min-w-0 text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-bold text-[var(--text-primary)]">{{ faq_1_faq_2_question }}</span>
+              <span class="inline-flex h-[24px] w-[24px] lg:h-[32px] lg:w-[32px] shrink-0 items-center justify-center" aria-hidden="true">
+                <img src="{{ faq_1_accordion_icon | campaign_asset }}" alt="" class="block h-full w-full max-h-full max-w-full object-contain transition-transform duration-300" data-accordion-icon>
+              </span>
+            </button>
+            <div class="overflow-hidden transition-all duration-300 opacity-0" data-accordion-panel hidden>
+              <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] pt-[12px] md:pt-[14px] lg:pt-[16px]">{{ faq_1_faq_2_answer }}</p>
+            </div>
+          </div>
+
+          <div class="border-b border-[rgba(0,0,0,0.16)] py-[14px] md:py-[16px] lg:py-[20px]" data-accordion-item data-open="false">
+            <button type="button" class="grid w-full grid-cols-[1fr_auto] items-center gap-x-[20px] md:gap-x-[26px] lg:gap-x-[32px] m-0 p-0 border-0 bg-transparent text-left cursor-pointer" data-accordion-toggle>
+              <span class="min-w-0 text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-bold text-[var(--text-primary)]">{{ faq_1_faq_3_question }}</span>
+              <span class="inline-flex h-[24px] w-[24px] lg:h-[32px] lg:w-[32px] shrink-0 items-center justify-center" aria-hidden="true">
+                <img src="{{ faq_1_accordion_icon | campaign_asset }}" alt="" class="block h-full w-full max-h-full max-w-full object-contain transition-transform duration-300" data-accordion-icon>
+              </span>
+            </button>
+            <div class="overflow-hidden transition-all duration-300 opacity-0" data-accordion-panel hidden>
+              <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] pt-[12px] md:pt-[14px] lg:pt-[16px]">{{ faq_1_faq_3_answer }}</p>
+            </div>
+          </div>
+
+          <div class="border-b border-[rgba(0,0,0,0.16)] py-[14px] md:py-[16px] lg:py-[20px]" data-accordion-item data-open="false">
+            <button type="button" class="grid w-full grid-cols-[1fr_auto] items-center gap-x-[20px] md:gap-x-[26px] lg:gap-x-[32px] m-0 p-0 border-0 bg-transparent text-left cursor-pointer" data-accordion-toggle>
+              <span class="min-w-0 text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-bold text-[var(--text-primary)]">{{ faq_1_faq_4_question }}</span>
+              <span class="inline-flex h-[24px] w-[24px] lg:h-[32px] lg:w-[32px] shrink-0 items-center justify-center" aria-hidden="true">
+                <img src="{{ faq_1_accordion_icon | campaign_asset }}" alt="" class="block h-full w-full max-h-full max-w-full object-contain transition-transform duration-300" data-accordion-icon>
+              </span>
+            </button>
+            <div class="overflow-hidden transition-all duration-300 opacity-0" data-accordion-panel hidden>
+              <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] pt-[12px] md:pt-[14px] lg:pt-[16px]">{{ faq_1_faq_4_answer }}</p>
+            </div>
+          </div>
+
+          <div class="border-b border-[rgba(0,0,0,0.16)] py-[14px] md:py-[16px] lg:py-[20px]" data-accordion-item data-open="false">
+            <button type="button" class="grid w-full grid-cols-[1fr_auto] items-center gap-x-[20px] md:gap-x-[26px] lg:gap-x-[32px] m-0 p-0 border-0 bg-transparent text-left cursor-pointer" data-accordion-toggle>
+              <span class="min-w-0 text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-bold text-[var(--text-primary)]">{{ faq_1_faq_5_question }}</span>
+              <span class="inline-flex h-[24px] w-[24px] lg:h-[32px] lg:w-[32px] shrink-0 items-center justify-center" aria-hidden="true">
+                <img src="{{ faq_1_accordion_icon | campaign_asset }}" alt="" class="block h-full w-full max-h-full max-w-full object-contain transition-transform duration-300" data-accordion-icon>
+              </span>
+            </button>
+            <div class="overflow-hidden transition-all duration-300 opacity-0" data-accordion-panel hidden>
+              <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] pt-[12px] md:pt-[14px] lg:pt-[16px]">{{ faq_1_faq_5_answer }}</p>
+            </div>
+          </div>
+
+          <div class="border-b border-[rgba(0,0,0,0.16)] py-[14px] md:py-[16px] lg:py-[20px]" data-accordion-item data-open="false">
+            <button type="button" class="grid w-full grid-cols-[1fr_auto] items-center gap-x-[20px] md:gap-x-[26px] lg:gap-x-[32px] m-0 p-0 border-0 bg-transparent text-left cursor-pointer" data-accordion-toggle>
+              <span class="min-w-0 text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-bold text-[var(--text-primary)]">{{ faq_1_faq_6_question }}</span>
+              <span class="inline-flex h-[24px] w-[24px] lg:h-[32px] lg:w-[32px] shrink-0 items-center justify-center" aria-hidden="true">
+                <img src="{{ faq_1_accordion_icon | campaign_asset }}" alt="" class="block h-full w-full max-h-full max-w-full object-contain transition-transform duration-300" data-accordion-icon>
+              </span>
+            </button>
+            <div class="overflow-hidden transition-all duration-300 opacity-0" data-accordion-panel hidden>
+              <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] pt-[12px] md:pt-[14px] lg:pt-[16px]">{{ faq_1_faq_6_answer }}</p>
+            </div>
+          </div>
+
+          <div class="border-b border-[rgba(0,0,0,0.16)] py-[14px] md:py-[16px] lg:py-[20px]" data-accordion-item data-open="false">
+            <button type="button" class="grid w-full grid-cols-[1fr_auto] items-center gap-x-[20px] md:gap-x-[26px] lg:gap-x-[32px] m-0 p-0 border-0 bg-transparent text-left cursor-pointer" data-accordion-toggle>
+              <span class="min-w-0 text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-bold text-[var(--text-primary)]">{{ faq_1_faq_7_question }}</span>
+              <span class="inline-flex h-[24px] w-[24px] lg:h-[32px] lg:w-[32px] shrink-0 items-center justify-center" aria-hidden="true">
+                <img src="{{ faq_1_accordion_icon | campaign_asset }}" alt="" class="block h-full w-full max-h-full max-w-full object-contain transition-transform duration-300" data-accordion-icon>
+              </span>
+            </button>
+            <div class="overflow-hidden transition-all duration-300 opacity-0" data-accordion-panel hidden>
+              <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] pt-[12px] md:pt-[14px] lg:pt-[16px]">{{ faq_1_faq_7_answer }}</p>
+            </div>
+          </div>
+
+          <div class="border-b border-[rgba(0,0,0,0.16)] py-[14px] md:py-[16px] lg:py-[20px]" data-accordion-item data-open="false">
+            <button type="button" class="grid w-full grid-cols-[1fr_auto] items-center gap-x-[20px] md:gap-x-[26px] lg:gap-x-[32px] m-0 p-0 border-0 bg-transparent text-left cursor-pointer" data-accordion-toggle>
+              <span class="min-w-0 text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-bold text-[var(--text-primary)]">{{ faq_1_faq_8_question }}</span>
+              <span class="inline-flex h-[24px] w-[24px] lg:h-[32px] lg:w-[32px] shrink-0 items-center justify-center" aria-hidden="true">
+                <img src="{{ faq_1_accordion_icon | campaign_asset }}" alt="" class="block h-full w-full max-h-full max-w-full object-contain transition-transform duration-300" data-accordion-icon>
+              </span>
+            </button>
+            <div class="overflow-hidden transition-all duration-300 opacity-0" data-accordion-panel hidden>
+              <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] pt-[12px] md:pt-[14px] lg:pt-[16px]">{{ faq_1_faq_8_answer }}</p>
+            </div>
+          </div>
+
+          <div class="border-b border-[rgba(0,0,0,0.16)] py-[14px] md:py-[16px] lg:py-[20px]" data-accordion-item data-open="false">
+            <button type="button" class="grid w-full grid-cols-[1fr_auto] items-center gap-x-[20px] md:gap-x-[26px] lg:gap-x-[32px] m-0 p-0 border-0 bg-transparent text-left cursor-pointer" data-accordion-toggle>
+              <span class="min-w-0 text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] font-bold text-[var(--text-primary)]">{{ faq_1_faq_9_question }}</span>
+              <span class="inline-flex h-[24px] w-[24px] lg:h-[32px] lg:w-[32px] shrink-0 items-center justify-center" aria-hidden="true">
+                <img src="{{ faq_1_accordion_icon | campaign_asset }}" alt="" class="block h-full w-full max-h-full max-w-full object-contain transition-transform duration-300" data-accordion-icon>
+              </span>
+            </button>
+            <div class="overflow-hidden transition-all duration-300 opacity-0" data-accordion-panel hidden>
+              <p class="text-[16px] md:text-[18px] leading-[1.5] tracking-[-0.08px] md:tracking-[-0.09px] text-[var(--text-primary)] pt-[12px] md:pt-[14px] lg:pt-[16px]">{{ faq_1_faq_9_answer }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-[345px] md:w-[440px] flex flex-col items-center lg:hidden">
+          <div class="w-full flex flex-col items-center gap-[12px]">
+            <a href="{{ next_url | campaign_link }}{{ cta_params }}"
+               class="w-full bg-[var(--brand-primary)] rounded-[6px] py-[20px] px-[24px] flex items-center justify-center gap-[20px] no-underline">
+              <span class="font-bold text-[20px] text-white text-center tracking-[-0.1px] leading-[1.5] whitespace-nowrap">{{ cta_text | default: "Order Now" }}</span>
+              <img src="{{ faq_1_cta_arrow | default: 'images/landing/_shared/arrow-right.svg' | campaign_asset }}" alt="" class="w-[16px] h-[12px] shrink-0" aria-hidden="true">
+            </a>
+            <div class="flex items-center gap-[8px]">
+              <img src="{{ faq_1_guarantee_icon | default: 'images/landing/_shared/cta-guarantee-icon.png' | campaign_asset }}" alt="" class="w-[20px] h-[19px] shrink-0 object-contain" aria-hidden="true">
+              <p class="font-semibold text-[16px] text-[var(--text-primary)] text-center tracking-[-0.08px] leading-[1.5]">{{ guarantee_text | default: "30-Day Money Back Guarantee" }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

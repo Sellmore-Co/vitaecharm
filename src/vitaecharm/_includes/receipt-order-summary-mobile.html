@@ -1,0 +1,115 @@
+<!--
+  next_component: shop-single-step-receipt-order-summary-mobile
+  next_version: 1
+  next_sdk_owns: receipt order item template and data-next-order-items target
+  next_sdk_surface: receipt order summary
+  next_params:
+    receipt_summary: object. title, scroll_hint, mobile_item_template_id.
+    item_template_id: string override for the SDK order-line template id.
+  next_dont_touch: data-next-order-items and data-item-template-id must reference the same template id.
+-->
+{% assign summary = receipt_summary -%}
+{% assign summary_title = summary.title | default: 'Order Summary' -%}
+{% assign scroll_hint = scroll_hint | default: summary.scroll_hint | default: 'Scroll for more items' -%}
+{% assign tpl_id = item_template_id | default: summary.mobile_item_template_id | default: 'order-item-template' -%}
+                  <div data-next-catalog-component="shop-single-step-receipt-order-summary" class="order-summary-mobile">
+                    <div data-initial-state="closed" data-next-accordion="order-summary" data-open-text="Hide Order Summary" data-close-text="Show Order Summary" data-toggle-class="next-expanded" class="order-summary-mobile__accordion">
+                      <div data-next-accordion-trigger="order-summary" class="order-summary__trigger">
+                        <div class="order-summary__inner">
+                          <div class="order-summary__mobile-left">
+                            <div class="summary-toggle">
+                              <div data-next-accordion-text="order-summary" class="summary-toggle__text show_text">Show Order Summary</div><img os-summary-icon="" loading="lazy" alt="" src="{{ 'images/arrow-down.svg' | campaign_asset }}" class="summary-toggle__icon">
+                            </div>
+                          </div>
+                          <div data-next-show="cart.hasItems" class="order-summary__mobile-right">
+                            <div data-next-show="cart.hasDiscounts" data-next-display="cart.subtotal" class="summary_price price--crossed cc-sm"></div>
+                            <div data-next-display="cart.total" class="summary_price price--total"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-next-accordion-panel="order-summary" class="accordion__panel payment-method__form--expanded">
+                        <div class="order-summary">
+                          <h4 class="order-summary__title">{{ summary_title }}</h4>
+                          <div class="order-summary__content">
+                            <div class="cart-items">
+                              <div data-next-component="scroll-hint" class="cart-items__scroll-hint cart-items__scroll-hint--active">
+                                <div>{{ scroll_hint }}</div>
+                                <div class="icon__view-more"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z"></path>
+                                  </svg></div>
+                              </div>
+                              <div data-next-hide="cart.isEmpty"><template id="{{ tpl_id }}" class="item-template os-show">
+                                  <div data-order-line-id="{item.id}" class="cart-item">
+                                    <div class="cart-item__wrapper">
+                                      <div class="cart-item__image-container">
+                                        <div class="cart-item__quantity-badge">
+                                          <div class="cart-item__quantity">{item.quantity}</div>
+                                        </div><img src="{item.image}" class="cart-item__image">
+                                      </div>
+                                      <div class="cart-item__details">
+                                        <div class="cart-item__content">
+                                          <div class="cart-item__description">
+                                            <div class="cart-item__header">
+                                              <div pb-cart="line_item-title" class="cart-item__title">{item.name}</div>
+                                            </div>
+                                            <div class="quantity-controls hide">
+                                              <div id="quantity_{item.packageId}" data-flavor="original" class="cart-quantity-controls__container">
+                                                <div data-package-id="{item.packageId}" data-next-quantity="decrease" role="button" class="quantity-controls__button quantity-controls__button--decrease">-</div>
+                                                <div pb-cart="line_item-quantity" class="quantity-controls__display">{item.quantity}</div>
+                                                <div data-package-id="{item.packageId}" data-next-quantity="increase" role="button" class="quantity-controls__button quantity-controls__button--increase">+</div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="cart-item__pricing">
+                                            <div class="checkout__line-item__final-price">{item.lineTotal}</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </template>
+                                <div data-item-template-id="{{ tpl_id }}" data-next-order-items="" class="cart-items__list"></div>
+                              </div>
+                            </div>
+                            <div data-next-content="">
+                              <div class="order-totals">
+                                <div class="order-totals__line">
+                                  <div class="order-totals__label">Subtotal</div>
+                                  <div data-next-display="order.subtotal" class="order-totals__value"></div>
+                                </div>
+                                <div class="order-totals__section">
+                                  <div class="order-totals__line">
+                                    <div class="order-totals__label-group">
+                                      <div class="order-totals__label">Shipping<br></div>
+                                    </div>
+                                    <div class="order-totals__value-group">
+                                      <div data-next-display="order.shipping" class="order-totals__value"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div data-next-show="order.hasTax" class="order-totals__section">
+                                  <div class="order-totals__line">
+                                    <div class="order-totals__label-group">
+                                      <div class="order-totals__label">Tax<br></div>
+                                    </div>
+                                    <div class="order-totals__value-group">
+                                      <div data-next-display="order.tax" class="order-totals__value"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="order-totals__section cc-total">
+                                  <div class="order-totals__line order-totals__line--total">
+                                    <div class="order-totals__label order-totals__label--total">Total</div>
+                                    <div class="order-totals__value-group">
+                                      <div data-next-display="order.currency" class="summary-total__coin"></div>
+                                      <div data-next-display="order.total" class="order-totals__value order-totals__value--total"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>

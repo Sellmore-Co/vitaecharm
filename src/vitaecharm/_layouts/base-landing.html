@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <!-- Tailwind CDN + design token color aliases -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            'brand-primary':   'var(--brand-primary)',
+            'brand-secondary': 'var(--brand-secondary)',
+            'brand-accent':    'var(--brand-accent)',
+            'surface-bg':      'var(--surface-bg)',
+            'surface-card':    'var(--surface-card)',
+            'surface-alt':     'var(--surface-alt)',
+            'text-primary':    'var(--text-primary)',
+            'text-secondary':  'var(--text-secondary)',
+            'text-inverse':    'var(--text-inverse)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Design tokens + any page-level styles -->
+  <link rel="stylesheet" href="{{ 'css/landing/tokens.css' | campaign_asset }}">
+  {% for style in styles %}
+  <link rel="stylesheet" href="{{ style | campaign_asset }}">
+  {% endfor %}
+
+  <script src="{{ 'config.js' | campaign_asset }}"></script>
+  {% if meta_tags and meta_tags != empty %}
+  {% for tag in meta_tags %}
+  {% if tag[1] %}<meta name="{{ tag[0] }}" content="{{ tag[1] }}">{% endif %}
+  {% endfor %}
+  {% else %}
+  <meta name="next-funnel" content="{{ campaign.name }}">
+  <meta name="next-page-type" content="{{ page_type }}">
+  {% endif %}
+  <script src="https://cdn.jsdelivr.net/gh/NextCommerceCo/campaign-cart@v{{ campaign.sdk_version }}/dist/loader.js" type="module"></script>
+</head>
+<body class="font-sans bg-white text-[var(--text-primary)]">
+
+  {{ content }}
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- Unified section behaviors -->
+  <script src="{{ 'js/landing/landing.js' | campaign_asset }}"></script>
+
+  <!-- Optional page-level scripts -->
+  {% for script in scripts %}
+  <script src="{{ script | campaign_asset }}"></script>
+  {% endfor %}
+</body>
+</html>

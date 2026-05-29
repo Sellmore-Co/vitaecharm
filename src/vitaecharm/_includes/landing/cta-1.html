@@ -1,0 +1,47 @@
+<style>
+  .cta-1-sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  .cta-1-sticky.is-visible {
+    transform: translateY(0);
+  }
+  @media (min-width: 768px) {
+    .cta-1-sticky { display: none; }
+  }
+</style>
+
+<div class="cta-1-sticky bg-white shadow-[0_-4px_16px_rgba(0,0,0,0.12)]" data-cta-1-sticky>
+  <div class="px-[15px] py-[12px] flex flex-col items-center gap-[8px]">
+    <a
+      href="{{ next_url | campaign_link }}{{ cta_params }}"
+      class="w-full max-w-[345px] bg-[var(--brand-primary)] rounded-[6px] px-[24px] py-[16px] flex items-center justify-center gap-[16px] no-underline"
+    >
+      <span class="font-bold text-[18px] leading-[1.5] tracking-[-0.09px] text-white text-center whitespace-nowrap">{{ cta_text }}</span>
+      <img src="{{ 'images/landing/_shared/arrow-right.svg' | campaign_asset }}" alt="" class="w-[12px] h-[16px] object-contain shrink-0">
+    </a>
+    <div class="flex items-center justify-center gap-[8px] text-[var(--text-primary)]">
+      <img src="{{ 'images/landing/_shared/cta-guarantee-icon.png' | campaign_asset }}" alt="" class="w-[18px] h-[17px] object-contain shrink-0">
+      <p class="font-semibold text-[14px] leading-[1.5] tracking-[-0.07px] text-center whitespace-nowrap">{{ guarantee_text }}</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var el = document.querySelector('[data-cta-1-sticky]');
+    if (!el) return;
+    function update() {
+      var scrolled = window.scrollY > 300;
+      var nearBottom = (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 80);
+      el.classList.toggle('is-visible', scrolled && !nearBottom);
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>

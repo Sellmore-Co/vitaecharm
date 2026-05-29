@@ -1,0 +1,203 @@
+---
+title: "Shop — Upsell (bundle tier cards)"
+page_type: upsell
+next_url: receipt.html
+decline_url: receipt.html
+styles:
+  - https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css
+scripts:
+  - https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js
+  - js/upsells.js
+upsell_offer:
+  package_id: 3
+  selector_id: "upsell-bundle"
+  display_selector_id: "upsell-bundle-1x"
+  display_bundle_id: "upsell-bundle-1x-card"
+  header_discount_selector_id: "upsell-bundle-3x"
+  accept_text: "Yes, Add to My Order"
+  decline_text: "No thank you, I don't want this one-time offer"
+upsell_bundle_tiers:
+  - id: "upsell-bundle-1x"
+    items_json: '[{"packageId":3,"quantity":1}]'
+    vouchers_json: '["UP50"]'
+    selected: true
+    label: "Buy 1"
+    hint: "1 unit"
+  - id: "upsell-bundle-2x"
+    items_json: '[{"packageId":3,"quantity":2}]'
+    vouchers_json: '["UP60"]'
+    label: "Buy 2"
+    hint: "2 units"
+  - id: "upsell-bundle-3x"
+    items_json: '[{"packageId":3,"quantity":3}]'
+    vouchers_json: '["UP70"]'
+    label: "Buy 3"
+    hint: "3 units"
+swiper_slides:
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+  - src: "images/1x1_1.svg"
+    alt: ""
+swiper_thumbs:
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+  - src: "images/1x1_2.svg"
+    alt: ""
+---
+
+<!--
+  APPROACH B (variant) — Same bundle + voucher mechanics as upsell-bundle-tier-pills.html, but tier
+  choice uses VISIBLE bundle cards in a 3-column grid (1×–3× tiers; click to select), similar in UX to the public
+  Upsells “card selection” pattern:
+  https://developers.nextcommerce.com/docs/campaigns/upsells#card-selection-pattern
+
+  Important: This is still data-next-bundle-selector + data-next-bundle-card — NOT
+  data-next-upsell-selector / data-next-upsell-option. Selection upsells in the docs do not
+  send data-next-bundle-vouchers on accept; we keep bundle markup so coupon-driven pricing
+  and AddUpsellLine vouchers stay correct (see https://developers.nextcommerce.com/docs/campaigns/upsells).
+
+  Differences vs upsell-bundle-tier-pills.html:
+    - No hidden selector + initBundleQtyToggle — user clicks the tier card directly.
+    - Per-card data-next-bundle-display shows each tier’s calculated price before selection.
+    - Remote bundle.upsell-bundle.* block still reflects the selected card (summary).
+    - Per-tier vouchers: 1× UP50; 2× UP60; 3× UP70 (template example — create codes in Campaigns).
+
+  UpsellEnhancer resolves bundle submit from the first [data-next-bundle-selector] inside
+  [data-next-upsell="offer"] only — not data-next-upsell-action-for. The display-only
+  upsell-bundle-1x block (header / max-discount %) must sit outside the offer wrapper so the
+  first in-offer selector is upsell-bundle (visible tier grid).
+
+  Formatting: keep data-next-format="currency" / "percentage" on remote data-next-display="bundle.upsell-bundle.*"
+  nodes outside cards (same as upsell-bundle-tier-pills.html); see https://developers.nextcommerce.com/docs/campaigns/campaign-cart/.
+-->
+{% assign upsell_package_id = upsell_offer.package_id | default: 3 -%}
+{% assign upsell_display_selector_id = upsell_offer.display_selector_id | default: 'upsell-bundle-1x' -%}
+{% assign upsell_header_discount_selector_id = upsell_offer.header_discount_selector_id | default: upsell_display_selector_id -%}
+{% assign upsell_package_name_path = 'package.' | append: upsell_package_id | append: '.name' -%}
+{% assign upsell_display_discount_path = 'bundle.' | append: upsell_header_discount_selector_id | append: '.discountPercentage' -%}
+
+<style>
+  .cc-upsell-bundle-tier-heading {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 0.75rem;
+  }
+
+  /* Three tier cards — equal-width grid */
+  .cc-upsell-bundle-tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    width: 100%;
+  }
+
+  @media (max-width: 600px) {
+    .cc-upsell-bundle-tier-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cc-upsell-bundle-tier-grid .os-card {
+    cursor: pointer;
+    margin: 0;
+    min-width: 0;
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .cc-upsell-bundle-tier-grid .os-card.next-selected {
+    border-color: var(--component--color--outline, #111);
+    box-shadow: 0 0 0 1px var(--component--color--outline, #111);
+  }
+
+  .cc-upsell-bundle-tier-card__inner {
+    padding: 0.85rem 0.75rem;
+    text-align: center;
+  }
+
+  .cc-upsell-bundle-tier-card__label {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 0.35rem;
+  }
+
+  .cc-upsell-bundle-tier-card__hint {
+    font-size: 0.75rem;
+    color: #5c5c5e;
+    margin: 0 0 0.5rem;
+    line-height: 1.25;
+  }
+
+  .cc-upsell-bundle-tier-card__price {
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .cc-upsell-bundle-tier-card__compare {
+    font-size: 0.8125rem;
+    color: #888;
+    text-decoration: line-through;
+    margin-top: 0.25rem;
+  }
+
+  .cc-upsell-bundle-tier-card__badge {
+    display: inline-block;
+    margin-top: 0.4rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--brand--color--primary, #1a7f37);
+  }
+
+  .cc-upsell-bundle-selector--visible {
+    margin-bottom: 0;
+  }
+</style>
+
+<div class="page-wrapper">
+  <div class="main-wrapper">
+    <div class="announcement">
+      <div class="announcement__block">
+        <div class="announcement__text"><strong>Special Offer Unlocked - Do Not Close This Page</strong></div>
+      </div>
+    </div>
+    {% campaign_include 'upsell-header-bar.html' %}
+    <section class="section upsell-header">
+      <div class="container">
+        <div class="upsell-header__inner">
+          <div class="upsell-header__title">Wait! Your Order Isn't Complete</div>
+          <div class="upsell-header__offer">Special Discount: Add the <span data-next-display="{{ upsell_package_name_path }}">Product Title</span> to your order</div>
+          <div class="upsell-header__suboffer">Save up to <span data-next-display="{{ upsell_display_discount_path }}" data-next-format="percentage"></span> on the <span data-next-display="{{ upsell_package_name_path }}">Product Title</span> Today!<br></div>
+        </div>
+      </div>
+    </section>
+    {% campaign_include 'upsell-bundle-tier-cards-offer.html' %}
+    {% campaign_include 'footer.html' %}
+  </div>
+</div>
+
+<script>
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', () => initSwiperGalleries()); } else { initSwiperGalleries(); }
+</script>

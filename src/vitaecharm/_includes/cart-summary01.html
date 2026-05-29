@@ -1,0 +1,129 @@
+<div class="summary-wrapper" data-next-cart-summary>
+  <template>
+    <div class="order-summary">
+      <div class="order-summary__content">
+
+        <div data-os-cart-summary="line-wrapper" class="cart-items">
+          <div class="cart-summary__line pb--header">
+            <div class="cart-summary__line-item"><div>Item</div></div>
+            <div class="cart-summary__line-item"><div>Amount</div></div>
+          </div>
+          <div data-os-cart-summary="summary-scroll" class="cart-items__scroll-hint cart-items__scroll-hint--active hide">
+            <div>Scroll for more items</div>
+            <div class="icon__view-more">…</div>
+          </div>
+          <div class="cart-items__list" data-summary-lines>
+            <template>
+              <div class="cart-item" data-package-id="{item.packageId}">
+                <div class="cart-item__wrapper">
+                  <div class="cart-item__details cc-left-0">
+                    <div class="cart-item__content">
+                      <div class="cart-item__description">
+                        <div class="cart-item__header">
+                          <div class="cart-item__title os-bold">
+                            <!-- Single-variant: {item.name} | Multi-variant swap: replace with {item.variantName} -->
+                            {item.quantity}x {item.name}
+                            <!-- {item.quantity}x {item.variantName} -->
+                            <div>
+                              <div class="text-2xs text-muted text-weight-normal diagonal-strike {item.hasDiscount}">{item.originalUnitPrice}/ea</div>
+                              <div class="text-2xs text-muted text-weight-normal">{item.unitPrice}/ea</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cart-item__pricing">
+                        <div class="cart-price diagonal-strike line-compare {item.hasDiscount}">{item.originalPrice}</div>
+                        <div class="checkout__line-item__final-price">{item.price}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <div class="order-totals os-cart-summary-totals">
+          <div class="order-totals__line">
+            <div class="order-totals__label">Subtotal</div>
+            <div class="order-totals__value">{subtotal}</div>
+          </div>
+
+          <!-- Per-discount rows — SDK 0.4.13+: data-next-discounts replaces data-summary-offer/voucher-discounts -->
+          <div class="order-totals__section">
+            <ul class="order-totals__discount-list" data-next-discounts="offer" aria-label="Offer discounts">
+              <template>
+                <li class="order-totals__line">
+                  <div class="order-totals__label text-muted">{discount.name} - Save {discount.percentage}</div>
+                  <div class="order-totals__value text-muted">−{discount.amount}</div>
+                </li>
+              </template>
+            </ul>
+            <ul class="order-totals__discount-list" data-next-discounts="voucher" aria-label="Coupon discounts">
+              <template>
+                <li class="order-totals__line">
+                  <div class="order-totals__label text-muted">{discount.name} - Save {discount.percentage}</div>
+                  <div class="order-totals__value text-muted">−{discount.amount}</div>
+                </li>
+              </template>
+            </ul>
+          </div>
+
+          <div class="order-totals__section order-totals__section--inset os-cart-summary-row--discount">
+            <div class="order-totals__line">
+              <div class="order-totals__label-group">
+                <div class="order-totals__label ts-lg tw-600">Today you saved</div>
+              </div>
+              <div class="accordion__right">
+                <div class="order-totals__label">Discounts</div>
+                <div class="order-totals__value ts-lg tw-600 cc-disc">{discounts}</div>
+              </div>
+            </div>
+            <!-- BS-014: cart.discountCode unwired — use data-next-discounts="voucher" + {discount.description} for code string -->
+            <!-- Coupon tag badge — uncomment to show applied coupon code below the savings row.
+            <div class="coupon-tags" data-next-show="cart.hasCoupon" style="display:none">
+              <div class="order-totals__line items-center">
+                <div class="cart-subtext">Code applied</div>
+                <div data-next-discounts="voucher">
+                  <template>
+                    <div class="badge badge--small">
+                      <div class="label__wrapper cc-sm">
+                        <div class="badge__text">{discount.description}</div>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+            -->
+          </div>
+
+          <div class="order-totals__line os-cart-summary-row--tax">
+            <div class="order-totals__label">Tax</div>
+            <div class="order-totals__value">{tax}</div>
+          </div>
+
+          <div class="order-totals__section">
+            <div class="order-totals__line">
+              <div class="accordion__right"><div class="order-totals__label">Shipping</div></div>
+              <div class="accordion__right">
+                <div class="order-totals__value">{shipping}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-totals__section cc-total">
+            <div class="order-totals__line order-totals__line--total">
+              <div class="order-totals__label order-totals__label--total">Grand Total:</div>
+              <div class="order-totals__value-group">
+                <div class="summary-total__coin">{currency}</div>
+                <div class="order-totals__value order-totals__value--total">{total}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </template>
+</div>

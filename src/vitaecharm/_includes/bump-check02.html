@@ -1,0 +1,52 @@
+{% comment %}
+  next_component: order-bump-card
+  next_version: 1.1.0
+  next_sdk_min: 0.4.18
+  next_purpose: Pre-purchase add-on offer rendered as an expanded checkbox-style card.
+  next_params:
+    packages:             object, optional. Dict with main_package, prepurchase_1, prepurchase_2 keys.
+    order_bump.check02:   optional frontmatter object for package_id, sync_quantity, title, image_src, image_alt, description_prefix, description_suffix.
+    package_id:           number, default packages.prepurchase_2 or 9.
+    package_sync:         number|false, default packages.main_package or 1. Set false to disable sync.
+    is_upsell:            bool, default true.
+  next_sdk_owns:
+    - data-next-package-toggle
+    - data-next-toggle-card
+    - data-next-toggle-display
+    - data-next-toggle-image
+    - data-next-package-sync
+    - data-next-display (package.<id>.name)
+  next_dont_touch:
+    - data-next-toggle-display="price" is the selected bump line total.
+{% endcomment %}
+{% assign bump = order_bump.check02 -%}
+{% assign pkg_id = package_id | default: bump.package_id | default: packages.prepurchase_2 | default: 9 -%}
+{% if package_sync == nil and bump.sync_quantity == nil %}{% assign sync_qty = packages.main_package | default: 1 %}{% elsif package_sync != nil %}{% assign sync_qty = package_sync %}{% else %}{% assign sync_qty = bump.sync_quantity %}{% endif -%}
+{% if is_upsell == nil %}{% assign is_upsell = true %}{% endif -%}
+{% assign bump_title = bump.title | default: 'YES, &nbsp;I Will Take It' -%}
+{% assign image_src = bump.image_src | default: 'images/icon.svg' -%}
+{% assign image_alt = bump.image_alt | default: '' -%}
+{% assign description_prefix = bump.description_prefix | default: 'Get peace of mind with' -%}
+{% assign description_suffix = bump.description_suffix | default: 'in the event your delivery is damaged, stolen, or lost during transit for' -%}
+<div data-next-catalog-component="order-bump-card" data-component="prepurchase-upsell" data-variant="check02" data-next-await="">
+  <div data-next-package-toggle>
+    <div data-next-toggle-card{% if is_upsell %} data-next-is-upsell="true"{% endif %}{% if sync_qty %} data-next-package-sync="{{ sync_qty }}"{% endif %} data-next-package-id="{{ pkg_id }}" class="next-active">
+      <div data-next-toggle="toggle" class="bump__header next-active">
+        <div class="bump__header-content">
+          <div class="bump__checkbox">
+            <div os-component="check" class="checkbox__icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--fe" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m6 10l-2 2l6 6L20 8l-2-2l-8 8z"></path></svg></div>
+          </div>
+          <div class="bump__title">{{ bump_title }}</div>
+          <div data-animate="right" class="bump__arrow"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886z" fill="currentColor"></path></svg></div>
+          <div data-animate="left" class="bump__arrow bump__arrow--right"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645z" fill="currentColor"></path></svg></div>
+        </div>
+      </div>
+      <div class="bump__body">
+        <div class="bump__content">
+          <img data-next-toggle-image loading="lazy" alt="{{ image_alt }}" src="{{ image_src | campaign_asset }}" class="bump__image">
+          <div class="bump__description">{{ description_prefix }} <span data-next-display="package.{{ pkg_id }}.name">Shipping Guarantee</span> {{ description_suffix }} <span data-next-toggle-display="price" class="display-visible">$1.99</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

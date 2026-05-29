@@ -1,8 +1,12 @@
 name = "vitaecharm"
+main = "worker.js"
 compatibility_date = "2026-05-29"
 
 # Workers Static Assets: serve the built _site/ directory at the root.
 # `npx wrangler deploy` (the project's deploy command) uploads these assets.
+# The worker (main) handles requests that don't match an asset — used to
+# redirect the bare root "/" to the main store via the ASSETS binding.
 [assets]
 directory = "./_site"
+binding = "ASSETS"
 not_found_handling = "404-page"

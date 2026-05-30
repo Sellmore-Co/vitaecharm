@@ -20,6 +20,18 @@
   // Stable theme hooks (no text/structure guessing needed).
   var TIER_IDS = { 1: '#pr-single-bottle', 2: '#pr-two-bottles', 3: '#pr-three-bottles' };
 
+  // Free gifts (DOM card order: Mitt, Collagen, Nail, Sleep) -> package id + min tier to unlock.
+  // Mitt is free at 1+ bottle; the other three at 2+ bottles. Applies in both modes.
+  var GIFTS = [
+    { pkg: 3, minTier: 1 }, // Oil Mitt
+    { pkg: 8, minTier: 2 }, // Collagen Mask
+    { pkg: 7, minTier: 2 }, // Nail Oil
+    { pkg: 6, minTier: 2 }  // Sleep Mask
+  ];
+  function unlockedGiftPkgs() {
+    return GIFTS.filter(function (g) { return state.tier >= g.minTier; }).map(function (g) { return g.pkg; });
+  }
+
   var state = { tier: 1, mode: 'sub' };
   var tierAnchors = {};
   var atcEls = [];
@@ -82,21 +94,53 @@
     if (totalStr) atcEls.forEach(function (a) {
       if (/\$[\d.,]+/.test(a.textContent)) a.textContent = a.textContent.replace(/\$[\d.,]+/, totalStr);
     });
+    updateGifts();
+  }
+
+  // Lock/unlock the free-gift cards by selected tier (Mitt @1+, others @2+), both modes.
+  function updateGifts() {
+    var grid = document.querySelector('#free-gifts .free-gifts__grid');
+    if (!grid) return;
+    var cards = [].slice.call(grid.querySelectorAll('.gift'));
+    cards.forEach(function (card, i) {
+      var unlocked = state.tier >= ((GIFTS[i] && GIFTS[i].minTier) || 1);
+      var price = card.querySelector('.gift__price');
+      var img = card.querySelector('.gift__media img');
+      var lock = card.querySelector('.gift__lock');
+      // use !important to beat the theme's .is-locked CSS rules
+      card.style.setProperty('opacity', unlocked ? '1' : '0.85', 'important');
+      card.style.setProperty('filter', unlocked ? 'none' : 'saturate(0.7)', 'important');
+      if (price) price.style.setProperty('background', unlocked ? 'rgb(69, 110, 222)' : 'rgb(184, 192, 204)', 'important');
+      if (img) img.style.setProperty('opacity', unlocked ? '1' : '0', 'important');
+      if (lock) {
+        lock.style.setProperty('opacity', unlocked ? '0' : '1', 'important');
+        lock.style.setProperty('visibility', unlocked ? 'hidden' : 'visible', 'important');
+        lock.style.pointerEvents = unlocked ? 'none' : '';
+      }
+    });
+    var fg = document.querySelector('#free-gifts');
+    if (fg) { fg.classList.toggle('is-locked', state.tier < 2); fg.classList.toggle('is-unlocked', state.tier >= 2); }
   }
 
   function select(t) { state.tier = t; render(); }
 
-  function go(pkg) {
-    var cs = (window.NextCommerce && typeof window.NextCommerce.useCartStore === 'function')
-      ? window.NextCommerce.useCartStore.getState() : null;
-    if (!cs || typeof cs.addItem !== 'function') {
-      window.location.href = CHECKOUT + '?forcePackageId=' + pkg + ':1';
-      return;
+  // Build the package set for the current selection: main tier package + unlocked free gifts.
+  function selectionPkgs() {
+    return [tierPkg(state.tier, state.mode)].concat(unlockedGiftPkgs());
+  }
+
+  function go(ids) {
+    var forceUrl = CHECKOUT + '?forcePackageId=' + ids.map(function (i) { return i + ':1'; }).join(',');
+    function store() {
+      return (window.NextCommerce && typeof window.NextCommerce.useCartStore === 'function')
+        ? window.NextCommerce.useCartStore.getState() : null;
     }
-    Promise.resolve(cs.clear())
-      .then(function () { return cs.addItem({ packageId: pkg, quantity: 1 }); })
-      .then(function () { window.location.href = CHECKOUT; })
-      .catch(function () { window.location.href = CHECKOUT + '?forcePackageId=' + pkg + ':1'; });
+    var cs = store();
+    if (!cs || typeof cs.addItem !== 'function') { window.location.href = forceUrl; return; }
+    var chain = Promise.resolve(cs.clear());
+    ids.forEach(function (id) { chain = chain.then(function () { return store().addItem({ packageId: id, quantity: 1 }); }); });
+    chain.then(function () { window.location.href = CHECKOUT; })
+         .catch(function () { window.location.href = forceUrl; });
   }
 
   function isATC(el) {
@@ -279,7 +323,7 @@
       if (/ADD TO CART/i.test(e.textContent || '') && atcEls.indexOf(e) === -1) atcEls.push(e);
     });
     atcEls.forEach(function (a) {
-      a.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); go(tierPkg(state.tier, state.mode)); }, true);
+      a.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); go(selectionPkgs()); }, true);
     });
 
     // Render now, and again once the campaign store has loaded live prices.

@@ -1,7 +1,8 @@
 ---
-title: "Shop — Receipt"
+title: "VitaeCharm — Order Confirmation"
 page_type: receipt
 styles:
+  - css/checkout-brand.css
 receipt_summary:
   title: "Order Summary"
   scroll_hint: "Scroll for more items"
@@ -17,7 +18,7 @@ receipt_summary:
             <div class="checkout__layout">
               <div class="checkout__column checkout__column--left">
                 <div class="checkout__form-container cc-checkout">
-                  <div class="checkout__header-brand cc-shop"><img src="{{ 'images/next-logo.png' | campaign_asset }}" loading="eager" alt="{{ campaign.store_name }}" class="brand-logo"></div>
+                  <div class="checkout__header-brand cc-shop"><img src="{{ 'images/body-oil/checkout-trust.png' | campaign_asset }}" loading="eager" alt="VitaeCharm" class="brand-logo" style="width:100%;max-width:420px;height:auto;"></div>
                   {% campaign_include 'receipt-order-summary-mobile.html' %}
                   <div class="receipt_head">
                     <div class="receipt-check"><svg width="100%" height="100%" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">

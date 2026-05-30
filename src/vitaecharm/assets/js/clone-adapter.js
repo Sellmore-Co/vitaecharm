@@ -104,17 +104,78 @@
     while (w && (w.className || '').indexOf('pf-accordion') === -1) w = w.nextElementSibling;
     return w;
   }
+  function injectAccordionStyle() {
+    if (document.getElementById('nx-acc-style')) return;
+    var s = document.createElement('style');
+    s.id = 'nx-acc-style';
+    s.textContent =
+      '.pf-accordion-body,.pf-accordion-wrapper{transition:height .32s ease;}' +
+      '.pfa-arrow{transition:transform .3s ease;}';
+    document.head.appendChild(s);
+  }
+
+  function onTransEnd(body, prop, fn) {
+    function te(e) { if (e.target !== body || e.propertyName !== prop) return; body.removeEventListener('transitionend', te); fn(); }
+    body.addEventListener('transitionend', te, false);
+  }
+  // Accordion3 bodies are CSS grids (animate grid-template-rows 0fr->1fr);
+  // FAQ bodies animate their own height. Detect which.
+  function isGridBody(body) {
+    var cs = getComputedStyle(body);
+    return cs.display === 'grid' || /grid-template-rows/.test(cs.transitionProperty);
+  }
+
+  function expandBody(body) {
+    if (isGridBody(body)) {
+      body.style.overflow = 'hidden';
+      body.style.gridTemplateRows = '0fr';
+      void body.offsetHeight;
+      body.style.gridTemplateRows = '1fr';
+      onTransEnd(body, 'grid-template-rows', function () { body.style.overflow = ''; });
+    } else {
+      body.classList.remove('pf-accordion-hide');
+      body.style.display = 'block';
+      body.style.overflow = 'hidden';
+      body.style.height = '0px';
+      void body.offsetHeight;
+      body.style.height = body.scrollHeight + 'px';
+      onTransEnd(body, 'height', function () { body.style.height = 'auto'; body.style.overflow = ''; });
+    }
+  }
+
+  function collapseBody(body, after) {
+    if (isGridBody(body)) {
+      body.style.overflow = 'hidden';
+      body.style.gridTemplateRows = '1fr';
+      void body.offsetHeight;
+      body.style.gridTemplateRows = '0fr';
+      onTransEnd(body, 'grid-template-rows', function () { if (after) after(); });
+    } else {
+      body.style.overflow = 'hidden';
+      body.style.height = body.scrollHeight + 'px';
+      void body.offsetHeight;
+      body.style.height = '0px';
+      onTransEnd(body, 'height', function () {
+        body.classList.add('pf-accordion-hide');
+        body.style.height = ''; body.style.display = ''; body.style.overflow = '';
+        if (after) after();
+      });
+    }
+  }
+
   function toggleAccordion(head) {
     var open = head.getAttribute('data-active') === 'true';
     head.setAttribute('data-active', open ? 'false' : 'true');
     var arrow = head.querySelector('.pfa-arrow');
     if (arrow) arrow.style.transform = open ? '' : 'rotate(90deg)';
     var details = head.closest && head.closest('details');
-    if (details) details.open = !open;
     var body = accordionBody(head);
-    if (body) {
-      if (open) { body.classList.add('pf-accordion-hide'); body.style.height = ''; body.style.display = ''; body.style.overflow = ''; }
-      else { body.classList.remove('pf-accordion-hide'); body.style.display = 'block'; body.style.overflow = 'hidden'; body.style.height = 'auto'; }
+    if (!body) { if (details) details.open = !open; return; }
+    if (open) {
+      collapseBody(body, details ? function () { details.open = false; } : null);
+    } else {
+      if (details) details.open = true;     // mount the <details> content, then animate it open
+      expandBody(body);
     }
   }
 
@@ -147,6 +208,7 @@
     });
 
     // Accordions
+    injectAccordionStyle();
     document.addEventListener('click', function (e) {
       var head = e.target.closest && e.target.closest('[data-pf-type="Accordion.Header"], [data-pf-type="Accordion3.Header"]');
       if (!head) return;

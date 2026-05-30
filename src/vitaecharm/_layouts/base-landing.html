@@ -13,7 +13,9 @@
   <!-- Swiper -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-  <!-- Tailwind CDN + design token color aliases -->
+  <!-- Tailwind: Play CDN in dev for instant JIT; compiled stylesheet in production.
+       Regenerate the compiled file with `npm run build:css` (runs automatically in `npm run build`). -->
+  {% if environment == "development" %}
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -37,6 +39,9 @@
       }
     }
   </script>
+  {% else %}
+  <link rel="stylesheet" href="{{ 'css/landing/tailwind.css' | campaign_asset }}">
+  {% endif %}
 
   <!-- Design tokens + any page-level styles -->
   <link rel="stylesheet" href="{{ 'css/landing/tokens.css' | campaign_asset }}">

@@ -9,7 +9,7 @@
 
       <!-- Mobile: landscape product image (hidden md+) -->
       <div class="md:hidden w-full aspect-[374/233] relative overflow-hidden rounded-[8px]">
-        <img src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+        <img src="{{ results_4_product_image | default: 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
              alt="{{ results_4_product_image_alt }}"
              class="absolute inset-0 w-full h-full object-cover">
       </div>
@@ -78,7 +78,24 @@
             </div>
           </div>
 
-          <!-- Phase 4 (last — no line) -->
+          <!-- Phase 4 -->
+          <div class="flex gap-[20px] lg:gap-[40px] items-start">
+            <div class="flex flex-col items-center self-stretch shrink-0">
+              <div class="w-[16px] h-[16px] rounded-[8px] bg-white border-4 border-[var(--brand-primary)] shadow-[0_0_0_5px_#d5ddf3] shrink-0"></div>
+              <div class="w-[2px] flex-1 min-h-[1px] border-l-2 border-dashed border-[var(--text-primary)]"></div>
+            </div>
+            <div class="flex-1 pb-[20px]">
+              <div class="bg-white rounded-[16px] px-[16px] md:px-[20px] lg:px-[24px] py-[12px] md:py-[14px] lg:py-[16px] flex flex-col gap-[4px] md:gap-[8px]">
+                <div class="flex flex-col gap-[2px]">
+                  <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_4_label }}</p>
+                  <p class="font-bold text-[18px] md:text-[20px] text-[var(--text-primary)] tracking-[-0.09px] lg:tracking-[-0.1px] leading-[1.5]">{{ results_4_phase_4_title }}</p>
+                </div>
+                <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_4_body }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase 5 (last — no line) -->
           <div class="flex gap-[20px] lg:gap-[40px] items-start">
             <div class="flex flex-col items-center shrink-0">
               <div class="w-[16px] h-[16px] rounded-[8px] bg-white border-4 border-[var(--brand-primary)] shadow-[0_0_0_5px_#d5ddf3] shrink-0"></div>
@@ -86,10 +103,10 @@
             <div class="flex-1">
               <div class="bg-white rounded-[16px] px-[16px] md:px-[20px] lg:px-[24px] py-[12px] md:py-[14px] lg:py-[16px] flex flex-col gap-[4px] md:gap-[8px]">
                 <div class="flex flex-col gap-[2px]">
-                  <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_4_label }}</p>
-                  <p class="font-bold text-[18px] md:text-[20px] text-[var(--text-primary)] tracking-[-0.09px] lg:tracking-[-0.1px] leading-[1.5]">{{ results_4_phase_4_title }}</p>
+                  <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_5_label }}</p>
+                  <p class="font-bold text-[18px] md:text-[20px] text-[var(--text-primary)] tracking-[-0.09px] lg:tracking-[-0.1px] leading-[1.5]">{{ results_4_phase_5_title }}</p>
                 </div>
-                <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_4_body }}</p>
+                <p class="font-medium text-[16px] lg:text-[18px] text-[var(--text-primary)] tracking-[-0.08px] lg:tracking-[-0.09px] leading-[1.5]">{{ results_4_phase_5_body }}</p>
               </div>
             </div>
           </div>
@@ -109,7 +126,7 @@
         </a>
         <div class="flex items-center gap-[8px]">
             <img src="{{ 'images/landing/_shared/cta-guarantee-icon.png' | campaign_asset }}" alt="" class="w-[20px] h-[19px] shrink-0">
-            <p class="font-semibold text-[16px] text-[var(--text-primary)] text-center tracking-[-0.08px] leading-[1.5] whitespace-nowrap">30 Day Money Back Guarantee</p>
+            <p class="font-semibold text-[16px] text-[var(--text-primary)] text-center tracking-[-0.08px] leading-[1.5] whitespace-nowrap">{{ guarantee_text | default: '90 Day Money Back Guarantee' }}</p>
         </div>
       </div>
 

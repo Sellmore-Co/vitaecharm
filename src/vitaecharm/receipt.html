@@ -1,7 +1,8 @@
 ---
-title: "Shop — Receipt"
+title: "VitaeCharm — Order Confirmation"
 page_type: receipt
 styles:
+  - css/checkout-brand.css
 receipt_summary:
   title: "Order Summary"
   scroll_hint: "Scroll for more items"
@@ -17,7 +18,7 @@ receipt_summary:
             <div class="checkout__layout">
               <div class="checkout__column checkout__column--left">
                 <div class="checkout__form-container cc-checkout">
-                  <div class="checkout__header-brand cc-shop"><img src="{{ 'images/next-logo.png' | campaign_asset }}" loading="eager" alt="{{ campaign.store_name }}" class="brand-logo"></div>
+                  <div class="checkout__header-brand cc-shop"><img src="{{ 'images/body-oil/checkout-trust.png' | campaign_asset }}" loading="eager" alt="VitaeCharm" class="brand-logo" style="width:100%;max-width:420px;height:auto;"></div>
                   {% campaign_include 'receipt-order-summary-mobile.html' %}
                   <div class="receipt_head">
                     <div class="receipt-check"><svg width="100%" height="100%" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +69,7 @@ receipt_summary:
                           <div data-next-display="order.paymentMethod" class="sec_value">Credit Card</div>
                         </div>
                         <div class="order_receipt-sec">
-                          <div class="sec_title">Shipping address</div>
+                          <div class="sec_title">Billing address</div>
                           <div class="order_receipt--group">
                             <div data-next-display="order.billingAddress.name" class="sec_value">Jordan Chen</div>
                             <div data-next-display="order.billingAddress.line1" class="sec_value">151 O'Connor St</div>

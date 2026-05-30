@@ -122,3 +122,14 @@ body,
 .cart-item__sub-freq {
   text-transform: lowercase;
 }
+
+/* Mobile: stop the checkout grid from blowing past the viewport.
+   next-core collapses to a single column at <=991px with `grid-template-columns: 1fr`,
+   but a `1fr` track keeps an implicit min-content floor, so a wide child (the
+   express-checkout / Apple Pay button) forces the column to ~544px and overflows.
+   minmax(0,1fr) drops the floor to 0 so the single column shrinks to the viewport. */
+@media screen and (max-width: 991px) {
+  .checkout--shop .checkout__layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}

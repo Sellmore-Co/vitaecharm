@@ -1,10 +1,10 @@
 /* VitaeCharm clone buy-box adapter.
    The page is a 1:1 clone of the Shopify PageFly PDP with its runtime JS stripped.
    Re-wires the static buy box to the NEXT Campaign Cart SDK:
-   - tier selection + subscribe/one-time toggle -> NEXT package id -> add to cart -> checkout
-   - prices read LIVE from the Campaigns API (useCampaignStore) so they stay dynamic
-   - re-implements PageFly accordion expand/collapse (Accordion + Accordion3)
-   Markup has no stable hooks, so targeting is text/structure based (intentionally brittle). */
+   - tier selection (#selector-tabs a + theme .active class) + subscribe/one-time toggle
+     -> NEXT package id -> add to cart -> checkout
+   - prices read LIVE from the Campaigns API (useCampaignStore); written to .now / .was spans
+   - re-implements PageFly accordions (Accordion + Accordion3) and the media-slider gallery */
 (function () {
   'use strict';
 
@@ -13,15 +13,16 @@
   // Tier -> package ids + per-each divisor (effective bottles; structural, not a price).
   // sub buy2 = 3 bottles (2 paid + 1 free offer), buy3 = 5 (3 + 2 free); one-time = qty.
   var TIERMAP = {
-    1: { sub: 2,  once: 9,  divSub: 1, divOnce: 1 },  // Buy 1: 1 bottle
-    2: { sub: 4,  once: 10, divSub: 3, divOnce: 2 },  // Buy 2 + 1 free = 3 (sub) / 2 (once)
-    3: { sub: 5,  once: 11, divSub: 5, divOnce: 3 }   // Buy 3 + 2 free = 5 (sub) / 3 (once)
+    1: { sub: 2,  once: 9,  divSub: 1, divOnce: 1 },
+    2: { sub: 4,  once: 10, divSub: 3, divOnce: 2 },
+    3: { sub: 5,  once: 11, divSub: 5, divOnce: 3 }
   };
+  // Stable theme hooks (no text/structure guessing needed).
+  var TIER_IDS = { 1: '#pr-single-bottle', 2: '#pr-two-bottles', 3: '#pr-three-bottles' };
 
-  var state = { tier: 2, mode: 'sub' };
-  var tierAnchors = {};   // tier -> <a> card element
+  var state = { tier: 1, mode: 'sub' };
+  var tierAnchors = {};
   var atcEls = [];
-  var selectedEl = null;
 
   function ready(fn) {
     if (document.readyState !== 'loading') fn();
@@ -54,48 +55,28 @@
   function tierEach(t, mode) {
     var total = tierTotal(t, mode);
     if (total == null) return null;
-    var div = mode === 'sub' ? TIERMAP[t].divSub : TIERMAP[t].divOnce;
-    return total / (div || 1);
-  }
-
-  function priceLeaves(el) {
-    return [].slice.call(el.querySelectorAll('*')).filter(function (n) {
-      return n.children.length === 0 && /\$\d/.test((n.textContent || '').trim());
-    });
-  }
-
-  function injectStyle() {
-    if (document.getElementById('nx-clone-style')) return;
-    var s = document.createElement('style');
-    s.id = 'nx-clone-style';
-    s.textContent = '.nx-tier-selected{outline:3px solid #1f8f4e !important;outline-offset:2px;border-radius:12px;}';
-    document.head.appendChild(s);
+    return total / ((mode === 'sub' ? TIERMAP[t].divSub : TIERMAP[t].divOnce) || 1);
   }
 
   function render() {
-    // tier cards: selection outline + live "each" price (last $-leaf = the active/red price)
     [1, 2, 3].forEach(function (t) {
       var a = tierAnchors[t];
       if (!a) return;
-      a.classList.toggle('nx-tier-selected', state.tier === t);
+      a.classList.toggle('active', state.tier === t); // theme's native selected border
+      var now = a.querySelector('.now');
+      var was = a.querySelector('.was');
       var eachStr = money(tierEach(t, state.mode));
-      var leaves = priceLeaves(a);
-      if (leaves.length) {
-        var each = leaves[leaves.length - 1]; // red "each" price is the last $-leaf
-        if (eachStr) each.textContent = each.textContent.replace(/\$[\d.,]+/, eachStr);
-        // The strikethrough compare price is only meaningful for Subscribe & Save.
-        // One-time = "NO SAVINGS", so hide the compare (matches the original).
-        if (leaves.length >= 2) leaves[0].style.display = (state.mode === 'sub') ? '' : 'none';
-      }
+      if (now && eachStr) now.textContent = eachStr + '/each';
+      // Compare price only applies to Subscribe & Save; one-time = "NO SAVINGS".
+      if (was) was.style.display = (state.mode === 'sub') ? '' : 'none';
     });
-    // ATC total = live package total for the selected tier+mode
     var totalStr = money(tierTotal(state.tier, state.mode));
-    if (totalStr) {
-      atcEls.forEach(function (a) {
-        if (/\$[\d.,]+/.test(a.textContent)) a.textContent = a.textContent.replace(/\$[\d.,]+/, totalStr);
-      });
-    }
+    if (totalStr) atcEls.forEach(function (a) {
+      if (/\$[\d.,]+/.test(a.textContent)) a.textContent = a.textContent.replace(/\$[\d.,]+/, totalStr);
+    });
   }
+
+  function select(t) { state.tier = t; render(); }
 
   function go(pkg) {
     var cs = (window.NextCommerce && typeof window.NextCommerce.useCartStore === 'function')
@@ -110,34 +91,12 @@
       .catch(function () { window.location.href = CHECKOUT + '?forcePackageId=' + pkg + ':1'; });
   }
 
-  function tierFromClick(target) {
-    var el = target, best = null, bestEl = null;
-    for (var i = 0; i < 9 && el && el !== document.body; i++) {
-      var t = (el.textContent || '').replace(/\s+/g, ' ').trim();
-      var m = t.match(/^Buy ([123])\b/);
-      if (m && t.length < 140) { best = parseInt(m[1], 10); bestEl = el; break; }
-      el = el.parentElement;
-    }
-    if (!best) return null;
-    return { tier: best, el: (bestEl.closest && bestEl.closest('a')) || bestEl };
-  }
-
   function isATC(el) {
     var a = el && el.closest ? el.closest('a,button') : null;
     return a && (a.id === 'add-to-cart-custom' || /ADD TO CART/i.test(a.textContent || ''));
   }
 
-  function findTierAnchors() {
-    var pf = document.querySelector('#__pf') || document.body;
-    [1, 2, 3].forEach(function (t) {
-      var strong = [].slice.call(pf.querySelectorAll('strong, span, p, label, div')).filter(function (e) {
-        return (e.textContent || '').replace(/\s+/g, ' ').trim().indexOf('Buy ' + t) === 0;
-      }).sort(function (a, b) { return a.textContent.length - b.textContent.length; })[0];
-      if (strong) tierAnchors[t] = (strong.closest && strong.closest('a')) || strong;
-    });
-  }
-
-  // ---- Accordion expand/collapse (Accordion.Header sibling-wrapper, Accordion3.Header <details>) ----
+  // ---- Accordions (Accordion.Header sibling-wrapper, Accordion3.Header <details>) ----
   function accordionBody(head) {
     var details = head.closest && head.closest('details');
     if (details) return details.querySelector('.pf-accordion-body') || details.querySelector('.pf-accordion-wrapper');
@@ -145,7 +104,6 @@
     while (w && (w.className || '').indexOf('pf-accordion') === -1) w = w.nextElementSibling;
     return w;
   }
-
   function toggleAccordion(head) {
     var open = head.getAttribute('data-active') === 'true';
     head.setAttribute('data-active', open ? 'false' : 'true');
@@ -155,35 +113,27 @@
     if (details) details.open = !open;
     var body = accordionBody(head);
     if (body) {
-      if (open) {
-        body.classList.add('pf-accordion-hide');
-        body.style.height = ''; body.style.display = ''; body.style.overflow = '';
-      } else {
-        body.classList.remove('pf-accordion-hide');
-        body.style.display = 'block'; body.style.overflow = 'hidden'; body.style.height = 'auto';
-      }
+      if (open) { body.classList.add('pf-accordion-hide'); body.style.height = ''; body.style.display = ''; body.style.overflow = ''; }
+      else { body.classList.remove('pf-accordion-hide'); body.style.display = 'block'; body.style.overflow = 'hidden'; body.style.height = 'auto'; }
     }
   }
 
   ready(function () {
-    injectStyle();
-    var pf = document.querySelector('#__pf') || document.body;
-    findTierAnchors();
-
-    // Tier selection (PageFly tiers are <a href="#"> with shared markup)
-    pf.addEventListener('click', function (e) {
-      if (isATC(e.target)) return;
-      var hit = tierFromClick(e.target);
-      if (!hit) return;
+    // Tier cards via stable ids; default selection = whichever the theme marked active.
+    [1, 2, 3].forEach(function (t) {
+      tierAnchors[t] = document.querySelector(TIER_IDS[t]);
+      if (tierAnchors[t] && tierAnchors[t].classList.contains('active')) state.tier = t;
+    });
+    var tabs = document.querySelector('#selector-tabs');
+    if (tabs) tabs.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[id^="pr-"]');
+      if (!a) return;
       e.preventDefault();
-      state.tier = hit.tier;
-      if (selectedEl) selectedEl.classList.remove('nx-tier-selected');
-      selectedEl = hit.el;
-      selectedEl.classList.add('nx-tier-selected');
-      render();
+      for (var t = 1; t <= 3; t++) { if (tierAnchors[t] === a) { select(t); break; } }
     }, true);
 
     // Subscribe / Buy-once toggle
+    var pf = document.querySelector('#__pf') || document.body;
     [].slice.call(pf.querySelectorAll('p, span, a, button, div')).forEach(function (el) {
       if (el.children.length === 0 && /BUY ONCE/i.test(el.textContent || '')) {
         el.style.cursor = 'pointer';
@@ -196,7 +146,7 @@
       }
     });
 
-    // Accordions (both PageFly variants)
+    // Accordions
     document.addEventListener('click', function (e) {
       var head = e.target.closest && e.target.closest('[data-pf-type="Accordion.Header"], [data-pf-type="Accordion3.Header"]');
       if (!head) return;
@@ -204,23 +154,17 @@
       toggleAccordion(head);
     }, true);
 
-    // Product gallery — PageFly media slider (main scroll-track + thumbnail strip).
-    // Re-wire prev/next arrows and thumbnail clicks to scroll the main track.
+    // Product gallery — PageFly media slider (main scroll-track + thumbnail strip)
     (function setupGallery() {
       var sliders = [].slice.call(document.querySelectorAll('.pf-media-slider'));
       if (!sliders.length) return;
       var main = sliders[0];
       var slides = [].slice.call(main.querySelectorAll('.pf-slide-main-media'));
       if (slides.length < 2) return;
-      var thumbStrip = sliders[1];
-      var thumbs = thumbStrip ? [].slice.call(thumbStrip.querySelectorAll('.pf-slide-list-media')) : [];
-
+      var thumbs = sliders[1] ? [].slice.call(sliders[1].querySelectorAll('.pf-slide-list-media')) : [];
       function curIndex() {
         var sl = main.scrollLeft, best = 0, bestD = Infinity;
-        slides.forEach(function (s, i) {
-          var d = Math.abs(s.offsetLeft - sl);
-          if (d < bestD) { bestD = d; best = i; }
-        });
+        slides.forEach(function (s, i) { var d = Math.abs(s.offsetLeft - sl); if (d < bestD) { bestD = d; best = i; } });
         return best;
       }
       function goTo(i) {
@@ -228,17 +172,10 @@
         main.scrollTo({ left: slides[i].offsetLeft, behavior: 'smooth' });
         thumbs.forEach(function (t, j) { t.classList.toggle('active', j === i); });
       }
-
-      var prev = main.querySelector('.pf-slider-prev');
-      var next = main.querySelector('.pf-slider-next');
+      var prev = main.querySelector('.pf-slider-prev'), next = main.querySelector('.pf-slider-next');
       if (prev) prev.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); goTo(curIndex() - 1); }, true);
       if (next) next.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); goTo(curIndex() + 1); }, true);
-
-      thumbs.forEach(function (t, i) {
-        t.style.cursor = 'pointer';
-        t.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); goTo(i); }, true);
-      });
-      // keep active thumb in sync while the user swipes the main track
+      thumbs.forEach(function (t, i) { t.style.cursor = 'pointer'; t.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); goTo(i); }, true); });
       var raf;
       main.addEventListener('scroll', function () {
         if (raf) return;
@@ -253,10 +190,7 @@
       if (/ADD TO CART/i.test(e.textContent || '') && atcEls.indexOf(e) === -1) atcEls.push(e);
     });
     atcEls.forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        e.preventDefault(); e.stopPropagation();
-        go(tierPkg(state.tier, state.mode));
-      }, true);
+      a.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); go(tierPkg(state.tier, state.mode)); }, true);
     });
 
     // Render now, and again once the campaign store has loaded live prices.

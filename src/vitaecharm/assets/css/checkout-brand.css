@@ -25,3 +25,82 @@ body,
 .submit-button {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
+
+/* ============================================================
+   Shopify-checkout skin — match vitaecharm.com Shopify checkout.
+   Skin/CSS only: no SDK hooks, Spreedly fields, or cart-summary
+   token templates are altered. See plan + build/polish doctrine.
+   ============================================================ */
+
+/* --- Primary CTA: green "Pay now" button (Shopify) --- */
+.submit-button {
+  background-color: #2ec01a;
+  border-color: #2ec01a;
+  min-height: 3.25rem;        /* Shopify single-line button height */
+}
+.submit-button:hover {
+  background-color: #28a817;
+  border-color: #28a817;
+}
+.submit-button__main-text {
+  font-size: var(--font-size--base);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* --- Express checkout title (Shopify: muted, centered, regular) --- */
+.express-checkout__title {
+  color: #545454;
+  font-weight: 500;
+  font-size: var(--font-size--sm);
+}
+
+/* --- Section titles: Shopify uses a calm ~1.125rem weight-600 heading --- */
+.form-section__title {
+  font-weight: 600;
+}
+
+/* --- Order summary panel → Shopify layout --- */
+/* Shopify shows no "Order Summary" heading in the panel */
+[data-next-cart-summary] .order-summary__title {
+  display: none;
+}
+/* Stack panel children so the discount-code row can sit at the top.
+   coupon-section lives OUTSIDE [data-next-cart-summary] (the SDK render
+   target) so it survives CartSummaryEnhancer innerHTML rebuilds. */
+.order-summary-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.order-summary-wrap .coupon-section {
+  order: -1;
+  margin-bottom: 1.25rem;
+}
+
+/* Discount code row — Shopify: input + neutral grey "Apply" button */
+.coupon-button {
+  background-color: #e5e5e5;
+  border-color: #e5e5e5;
+  color: #333;
+  font-weight: 600;
+}
+.coupon-button:hover {
+  background-color: #d8d8d8;
+  border-color: #d8d8d8;
+}
+
+/* Total row — Shopify shows "USD" in a smaller muted style before the amount */
+.summary-total__coin {
+  color: #545454;
+  font-size: var(--font-size--sm);
+  font-weight: 500;
+  margin-right: .35rem;
+}
+
+/* TOTAL SAVINGS row — Shopify green emphasis */
+.order-totals__savings,
+.order-totals__savings-text {
+  color: #2ca01c;
+  font-weight: 600;
+}
+.order-totals__savings-icon { color: #2ca01c; }

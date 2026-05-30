@@ -7,7 +7,8 @@
   <script src="{{ 'config.js' | campaign_asset }}"></script>
   {% if meta_tags and meta_tags != empty %}{% for tag in meta_tags %}{% if tag[1] %}<meta name="{{ tag[0] }}" content="{{ tag[1] }}">{% endif %}{% endfor %}{% else %}<meta name="next-funnel" content="{{ campaign.name }}"><meta name="next-page-type" content="{{ page_type }}">{% endif %}
   <script src="https://cdn.jsdelivr.net/gh/NextCommerceCo/campaign-cart@v{{ campaign.sdk_version }}/dist/loader.js" type="module"></script>
-  <link href="{{ 'images/favicon.png' | campaign_asset }}" rel="shortcut icon" type="image/x-icon">
+  <link href="{{ 'images/favicon.png' | campaign_asset }}" rel="shortcut icon" type="image/png">
+  <link href="{{ 'images/webclip.png' | campaign_asset }}" rel="apple-touch-icon">
   <!-- Cloned Shopify theme styles (self-hosted under assets/clone) -->
 <link rel="stylesheet" href="/vitaecharm/clone/css/theme-4878c92513fb.css">
 <link rel="stylesheet" href="/vitaecharm/clone/css/chunk-3521dafc375d.css">

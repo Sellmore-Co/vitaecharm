@@ -71,7 +71,7 @@ scripts:
                               </label></div>
                           </div>
                           <div class="form-section">
-                            <h1 class="form-section__title">Shipping</h1>
+                            <h1 class="form-section__title">Delivery</h1>
                             <div data-next-component="shipping-form">
                               <div class="form-grid">
                                 <div data-next-component="shipping-field-row" class="form-grid__row">
@@ -91,10 +91,10 @@ scripts:
                                 </div>
                                 <div data-next-component="shipping-field-row" class="form-grid__row">
                                   <div class="form-group">
-                                    <div class="form-input"><label for="shipping_fname" class="label-checkout">First Name</label><input autocomplete="given-name" placeholder="First Name*" maxlength="256" name="shipping_fname" data-name="Shipping First Name" type="text" id="shipping_fname" data-next-checkout-field="fname" class="input-flds"></div>
+                                    <div class="form-input"><label for="shipping_fname" class="label-checkout">First name (optional)</label><input autocomplete="given-name" placeholder="First name (optional)" maxlength="256" name="shipping_fname" data-name="Shipping First Name" type="text" id="shipping_fname" data-next-checkout-field="fname" class="input-flds"></div>
                                   </div>
                                   <div class="form-group">
-                                    <div class="form-input"><label for="shipping_lname" class="label-checkout">Last Name</label><input autocomplete="family-name" placeholder="Last Name*" maxlength="256" name="shipping_lname" data-name="Shipping Last Name" type="text" id="shipping_lname" data-next-checkout-field="lname" class="input-flds"></div>
+                                    <div class="form-input"><label for="shipping_lname" class="label-checkout">Last name</label><input autocomplete="family-name" placeholder="Last name" maxlength="256" name="shipping_lname" data-name="Shipping Last Name" type="text" id="shipping_lname" data-next-checkout-field="lname" class="input-flds"></div>
                                   </div>
                                 </div>
                                 <div data-next-component="shipping-field-row" class="form-grid__row">
@@ -147,7 +147,7 @@ scripts:
                               <div class="form-section__subtitle">All transactions are secure and encrypted.<br></div>
 
                             </div>
-                            {% campaign_include 'payment-methods.html' show_paypal=true show_klarna=true show_apple_pay=true show_google_pay=true %}
+                            {% campaign_include 'payment-methods.html' show_paypal=true show_klarna=false show_apple_pay=false show_google_pay=false %}
                           </div>
                           <div class="submit-section">
                             <div class="submit-section__disclaimer">By clicking the button below, you agree with our Terms of Use and Privacy Policy.</div>
@@ -157,9 +157,8 @@ scripts:
                                 </div>
                                 <div data-pb-element="checkout-button-info" class="submit-button__content">
                                   <div class="submit-button__text">
-                                    <div data-i18n="complete_purchase" class="submit-button__main-text">COMPLETE PURCHASE →</div>
+                                    <div data-i18n="complete_purchase" class="submit-button__main-text">Pay now</div>
                                   </div>
-                                  <div data-i18n="try_risk_free" class="submit-button__subtext">TRY IT RISK FREE! - 30 DAY MONEY BACK GUARANTEE!</div>
                                 </div>
                               </button></div>
                           </div>

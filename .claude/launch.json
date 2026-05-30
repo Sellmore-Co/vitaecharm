@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--", "vitaecharm"],
       "port": 3000
+    },
+    {
+      "name": "prod-static",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "_site", "-l", "4000"],
+      "port": 4000
     }
   ]
 }

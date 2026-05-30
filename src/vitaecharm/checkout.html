@@ -1,20 +1,15 @@
 ---
-title: "Shop Checkout"
+title: "VitaeCharm Body Oil — Secure Checkout"
 page_type: checkout
-next_url: upsell-bundle-stepper.html
-order_bump_variant: "check02"
+# Spec funnel: checkout success → thank-you (receipt). No upsell step.
+next_url: receipt.html
+# No paid order bump: the campaign's add-ons (Mitt, Sleep Mask, Nail Oil, Collagen) are FREE
+# auto-applied offers, not paid bumps, so a bump would conflict with the 100%-off discount.
+order_bump_variant: "none"
 packages:
-  main_package: 1
-  prepurchase_1: 7
-  prepurchase_2: 9
-order_bump:
-  check02:
-    package_id: 9
-    sync_quantity: 1
-    title: "YES, &nbsp;I Will Take It"
-    image_src: "images/icon.svg"
-    description_prefix: "Get peace of mind with"
-    description_suffix: "in the event your delivery is damaged, stolen, or lost during transit for"
+  main_package: 4
+styles:
+  - css/checkout-brand.css
 scripts:
   - js/checkout.js
   - js/checkout-shop.js
@@ -30,7 +25,7 @@ scripts:
             <div class="checkout__layout">
               <div class="checkout__column checkout__column--left">
                 <div class="checkout__form-container checkout__form-container--main">
-                  <div class="checkout-header__brand justify-center hide"><img src="{{ 'images/next-logo.png' | campaign_asset }}" loading="eager" alt="{{ campaign.store_name }}" class="brand-logo"></div>
+                  <div class="checkout-header__brand justify-center hide"><img src="{{ 'images/landing/vc/logo-lg.png' | campaign_asset }}" loading="eager" alt="VitaeCharm" class="brand-logo"></div>
                   <div class="order-summary-mobile">
                     <div data-initial-state="closed" data-next-accordion="order-summary" data-open-text="Hide Order Summary" data-close-text="Show Order Summary" data-toggle-class="next-expanded" class="order-summary-mobile__accordion">
                       <div data-next-accordion-trigger="order-summary" class="order-summary__trigger">

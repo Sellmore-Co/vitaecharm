@@ -1,0 +1,27 @@
+/* VitaeCharm checkout branding — matches the body-oil landing page.
+   Overrides next-core.css design tokens: Plus Jakarta Sans + brand blue (#0f75ff). */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Typography — match landing (base-landing.html loads Plus Jakarta Sans) */
+  --_text---font-family--primary: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --_text---font-family--heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Brand blue — match landing tokens.css --brand-primary: #0f75ff */
+  --brand--color--primary: #0f75ff;
+  --brand--color--primary-dark: #0a4fb0;
+  --brand--color--primary-light: #e6f0ff;
+  --brand--color--primary-lighter: #f5f9ff;
+  --brand--color--primary-foreground: #ffffff;
+
+  /* Make the primary CTA (submit button) the bright landing blue, not the default navy */
+  --brand--color--cta-primary: #0f75ff;
+}
+
+/* Ensure the font applies even where next-core sets it on the element directly */
+body,
+.checkout--shop,
+.form-section__title,
+.submit-button {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}

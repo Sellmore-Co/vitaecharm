@@ -8,7 +8,7 @@
         <!-- Image -->
         <div class="w-full md:w-[320px] lg:w-[560px] shrink-0 overflow-hidden rounded-[16px] md:rounded-[20px] lg:rounded-[24px]" style="aspect-ratio: 560/320;">
           <img
-            src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+            src="{{ problemsolution_1_problem_image | default: 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
             alt="{{ problemsolution_1_problem_image_alt }}"
             class="w-full h-full object-cover"
           >
@@ -37,7 +37,7 @@
         <!-- Image -->
         <div class="w-full md:w-[320px] lg:w-[560px] shrink-0 overflow-hidden rounded-[16px] md:rounded-[20px] lg:rounded-[24px]" style="aspect-ratio: 560/320;">
           <img
-            src="{{ 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
+            src="{{ problemsolution_1_solution_image | default: 'images/landing/_shared/1x1_1.svg' | campaign_asset }}"
             alt="{{ problemsolution_1_solution_image_alt }}"
             class="w-full h-full object-cover object-right"
           >

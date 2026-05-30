@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss -i ./src/vitaecharm/assets/css/landing/tailwind.src.css -o ./src/vitaecharm/assets/css/landing/tailwind.css --minify",
     "setup": "campaign-init",
     "start": "campaign-start",
     "dev": "campaign-dev",
-    "build": "campaign-build",
+    "build": "npm run build:css && campaign-build",
     "clone": "campaign-clone",
     "config": "campaign-config",
     "compress": "campaign-compress",
@@ -21,5 +22,8 @@
   "type": "commonjs",
   "dependencies": {
     "next-campaign-page-kit": "^0.1.3"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
   }
 }

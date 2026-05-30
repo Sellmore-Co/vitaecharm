@@ -32,11 +32,12 @@
     return GIFTS.filter(function (g) { return state.tier >= g.minTier; }).map(function (g) { return g.pkg; });
   }
 
-  // Free Body Oil bottles bundled into the multi-buy tiers. Added as package 2
-  // ("Buy 1 Body Oil - Subscribe & Save"), which a Campaigns App offer zeroes to FREE
-  // (same pattern as the Mitt/mask gifts).
+  // Free Body Oil bottles bundled into the multi-buy tiers. Added as package 12
+  // ("FREE Body Oil"), a dedicated one-time package the "FREE Body Oil" offer zeroes
+  // to $0. Using a dedicated package (not the Buy-1 package 2) keeps the offer from
+  // affecting the standalone Buy-1 purchase.
   // Buy 2, Get 1 FREE -> tier 2 -> 1 free bottle; Buy 3, Get 2 FREE -> tier 3 -> 2 free bottles.
-  var FREE_BOTTLE_PKG = 2;
+  var FREE_BOTTLE_PKG = 12;
   var FREE_BOTTLE_QTY = { 1: 0, 2: 1, 3: 2 };
 
   var state = { tier: 1, mode: 'sub' };

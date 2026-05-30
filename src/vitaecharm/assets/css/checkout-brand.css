@@ -104,3 +104,21 @@ body,
   font-weight: 600;
 }
 .order-totals__savings-icon { color: #2ca01c; }
+
+/* Recurring vs one-time labels + subscription terms line under cart items.
+   Visibility is driven by the {item.isRecurring} token ("true"/"false") rendered
+   into the class name — data-next-show does not evaluate item.* tokens inside
+   data-summary-lines templates in this SDK build. Matches Shopify checkout. */
+.cart-item__freq,
+.cart-item__sub-terms { display: none; }
+.cart-item__freq--true { display: inline; }
+.cart-item__sub-terms--true { display: block; }
+.cart-item__onetime--true { display: none; }
+.cart-item__onetime--false { display: inline; }
+.cart-item__sub-terms {
+  margin-top: 2px;
+  line-height: 1.35;
+}
+.cart-item__sub-freq {
+  text-transform: lowercase;
+}

@@ -31,9 +31,10 @@
                       <div class="cart-item__title">{item.name}</div>
                     </div>
                     <div class="cart-item__frequency">
-                      <span data-next-show="item.isRecurring" style="display:none">{item.frequency}</span>
-                      <span data-next-hide="item.isRecurring">One-time purchase</span>
+                      <span class="cart-item__freq cart-item__freq--{item.isRecurring}">{item.frequency}</span>
+                      <span class="cart-item__onetime cart-item__onetime--{item.isRecurring}">One-time purchase</span>
                     </div>
+                    <div class="cart-item__sub-terms cart-item__sub-terms--{item.isRecurring} text-2xs text-muted text-weight-normal">First payment {item.price}, then {item.recurringPrice} <span class="cart-item__sub-freq">{item.frequency}</span></div>
                     <div class="hide">
                       <div class="text-2xs text-muted text-weight-normal diagonal-strike {item.hasDiscount}">{item.originalUnitPrice}/ea</div>
                       <div class="text-2xs text-muted text-weight-normal">{item.unitPrice}/ea</div>

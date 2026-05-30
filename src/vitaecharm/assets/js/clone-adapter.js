@@ -246,6 +246,25 @@
       goTo(0);
     })();
 
+    // Content carousels (Natural 9 Oils, Before & Afters reviews) — generic .pf-slider tracks
+    // whose PageFly slider JS was stripped. Wire prev/next arrows to scroll one slide.
+    [].slice.call(document.querySelectorAll('.pf-slider')).forEach(function (track) {
+      var slides = [].slice.call(track.children).filter(function (c) { return c.classList.contains('pf-slide'); });
+      if (slides.length < 2) return;
+      function cur() {
+        var sl = track.scrollLeft, b = 0, bd = Infinity;
+        slides.forEach(function (s, i) { var d = Math.abs(s.offsetLeft - track.offsetLeft - sl); if (d < bd) { bd = d; b = i; } });
+        return b;
+      }
+      function go(i) {
+        i = Math.max(0, Math.min(slides.length - 1, i));
+        track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+      }
+      var prev = track.querySelector('.pf-slider-prev'), next = track.querySelector('.pf-slider-next');
+      if (prev) prev.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); go(cur() - 1); }, true);
+      if (next) next.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); go(cur() + 1); }, true);
+    });
+
     // ADD TO CART — stable id first, text fallback
     atcEls = [].slice.call(document.querySelectorAll('#add-to-cart-custom, [id^="add-to-cart"]'));
     [].slice.call(document.querySelectorAll('a, button')).forEach(function (e) {

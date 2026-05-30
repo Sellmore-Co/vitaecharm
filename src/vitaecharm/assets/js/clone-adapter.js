@@ -203,6 +203,49 @@
       toggleAccordion(head);
     }, true);
 
+    // Product gallery — PageFly media slider (main scroll-track + thumbnail strip).
+    // Re-wire prev/next arrows and thumbnail clicks to scroll the main track.
+    (function setupGallery() {
+      var sliders = [].slice.call(document.querySelectorAll('.pf-media-slider'));
+      if (!sliders.length) return;
+      var main = sliders[0];
+      var slides = [].slice.call(main.querySelectorAll('.pf-slide-main-media'));
+      if (slides.length < 2) return;
+      var thumbStrip = sliders[1];
+      var thumbs = thumbStrip ? [].slice.call(thumbStrip.querySelectorAll('.pf-slide-list-media')) : [];
+
+      function curIndex() {
+        var sl = main.scrollLeft, best = 0, bestD = Infinity;
+        slides.forEach(function (s, i) {
+          var d = Math.abs(s.offsetLeft - sl);
+          if (d < bestD) { bestD = d; best = i; }
+        });
+        return best;
+      }
+      function goTo(i) {
+        i = Math.max(0, Math.min(slides.length - 1, i));
+        main.scrollTo({ left: slides[i].offsetLeft, behavior: 'smooth' });
+        thumbs.forEach(function (t, j) { t.classList.toggle('active', j === i); });
+      }
+
+      var prev = main.querySelector('.pf-slider-prev');
+      var next = main.querySelector('.pf-slider-next');
+      if (prev) prev.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); goTo(curIndex() - 1); }, true);
+      if (next) next.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); goTo(curIndex() + 1); }, true);
+
+      thumbs.forEach(function (t, i) {
+        t.style.cursor = 'pointer';
+        t.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); goTo(i); }, true);
+      });
+      // keep active thumb in sync while the user swipes the main track
+      var raf;
+      main.addEventListener('scroll', function () {
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = null; var i = curIndex(); thumbs.forEach(function (t, j) { t.classList.toggle('active', j === i); }); });
+      }, { passive: true });
+      goTo(0);
+    })();
+
     // ADD TO CART — stable id first, text fallback
     atcEls = [].slice.call(document.querySelectorAll('#add-to-cart-custom, [id^="add-to-cart"]'));
     [].slice.call(document.querySelectorAll('a, button')).forEach(function (e) {

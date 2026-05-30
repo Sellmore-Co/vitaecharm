@@ -65,10 +65,18 @@
       a.classList.toggle('active', state.tier === t); // theme's native selected border
       var now = a.querySelector('.now');
       var was = a.querySelector('.was');
-      var eachStr = money(tierEach(t, state.mode));
-      if (now && eachStr) now.textContent = eachStr + '/each';
-      // Compare price only applies to Subscribe & Save; one-time = "NO SAVINGS".
-      if (was) was.style.display = (state.mode === 'sub') ? '' : 'none';
+      if (state.mode === 'sub') {
+        // Subscribe & Save: dynamic sale per-each (from the API) + strikethrough compare.
+        var eachStr = money(tierEach(t, 'sub'));
+        if (now && eachStr) now.textContent = eachStr + '/each';
+        if (was) was.style.display = '';
+      } else {
+        // Straight sale (one-time): per-each = the tier's standard price (the compare anchor),
+        // no strikethrough. These marketing per-each figures ($38/$26/$23) live in the .was span.
+        var w = was ? ((was.textContent.match(/\$[\d.,]+/) || [''])[0]) : '';
+        if (now && w) now.textContent = w + '/each';
+        if (was) was.style.display = 'none';
+      }
     });
     var totalStr = money(tierTotal(state.tier, state.mode));
     if (totalStr) atcEls.forEach(function (a) {

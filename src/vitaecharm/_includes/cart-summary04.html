@@ -1,3 +1,4 @@
+<div class="order-summary-wrap">
 <div data-next-catalog-component="order-summary" class="summary-wrapper" data-next-cart-summary>
   <template>
     <div class="order-summary">
@@ -90,39 +91,6 @@
         </div>
       </div>
 
-      <div class="order-totals__section os-cart-summary-row--discount">
-        <div class="order-totals__line">
-          <div class="order-totals__label-group">
-            <div class="order-totals__label">Today You Saved</div>
-            <div class="badge badge--small">
-              <div class="label__wrapper cc-sm">
-                <div class="badge__text"><span data-next-display="cart.totalDiscountPercentage"></span> OFF</div>
-              </div>
-            </div>
-          </div>
-          <div class="order-totals__value-group">
-            <div class="order-totals__label">Discount:</div>
-            <div class="order-totals__value">{discounts}</div>
-          </div>
-        </div>
-        <!-- Coupon tag badge — uncomment to show applied coupon code below the savings row.
-        <div class="coupon-tags" data-next-show="cart.hasCoupon" style="display:none">
-          <div class="order-totals__line items-center">
-            <div class="cart-subtext">Code applied</div>
-            <div data-next-discounts="voucher">
-              <template>
-                <div class="badge badge--small">
-                  <div class="label__wrapper cc-sm">
-                    <div class="badge__text">{discount.description}</div>
-                  </div>
-                </div>
-              </template>
-            </div>
-          </div>
-        </div>
-        -->
-      </div>
-
       <!-- Tax: {tax} token not wired in CartSummaryEnhancer (BS-017) — kept hidden -->
       <div class="order-totals__section hide">
         <div class="order-totals__line">
@@ -144,7 +112,7 @@
 
       <div class="order-totals__section cc-total">
         <div class="order-totals__line order-totals__line--total">
-          <div class="order-totals__label order-totals__label--total">Grand Total:</div>
+          <div class="order-totals__label order-totals__label--total">Total</div>
           <div class="order-totals__value-group">
             <div class="summary-total__coin">{currency}</div>
             <div class="order-totals__value order-totals__value--total">{total}</div>
@@ -157,7 +125,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="m10.802 15.686 5.367-5.368a.15.15 0 0 0 .046-.109V4.144m-2.998-.95h-5.67a.16.16 0 0 0-.11.046L1.779 8.897a.154.154 0 0 0 0 .219l5.594 5.593c.06.06.158.06.218 0l5.658-5.657a.15.15 0 0 0 .045-.11v-5.67a.077.077 0 0 0-.077-.077Zm-3.06 3.749a.643.643 0 1 1-1.286 0 .643.643 0 0 1 1.286 0m-.648-.005h.01v.01h-.01z"></path>
               </svg>
             </div>
-            <div class="order-totals__savings-text">TODAY YOU SAVED <span>{discounts}</span></div>
+            <div class="order-totals__savings-text">TOTAL SAVINGS <span>{discounts}</span></div>
           </div>
         </div>
       </div>
@@ -168,21 +136,24 @@
     </div>
 
   </template>
+</div><!-- /[data-next-cart-summary] -->
 
-  <!-- Coupon form — sits outside <template> so it is not rebuilt on every cart update -->
+  <!-- Coupon form — sits OUTSIDE [data-next-cart-summary] so the CartSummaryEnhancer
+       innerHTML render cannot wipe it. data-next-coupon is a global enhancer and
+       still updates the summary from here. CSS order:-1 floats it to the top. -->
   <div data-next-hide="cart.isEmpty" class="coupon-section" data-next-await>
     <div class="coupon-form">
-      <div data-auto-apply="true" data-next-coupon="input" data-placeholder="Promo code (optional)" data-button-text="Apply" class="coupon-form__row">
+      <div data-auto-apply="true" data-next-coupon="input" data-placeholder="Discount code" data-button-text="Apply" class="coupon-form__row">
         <div class="form-group">
           <div class="form-input">
-            <input name="coupon" data-name="Coupon Code" type="text" placeholder="Promo code (optional)" class="input-flds">
+            <input name="coupon" data-name="Coupon Code" type="text" placeholder="Discount code" class="input-flds">
           </div>
         </div>
         <button class="coupon-button next-disabled">
-          <div>APPLY</div>
+          <div>Apply</div>
         </button>
       </div>
     </div>
   </div>
 
-</div>
+</div><!-- /.order-summary-wrap -->

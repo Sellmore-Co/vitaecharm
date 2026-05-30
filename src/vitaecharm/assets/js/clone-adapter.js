@@ -79,12 +79,13 @@
       if (!a) return;
       a.classList.toggle('nx-tier-selected', state.tier === t);
       var eachStr = money(tierEach(t, state.mode));
-      if (eachStr) {
-        var leaves = priceLeaves(a);
-        if (leaves.length) {
-          var leaf = leaves[leaves.length - 1]; // red "each" price is the last $-leaf
-          leaf.textContent = leaf.textContent.replace(/\$[\d.,]+/, eachStr);
-        }
+      var leaves = priceLeaves(a);
+      if (leaves.length) {
+        var each = leaves[leaves.length - 1]; // red "each" price is the last $-leaf
+        if (eachStr) each.textContent = each.textContent.replace(/\$[\d.,]+/, eachStr);
+        // The strikethrough compare price is only meaningful for Subscribe & Save.
+        // One-time = "NO SAVINGS", so hide the compare (matches the original).
+        if (leaves.length >= 2) leaves[0].style.display = (state.mode === 'sub') ? '' : 'none';
       }
     });
     // ATC total = live package total for the selected tier+mode

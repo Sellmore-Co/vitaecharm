@@ -32,6 +32,13 @@
     return GIFTS.filter(function (g) { return state.tier >= g.minTier; }).map(function (g) { return g.pkg; });
   }
 
+  // Free Body Oil bottles bundled into the multi-buy tiers. Added as package 2
+  // ("Buy 1 Body Oil - Subscribe & Save"), which a Campaigns App offer zeroes to FREE
+  // (same pattern as the Mitt/mask gifts).
+  // Buy 2, Get 1 FREE -> tier 2 -> 1 free bottle; Buy 3, Get 2 FREE -> tier 3 -> 2 free bottles.
+  var FREE_BOTTLE_PKG = 2;
+  var FREE_BOTTLE_QTY = { 1: 0, 2: 1, 3: 2 };
+
   var state = { tier: 1, mode: 'sub' };
   var tierAnchors = {};
   var atcEls = [];
@@ -122,25 +129,56 @@
     if (fg) { fg.classList.toggle('is-locked', state.tier < 2); fg.classList.toggle('is-unlocked', state.tier >= 2); }
   }
 
-  function select(t) { state.tier = t; render(); }
+  // Selecting a tier (or toggling sub/once) loads that selection into the live cart so it can be
+  // inspected in the debug cart before checkout. render() updates the UI; syncCart() the cart.
+  function select(t) { state.tier = t; render(); syncCart(); }
 
-  // Build the package set for the current selection: main tier package + unlocked free gifts.
+  // Build the package set for the current selection, as {packageId, quantity} items:
+  // main tier package, the free Body Oil bottle(s) for that tier, then unlocked free gifts.
   function selectionPkgs() {
-    return [tierPkg(state.tier, state.mode)].concat(unlockedGiftPkgs());
+    var items = [{ packageId: tierPkg(state.tier, state.mode), quantity: 1 }];
+    var freeQty = FREE_BOTTLE_QTY[state.tier] || 0;
+    // Only add the free bottle(s) if the package actually exists in the campaign data,
+    // otherwise addItem() throws ("Package N not found") and breaks the whole add-to-cart.
+    if (freeQty > 0 && pkgPrice(FREE_BOTTLE_PKG) != null) {
+      items.push({ packageId: FREE_BOTTLE_PKG, quantity: freeQty });
+    }
+    unlockedGiftPkgs().forEach(function (p) { items.push({ packageId: p, quantity: 1 }); });
+    return items;
   }
 
-  function go(ids) {
-    var forceUrl = CHECKOUT + '?forcePackageId=' + ids.map(function (i) { return i + ':1'; }).join(',');
-    function store() {
-      return (window.NextCommerce && typeof window.NextCommerce.useCartStore === 'function')
-        ? window.NextCommerce.useCartStore.getState() : null;
-    }
-    var cs = store();
-    if (!cs || typeof cs.addItem !== 'function') { window.location.href = forceUrl; return; }
+  function cartStore() {
+    return (window.NextCommerce && typeof window.NextCommerce.useCartStore === 'function')
+      ? window.NextCommerce.useCartStore.getState() : null;
+  }
+
+  // Clear the cart and add the current selection. Returns a promise.
+  // syncSeq guards against rapid card clicks: a newer call supersedes an in-flight one.
+  var syncSeq = 0;
+  function loadCart() {
+    var cs = cartStore();
+    if (!cs || typeof cs.addItem !== 'function') return Promise.reject(new Error('no cart store'));
+    var seq = ++syncSeq;
+    var items = selectionPkgs();
     var chain = Promise.resolve(cs.clear());
-    ids.forEach(function (id) { chain = chain.then(function () { return store().addItem({ packageId: id, quantity: 1 }); }); });
-    chain.then(function () { window.location.href = CHECKOUT; })
-         .catch(function () { window.location.href = forceUrl; });
+    items.forEach(function (it) {
+      chain = chain.then(function () {
+        if (seq !== syncSeq) return;           // superseded by a newer selection
+        return cartStore().addItem({ packageId: it.packageId, quantity: it.quantity });
+      });
+    });
+    return chain;
+  }
+
+  function syncCart() { loadCart().catch(function () {}); }
+
+  function go() {
+    var items = selectionPkgs();
+    var forceUrl = CHECKOUT + '?forcePackageId=' +
+      items.map(function (i) { return i.packageId + ':' + i.quantity; }).join(',');
+    if (!cartStore() || typeof cartStore().addItem !== 'function') { window.location.href = forceUrl; return; }
+    loadCart().then(function () { window.location.href = CHECKOUT; })
+              .catch(function () { window.location.href = forceUrl; });
   }
 
   function isATC(el) {
@@ -255,6 +293,7 @@
           state.mode = state.mode === 'sub' ? 'once' : 'sub';
           el.textContent = state.mode === 'once' ? 'SUBSCRIBE & SAVE →' : 'BUY ONCE - NO SAVINGS →';
           render();
+          syncCart();
         }, true);
       }
     });
@@ -323,7 +362,7 @@
       if (/ADD TO CART/i.test(e.textContent || '') && atcEls.indexOf(e) === -1) atcEls.push(e);
     });
     atcEls.forEach(function (a) {
-      a.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); go(selectionPkgs()); }, true);
+      a.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); go(); }, true);
     });
 
     // Render now, and again once the campaign store has loaded live prices.

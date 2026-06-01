@@ -133,3 +133,27 @@ body,
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
+
+/* Side-cart line order. The SDK renders summary lines by ascending package id,
+   which puts a free gift (Mitt, id 3) above the main product and the free bonus
+   bottle (id 12) last. [data-summary-lines] is the direct parent of the line
+   elements, so flex `order` reflows them: main product -> free bonus -> gifts.
+   The <template> child is display:none and does not participate in flex layout. */
+[data-summary-lines] {
+  display: flex;
+  flex-direction: column;
+}
+/* Main paid Body Oil packages lead (subscribe: 2/4/5, one-time: 9/10/11) */
+[data-summary-lines] [data-package-id="2"],
+[data-summary-lines] [data-package-id="4"],
+[data-summary-lines] [data-package-id="5"],
+[data-summary-lines] [data-package-id="9"],
+[data-summary-lines] [data-package-id="10"],
+[data-summary-lines] [data-package-id="11"] { order: 0; }
+/* Free bonus Body Oil bottle directly under the main product */
+[data-summary-lines] [data-package-id="12"] { order: 1; }
+/* Free gifts last (Mitt 3, Sleep Mask 6, Nail Oil 7, Collagen 8) */
+[data-summary-lines] [data-package-id="3"],
+[data-summary-lines] [data-package-id="6"],
+[data-summary-lines] [data-package-id="7"],
+[data-summary-lines] [data-package-id="8"] { order: 2; }

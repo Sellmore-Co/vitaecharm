@@ -157,3 +157,9 @@ body,
 [data-summary-lines] [data-package-id="6"],
 [data-summary-lines] [data-package-id="7"],
 [data-summary-lines] [data-package-id="8"] { order: 2; }
+
+/* Footer policy links wrap on narrow screens. next-core sets flex-wrap: nowrap,
+   so on mobile "Terms of service" and "Cancellations" were clipped off the right
+   edge (unreachable). Wrapping lets all five links flow onto a second line; no-op
+   on desktop where they already fit on one row. */
+.checkout-footer-links { flex-wrap: wrap; }

@@ -163,3 +163,37 @@ body,
    edge (unreachable). Wrapping lets all five links flow onto a second line; no-op
    on desktop where they already fit on one row. */
 .checkout-footer-links { flex-wrap: wrap; }
+
+/* Estimated-taxes info tooltip. The SDK TooltipEnhancer only enhances nodes
+   present at init; CartSummaryEnhancer re-renders the summary innerHTML
+   afterwards, so [data-next-tooltip] inside the summary never attaches.
+   Pure-CSS tooltip survives re-renders; tabindex on the icon makes it work
+   for keyboard focus and mobile tap, not just hover. Scoped to .order-totals
+   so SDK-managed tooltips elsewhere are untouched. */
+.order-totals .info-icons[data-next-tooltip] { position: relative; cursor: help; outline: none; }
+.order-totals .info-icons[data-next-tooltip]::after {
+  content: attr(data-next-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 230px;
+  padding: 8px 10px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.45;
+  border-radius: 6px;
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+  z-index: 30;
+  pointer-events: none;
+}
+.order-totals .info-icons[data-next-tooltip]:hover::after,
+.order-totals .info-icons[data-next-tooltip]:focus::after {
+  opacity: 1;
+  visibility: visible;
+}

@@ -1,114 +1,342 @@
-/* VitaeCharm checkout branding — matches the body-oil landing page.
-   Overrides next-core.css design tokens: Plus Jakarta Sans + brand blue (#0f75ff). */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+/* VitaeCharm checkout branding — Shopify-checkout parity skin.
+   Every value in this file is taken from computed styles captured on the live
+   Shopify checkout at vitaecharm.com (2026-06-11). Skin/CSS only: no SDK hooks,
+   Spreedly fields, or cart-summary token templates are altered.
+
+   Shopify reference tokens:
+     font        -apple-system system stack (Shopify uses no webfont on checkout)
+     border      #dedede 1px           muted text   #707070 / #666
+     summary bg  #f5f5f5               link text    #444 underlined
+     pay button  #59c01b, 52px, r8     inputs       47px, r8, focus 1.5px #000
+     headings    21px/600              body/labels  14px/400                  */
 
 :root {
-  /* Typography — match landing (base-landing.html loads Plus Jakarta Sans) */
-  --_text---font-family--primary: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --_text---font-family--heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  /* System font stack — matches Shopify checkout exactly */
+  --_text---font-family--primary: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --_text---font-family--heading: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  /* Brand blue — match landing tokens.css --brand-primary: #0f75ff */
+  /* Brand blue kept for accents the Shopify checkout doesn't surface (links etc.) */
   --brand--color--primary: #0f75ff;
   --brand--color--primary-dark: #0a4fb0;
   --brand--color--primary-light: #e6f0ff;
   --brand--color--primary-lighter: #f5f9ff;
   --brand--color--primary-foreground: #ffffff;
+  --brand--color--cta-primary: #59c01b;
 
-  /* Make the primary CTA (submit button) the bright landing blue, not the default navy */
-  --brand--color--cta-primary: #0f75ff;
+  /* Shopify border + input radius */
+  --brand--color--border: #dedede;
+  --radius--input: 8px;
+  --radius--button: 8px;
 }
 
-/* Ensure the font applies even where next-core sets it on the element directly */
 body,
 .checkout--shop,
 .form-section__title,
 .submit-button {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* ============================================================
-   Shopify-checkout skin — match vitaecharm.com Shopify checkout.
-   Skin/CSS only: no SDK hooks, Spreedly fields, or cart-summary
-   token templates are altered. See plan + build/polish doctrine.
+   Header — Shopify renders the same 800×200 brand image at 300px
    ============================================================ */
+.checkout--shop .checkout-header--lg {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #dedede;
+}
+.checkout--shop .checkout-header__brand .brand-logo {
+  max-width: 300px !important; /* beats the legacy inline style */
+}
 
-/* --- Primary CTA: green "Pay now" button (Shopify) --- */
-.submit-button {
-  background-color: #2ec01a;
-  border-color: #2ec01a;
-  min-height: 3.25rem;        /* Shopify single-line button height */
+/* ============================================================
+   Typography — section titles and labels
+   ============================================================ */
+.checkout--shop .form-section__title {
+  font-size: 1.3125rem;   /* 21px */
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #000;
 }
-.submit-button:hover {
-  background-color: #28a817;
-  border-color: #28a817;
+.checkout--shop .form-section__subtitle {
+  color: #707070;
+  font-size: .875rem;
 }
-.submit-button__main-text {
-  font-size: var(--font-size--base);
+
+/* ============================================================
+   Two-column layout — divider + section rhythm
+   ============================================================ */
+.checkout--shop .checkout__column.checkout__column--left {
+  border-right-width: 1px;
+  border-right-color: #dedede;
+}
+/* Shopify form column content is 499px wide */
+.checkout--shop .checkout__form-container--main {
+  max-width: 34rem;
+}
+/* ~38px between Contact / Delivery / Payment blocks (Shopify rhythm) */
+.checkout--shop .form-sections {
+  grid-row-gap: 2.375rem;
+  row-gap: 2.375rem;
+}
+/* Shopify field grid uses 14px gaps */
+.checkout--shop .form-section,
+.checkout--shop .form-grid {
+  grid-column-gap: .875rem;
+  grid-row-gap: .875rem;
+}
+
+/* ============================================================
+   Inputs — 47px, 1px #dedede, r8, grey placeholder, black focus ring
+   ============================================================ */
+.checkout--shop .input-flds {
+  height: 2.9375rem;            /* 47px */
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  font-size: .875rem;
+  color: #000;
+}
+.checkout--shop .input-flds::placeholder {
+  color: #707070;
+  font-size: .875rem;
+}
+/* Shopify focus = 1.5px solid #000 ring, no colored glow */
+.checkout--shop .input-flds:focus,
+.checkout--shop .input-flds.next-focused,
+.checkout--shop .input-flds.select-field:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 .75px #000;
+}
+
+/* Floating mini-label above value (Country / State) — Shopify grey 12px */
+.checkout--shop .label-checkout {
+  color: #707070;
+}
+
+/* ============================================================
+   Checkboxes — 18px, r4, black checked state
+   ============================================================ */
+.checkout--shop .checkbox__input {
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 4px !important;
+  accent-color: #000;
+}
+.checkout--shop .checkbox__label {
+  font-size: .875rem;
+}
+
+/* ============================================================
+   Express checkout + OR divider
+   ============================================================ */
+.checkout--shop .express-checkout__title {
+  color: #707070;
+  font-weight: 400;
+  font-size: .875rem;
+}
+.checkout--shop .divider-section__line-v2 { background-color: #dedede; }
+.checkout--shop .divider-section__text-v2 {
+  color: #707070;
+  font-size: .875rem;
+}
+
+/* ============================================================
+   Payment section — bordered group, grey selected header, 38px icons
+   ============================================================ */
+.checkout--shop .payment-methods {
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+}
+.checkout--shop .payment-method {
+  border-bottom: 1px solid #dedede;
+}
+.checkout--shop .payment-method:last-child {
+  border-bottom: none;
+}
+/* Shopify: only the header row of the active method is tinted (#f6f6f6) */
+.checkout--shop .payment-method.next-selected {
+  background-color: #fff;
+}
+.checkout--shop .payment-method.next-selected .payment-method__header {
+  background-color: #f6f6f6;
+  border-radius: 0;
+}
+.checkout--shop .payment-method__title {
+  font-size: .875rem;
+}
+.checkout--shop .payment-method__input {
+  accent-color: #000;
+  width: 1.125rem;
+  height: 1.125rem;
+}
+/* Card brand icons: Shopify renders 38×24 with consistent vertical alignment */
+.checkout--shop .payment-method__icons {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+.checkout--shop .payment-method__icon {
+  width: 38px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Single MM/YY expiration input (visible) — hidden exp-month/exp-year fields
+   feed the SDK; see checkout-shop.js. Error styling lands on the shared
+   .form-input wrapper, so the visible field shows SDK validation states. */
+.checkout--shop .form-input .cc-exp-display { width: 100%; }
+/* SDK validation marks the .form-group (has-error) — mirror the red state
+   onto the visible MM/YY input since the SDK-known fields are hidden */
+.checkout--shop .form-group.has-error .cc-exp-display {
+  border-color: #c51a00;
+  box-shadow: 0 0 0 1px #c51a00;
+}
+
+/* ============================================================
+   Pay button — Shopify green, 52px, r8, 14px/600
+   ============================================================ */
+.checkout--shop .submit-button {
+  background-color: #59c01b;
+  border-color: #59c01b;
+  min-height: 3.25rem;           /* 52px */
+  border-radius: 8px;
+}
+.checkout--shop .submit-button:hover {
+  background-color: #4daa15;
+  border-color: #4daa15;
+}
+.checkout--shop .submit-button__main-text {
+  font-size: .875rem;
   font-weight: 600;
   letter-spacing: 0;
 }
-
-/* --- Express checkout title (Shopify: muted, centered, regular) --- */
-.express-checkout__title {
-  color: #545454;
-  font-weight: 500;
-  font-size: var(--font-size--sm);
+.checkout--shop .submit-section__disclaimer {
+  color: #707070;
+  font-size: .875rem;
 }
 
-/* --- Section titles: Shopify uses a calm ~1.125rem weight-600 heading --- */
-.form-section__title {
-  font-weight: 600;
-}
-
-/* --- Order summary panel → Shopify layout --- */
-/* Shopify shows no "Order Summary" heading in the panel */
-[data-next-cart-summary] .order-summary__title {
-  display: none;
-}
-/* Stack panel children so the discount-code row can sit at the top.
-   coupon-section lives OUTSIDE [data-next-cart-summary] (the SDK render
-   target) so it survives CartSummaryEnhancer innerHTML rebuilds. */
+/* ============================================================
+   Order summary — Shopify order: items → discount code → totals.
+   The coupon form must live OUTSIDE [data-next-cart-summary] (the SDK
+   render target wipes its own innerHTML), so we flatten the rendered
+   wrappers with display:contents and reorder the three blocks with flex.
+   ============================================================ */
 .order-summary-wrap {
   display: flex;
   flex-direction: column;
 }
-.order-summary-wrap .coupon-section {
-  order: -1;
-  margin-bottom: 1.25rem;
+.order-summary-wrap .summary-wrapper,
+.order-summary-wrap .order-summary,
+.order-summary-wrap .order-summary__content {
+  display: contents;
+}
+.order-summary-wrap .cart-items   { order: 0; }
+.order-summary-wrap .coupon-section { order: 1; margin: 1.25rem 0; }
+.order-summary-wrap .order-totals { order: 2; }
+
+/* Shopify shows no "Order Summary" heading in the panel */
+[data-next-cart-summary] .order-summary__title {
+  display: none;
 }
 
-/* Discount code row — Shopify: input + neutral grey "Apply" button */
+/* Summary panel width ≈ Shopify (400px content) */
+.checkout--shop .summary-holder {
+  max-width: 26rem;
+}
+
+/* --- Cart item rows --- */
+[data-summary-lines] .cart-item { margin-bottom: .875rem; }
+.checkout--shop .cart-item__title {
+  font-size: .875rem;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.5;
+}
+.checkout--shop .cart-item__frequency,
+.checkout--shop .cart-item__sub-terms {
+  color: #666;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+/* Line price: Shopify 14px regular (not bold) */
+.checkout--shop .checkout__line-item__final-price {
+  font-size: .875rem;
+  font-weight: 400;
+  color: #000;
+}
+.checkout--shop .cart-price.price--original {
+  font-size: .75rem;
+  color: #666;
+}
+/* Thumbnails: 64px, r12, grey product backdrop, no hard border */
+.checkout--shop .cart-item__image-container {
+  border: none;
+  border-radius: 12px;
+  background-color: #ededed;
+}
+.checkout--shop .cart-item__image {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background-color: #ededed;
+  object-fit: cover;
+}
+
+/* --- Discount code row — input + neutral grey "Apply" (Shopify) --- */
 .coupon-button {
-  background-color: #e5e5e5;
-  border-color: #e5e5e5;
-  color: #333;
+  background-color: #ededed;
+  border-color: #ededed;
+  color: #000;
+  font-size: .875rem;
   font-weight: 600;
+  border-width: 1px;
+  border-radius: 8px;
 }
 .coupon-button:hover {
-  background-color: #d8d8d8;
-  border-color: #d8d8d8;
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
 }
 
-/* Total row — Shopify shows "USD" in a smaller muted style before the amount */
-.summary-total__coin {
-  color: #545454;
-  font-size: var(--font-size--sm);
-  font-weight: 500;
-  margin-right: .35rem;
+/* --- Totals --- */
+.checkout--shop .order-totals__label,
+.checkout--shop .order-totals__value {
+  font-size: .875rem;
+  color: #000;
 }
-
-/* TOTAL SAVINGS row — Shopify green emphasis */
-.order-totals__savings,
-.order-totals__savings-text {
-  color: #2ca01c;
+.checkout--shop .order-totals__line.order-totals__line--total {
+  font-size: 1.1875rem;          /* 19px */
   font-weight: 600;
 }
-.order-totals__savings-icon { color: #2ca01c; }
+.checkout--shop .order-totals__label--total,
+.checkout--shop .order-totals__value--total {
+  font-size: 1.1875rem;
+  font-weight: 600;
+}
+/* "USD" prefix before the amount — 12px muted */
+.summary-total__coin {
+  color: #707070;
+  font-size: .75rem;
+  font-weight: 400;
+  margin-right: .35rem;
+}
+/* TOTAL SAVINGS — Shopify renders this black 14px/600 with a tag icon */
+.order-totals__savings,
+.order-totals__savings-text {
+  color: #000;
+  font-size: .875rem;
+  font-weight: 600;
+}
+.order-totals__savings-icon { color: #000; }
 
-/* Recurring vs one-time labels + subscription terms line under cart items.
-   Visibility is driven by the {item.isRecurring} token ("true"/"false") rendered
-   into the class name — data-next-show does not evaluate item.* tokens inside
-   data-summary-lines templates in this SDK build. Matches Shopify checkout. */
+/* ============================================================
+   Recurring vs one-time labels + subscription terms (unchanged logic).
+   Visibility is driven by the {item.isRecurring} token ("true"/"false")
+   rendered into the class name — data-next-show does not evaluate item.*
+   tokens inside data-summary-lines templates in this SDK build.
+   ============================================================ */
 .cart-item__freq,
 .cart-item__sub-terms { display: none; }
 .cart-item__freq--true { display: inline; }
@@ -123,7 +351,10 @@ body,
   text-transform: lowercase;
 }
 
-/* Mobile: stop the checkout grid from blowing past the viewport.
+/* ============================================================
+   Mobile — single column + Shopify-style collapsed summary bar
+   ============================================================ */
+/* Stop the checkout grid from blowing past the viewport.
    next-core collapses to a single column at <=991px with `grid-template-columns: 1fr`,
    but a `1fr` track keeps an implicit min-content floor, so a wide child (the
    express-checkout / Apple Pay button) forces the column to ~544px and overflows.
@@ -132,13 +363,56 @@ body,
   .checkout--shop .checkout__layout {
     grid-template-columns: minmax(0, 1fr) !important;
   }
+
+  /* Collapsed bar: full-bleed grey strip with hairline borders, like Shopify's
+     mobile summary (next-core already pulls it edge-to-edge with negative margins) */
+  .checkout--shop .order-summary-mobile {
+    border: none;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    border-radius: 0;
+    background-color: #f5f5f5;
+    overflow: hidden;
+  }
+  /* Shopify's mobile header renders the brand image smaller */
+  .checkout--shop .checkout-header__brand .brand-logo {
+    max-width: 240px !important;
+  }
+  .checkout--shop .checkout-header--lg {
+    padding-top: .875rem;
+    padding-bottom: .875rem;
+  }
+  .checkout--shop .order-summary__trigger {
+    font-size: .875rem;
+    padding: .875rem 1rem;
+  }
+  .checkout--shop .summary-toggle__text { font-size: .875rem; }
+  .checkout--shop .order-summary-mobile .accordion__panel {
+    background-color: #f5f5f5;
+    border-top: 1px solid #dedede;
+  }
+  .checkout--shop .order-summary-mobile .order-summary-wrap {
+    padding: 1rem;
+  }
+  /* Bar prices: total 19px/600, compare-at 12px muted strikethrough */
+  .checkout--shop .summary_price.price--total {
+    font-size: 1.1875rem;
+    font-weight: 600;
+  }
+  .checkout--shop .summary_price.price--crossed {
+    font-size: .75rem;
+    color: #707070;
+  }
 }
 
-/* Side-cart line order. The SDK renders summary lines by ascending package id,
-   which puts a free gift (Mitt, id 3) above the main product and the free bonus
-   bottle (id 12) last. [data-summary-lines] is the direct parent of the line
-   elements, so flex `order` reflows them: main product -> free bonus -> gifts.
-   The <template> child is display:none and does not participate in flex layout. */
+/* ============================================================
+   Side-cart line order (unchanged logic). The SDK renders summary lines by
+   ascending package id, which puts a free gift (Mitt, id 3) above the main
+   product and the free bonus bottle (id 12) last. [data-summary-lines] is the
+   direct parent of the line elements, so flex `order` reflows them:
+   main product -> free bonus -> gifts. Matches the live Shopify cart order.
+   The <template> child is display:none and does not participate in flex layout.
+   ============================================================ */
 [data-summary-lines] {
   display: flex;
   flex-direction: column;
@@ -158,18 +432,30 @@ body,
 [data-summary-lines] [data-package-id="7"],
 [data-summary-lines] [data-package-id="8"] { order: 2; }
 
-/* Footer policy links wrap on narrow screens. next-core sets flex-wrap: nowrap,
-   so on mobile "Terms of service" and "Cancellations" were clipped off the right
-   edge (unreachable). Wrapping lets all five links flow onto a second line; no-op
-   on desktop where they already fit on one row. */
-.checkout-footer-links { flex-wrap: wrap; }
+/* ============================================================
+   Footer links — Shopify: 14px, #444, underlined, above 1px rule
+   ============================================================ */
+.checkout-footer-links {
+  flex-wrap: wrap;             /* keeps all five links reachable on mobile */
+  border-top: 1px solid #dedede;
+  margin-top: 3rem;
+  padding-top: .875rem;
+  font-size: .875rem;
+}
+.checkout-footer-links .link {
+  color: #444;
+  text-decoration: underline;
+}
+.checkout-footer-links .link:hover { color: #000; }
 
-/* Estimated-taxes info tooltip. The SDK TooltipEnhancer only enhances nodes
-   present at init; CartSummaryEnhancer re-renders the summary innerHTML
-   afterwards, so [data-next-tooltip] inside the summary never attaches.
-   Pure-CSS tooltip survives re-renders; tabindex on the icon makes it work
-   for keyboard focus and mobile tap, not just hover. Scoped to .order-totals
-   so SDK-managed tooltips elsewhere are untouched. */
+/* ============================================================
+   Estimated-taxes info tooltip (unchanged logic). The SDK TooltipEnhancer only
+   enhances nodes present at init; CartSummaryEnhancer re-renders the summary
+   innerHTML afterwards, so [data-next-tooltip] inside the summary never
+   attaches. Pure-CSS tooltip survives re-renders; tabindex on the icon makes
+   it work for keyboard focus and mobile tap, not just hover. Scoped to
+   .order-totals so SDK-managed tooltips elsewhere are untouched.
+   ============================================================ */
 .order-totals .info-icons[data-next-tooltip] { position: relative; cursor: help; outline: none; }
 .order-totals .info-icons[data-next-tooltip]::after {
   content: attr(data-next-tooltip);

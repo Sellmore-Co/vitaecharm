@@ -23,30 +23,17 @@
             </div>
           </div>
           <div class="form-grid__row">
+            <!-- Single Shopify-style MM/YY expiration input. The visible field is
+                 formatted by initExpirationInput() (checkout-shop.js), which splits
+                 the value into the hidden exp-month/exp-year fields the SDK reads
+                 (and dispatches change events — the SDK only syncs on events).
+                 Hidden inputs share this .form-input wrapper so SDK validation
+                 errors ("Card has expired" etc.) render against the visible field. -->
             <div class="form-group">
               <div class="form-input">
-                <div class="select-form-wrapper"><select autocomplete="cc-exp-month" data-placeholder="Exp. Month" placeholder="Exp. Month" name="credit_card_exp_month" id="credit_card_exp_month" data-name="Credit Card Exp. Month" data-next-checkout-field="exp-month" class="input-flds select-field">
-                    <option value="">Exp. Month</option>
-                  </select>
-                  <div class="caret-down">
-                    <div class="select-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="2 4.75 7 9.25 12 4.75"></polyline>
-                      </svg></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-input">
-                <div class="select-form-wrapper"><select autocomplete="cc-exp-year" data-placeholder="Exp. Year" placeholder="Exp. Year" name="credit_card_exp_year" id="credit_card_exp_year" data-name="Credit Card Exp. Year" data-next-checkout-field="exp-year" class="input-flds select-field">
-                    <option value="">Exp. Year</option>
-                  </select>
-                  <div class="caret-down">
-                    <div class="select-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="2 4.75 7 9.25 12 4.75"></polyline>
-                      </svg></div>
-                  </div>
-                </div>
+                <input type="text" id="cc-exp-display" inputmode="numeric" autocomplete="cc-exp" placeholder="Expiration date (MM / YY)" maxlength="9" aria-label="Expiration date (MM / YY)" class="input-flds cc-exp-display">
+                <input type="hidden" name="credit_card_exp_month" id="credit_card_exp_month" data-name="Credit Card Exp. Month" data-next-checkout-field="exp-month">
+                <input type="hidden" name="credit_card_exp_year" id="credit_card_exp_year" data-name="Credit Card Exp. Year" data-next-checkout-field="exp-year">
               </div>
             </div>
             <div class="form-group">

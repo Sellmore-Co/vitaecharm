@@ -209,14 +209,23 @@ body,
   border-color: #4daa15;
 }
 .checkout--shop .submit-button__main-text {
-  font-size: .875rem;
+  font-size: 1rem;               /* merchant feedback round 3: match Shopify's larger "Pay now" */
   font-weight: 600;
   letter-spacing: 0;
 }
+/* Disclosure paragraphs sit BELOW the button (Shopify order) */
 .checkout--shop .submit-section__disclaimer {
   color: #707070;
   font-size: .875rem;
+  line-height: 1.5;
+  margin-top: .875rem;
+  text-align: left;            /* Shopify renders the disclosure left-aligned */
 }
+.checkout--shop .submit-section__policy-link {
+  color: inherit;
+  text-decoration: underline;
+}
+.checkout--shop .submit-section__policy-link:hover { color: #000; }
 
 /* ============================================================
    Order summary — Shopify order: items → discount code → totals.
@@ -426,27 +435,125 @@ body,
 [data-summary-lines] [data-package-id="11"] { order: 0; }
 /* Free bonus Body Oil bottle directly under the main product */
 [data-summary-lines] [data-package-id="12"] { order: 1; }
-/* Free gifts last (Mitt 3, Sleep Mask 6, Nail Oil 7, Collagen 8) */
-[data-summary-lines] [data-package-id="3"],
-[data-summary-lines] [data-package-id="6"],
-[data-summary-lines] [data-package-id="7"],
-[data-summary-lines] [data-package-id="8"] { order: 2; }
+/* Free gifts in the live Shopify cart order: Sleep Mask, Nail Oil, Collagen, Mitt */
+[data-summary-lines] [data-package-id="6"] { order: 2; }
+[data-summary-lines] [data-package-id="7"] { order: 3; }
+[data-summary-lines] [data-package-id="8"] { order: 4; }
+[data-summary-lines] [data-package-id="3"] { order: 5; }
+
+/* ============================================================
+   Summary line decoration (merchant feedback round 3) — the wording itself
+   ("FREE", "N bottles", "1X FREE OIL (-$38.00)" tags) is applied by the
+   summary decorator in checkout-shop.js; this block only styles it.
+   ============================================================ */
+/* Free lines show the offer tag instead of "One-time purchase" */
+[data-summary-lines] [data-package-id="3"] .cart-item__onetime,
+[data-summary-lines] [data-package-id="6"] .cart-item__onetime,
+[data-summary-lines] [data-package-id="7"] .cart-item__onetime,
+[data-summary-lines] [data-package-id="8"] .cart-item__onetime,
+[data-summary-lines] [data-package-id="12"] .cart-item__onetime { display: none; }
+.cart-item__bottles {
+  color: #666;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+.cart-item__tag {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  color: #666;
+  font-size: .75rem;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+.cart-item__tag[hidden] { display: none; }
+.cart-item__tag-icon { flex: none; }
+
+/* Recurring subtotal — separated full-width row, label left / terms right */
+.order-totals__section--recurring {
+  border-top: 1px solid #dedede;
+  margin-top: .875rem;
+  padding-top: .875rem;
+}
+.order-totals__section--recurring[hidden] { display: none; }
+.order-totals__section--recurring .order-totals__label-group {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+.order-totals__section--recurring .order-totals__label { white-space: nowrap; }
+.order-totals__section--recurring .js-recurring-value {
+  font-weight: 600;
+  text-align: right;
+}
 
 /* ============================================================
    Footer links — Shopify: 14px, #444, underlined, above 1px rule
    ============================================================ */
 .checkout-footer-links {
-  flex-wrap: wrap;             /* keeps all five links reachable on mobile */
+  flex-wrap: nowrap;           /* merchant feedback round 3: one line */
   border-top: 1px solid #dedede;
   margin-top: 3rem;
   padding-top: .875rem;
-  font-size: .875rem;
+  /* five links must fit the 468px form column on a single line:
+     13px + 8px gaps ≈ 437px used, comfortable margin */
+  font-size: .8125rem;
+  gap: .5rem;
+  justify-content: space-between;
 }
 .checkout-footer-links .link {
   color: #444;
   text-decoration: underline;
+  white-space: nowrap;
 }
 .checkout-footer-links .link:hover { color: #000; }
+/* Five links don't fit one line on small phones — let them wrap there */
+@media screen and (max-width: 479px) {
+  .checkout-footer-links { flex-wrap: wrap; }
+}
+
+/* ============================================================
+   Policy modals — next-core.css ships the .next-page-modal frame
+   (overlay, dialog, open states); this only tunes it for long-form
+   policy text. Opened by the footer links via checkout.js.
+   ============================================================ */
+.policy-modal .next-page-modal__header {
+  padding: 20px 24px 10px;
+  border-bottom: 1px solid #dedede;
+}
+.policy-modal .next-page-modal__title {
+  font-size: 1.3125rem;
+}
+.policy-modal .next-page-modal__content {
+  padding: 16px 24px 24px;
+  max-height: calc(85vh - 70px);
+  font-size: .875rem;
+  line-height: 1.6;
+  color: #333;
+}
+.policy-modal .next-page-modal__dialog { max-height: 85vh; }
+.policy-modal .next-page-modal__content h1,
+.policy-modal .next-page-modal__content h2,
+.policy-modal .next-page-modal__content h3,
+.policy-modal .next-page-modal__content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+  margin: 1.25em 0 .5em;
+}
+.policy-modal .next-page-modal__content p,
+.policy-modal .next-page-modal__content ul,
+.policy-modal .next-page-modal__content ol {
+  margin: 0 0 .75em;
+}
+.policy-modal .next-page-modal__content ul,
+.policy-modal .next-page-modal__content ol {
+  padding-left: 1.25rem;
+}
+.policy-modal .next-page-modal__content a {
+  color: #444;
+  text-decoration: underline;
+}
 
 /* ============================================================
    Estimated-taxes info tooltip (unchanged logic). The SDK TooltipEnhancer only

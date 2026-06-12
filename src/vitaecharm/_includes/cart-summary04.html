@@ -93,7 +93,9 @@
             <div class="order-totals__label">Shipping</div>
           </div>
           <div class="order-totals__value-group">
-            <div class="order-totals__value">{shipping}</div>
+            <!-- js-shipping-value: structural hook for the summary decorator's
+                 subtotal math — do not remove without updating checkout-shop.js -->
+            <div class="order-totals__value js-shipping-value">{shipping}</div>
           </div>
         </div>
       </div>

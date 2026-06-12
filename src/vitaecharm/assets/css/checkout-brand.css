@@ -554,6 +554,12 @@ body,
   color: #444;
   text-decoration: underline;
 }
+.policy-modal .next-page-modal__content a:hover { color: #000; }
+/* 44px tap target on the only dismiss control (next-core default is 36px) */
+.policy-modal .next-page-modal__close {
+  width: 44px;
+  height: 44px;
+}
 
 /* ============================================================
    Estimated-taxes info tooltip (unchanged logic). The SDK TooltipEnhancer only
@@ -564,6 +570,12 @@ body,
    .order-totals so SDK-managed tooltips elsewhere are untouched.
    ============================================================ */
 .order-totals .info-icons[data-next-tooltip] { position: relative; cursor: help; outline: none; }
+/* Enlarge the touch target around the 14px icon without moving it visually */
+.order-totals .info-icons[data-next-tooltip]::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
 .order-totals .info-icons[data-next-tooltip]::after {
   content: attr(data-next-tooltip);
   position: absolute;

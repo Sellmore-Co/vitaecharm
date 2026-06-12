@@ -1,7 +1,10 @@
 <!-- Policy modals — opened by the footer policy links (and the pay-button
      disclosure) via the generic next-page-modal component in checkout.js.
      Copy is a static snapshot of the vitaecharm.com policy pages (fetched
-     2026-06-12); re-sync manually if the merchant edits store policies. -->
+     2026-06-12); re-sync manually if the merchant edits store policies.
+     RE-SYNC RULE: sanitize fetched HTML before pasting — strip <script>,
+     <style>, <iframe> and on* attributes, and force target=_blank +
+     rel=noopener on links. This markup lands in the payment page DOM. -->
   <div id="policy-refund" class="next-page-modal policy-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="policy-refund-title">
     <div class="next-page-modal__overlay" data-next-modal-close></div>
     <div class="next-page-modal__dialog">
@@ -64,7 +67,7 @@
 <p>You can always check the delivery status the following ways:</p>
 <ol>
 <li>
-On the <a href="https://vitaecharm.com/apps/track123">Order Tracking page</a> — just specify the order number and the email you used to place the order
+On the <a href="https://vitaecharm.com/apps/track123" target="_blank" rel="noopener noreferrer">Order Tracking page</a> — just specify the order number and the email you used to place the order
 </li>
 <li>Using the tracking number and the link we email when the order is sent out</li>
 <li>
@@ -154,7 +157,7 @@ The request for information and / or the contracting of the Store Name service
 <p>Google will not associate your IP address with any other data held by Google. The user can reject the treatment of data or information by rejecting the use of cookies by selecting the appropriate settings on their browser, however, the user must know that if they do so, they may not be able to use the full functionality of this Website.</p>
 <p>By using this Website, your user consents to the processing of their information by Google in the manner and for the purposes indicated above.</p>
 <p>SMS Text Messaging</p>
-<p>We may use the personal information we collect to communicate with individuals via text message, including (with your consent) to market to you or offer you information and updates on products or services we think you may be interested in. You can unsubscribe from marketing text messages at any time by replying STOP or clicking the unsubscribe link (where available) in one of our messages. For more information, please see our<a href="https://povney.myklpages.com/p/mobile-terms-of-service"> </a><a href="https://povney.myklpages.com/p/mobile-terms-of-service">Mobile Terms of </a>Service.</p>
+<p>We may use the personal information we collect to communicate with individuals via text message, including (with your consent) to market to you or offer you information and updates on products or services we think you may be interested in. You can unsubscribe from marketing text messages at any time by replying STOP or clicking the unsubscribe link (where available) in one of our messages. For more information, please see our<a href="https://povney.myklpages.com/p/mobile-terms-of-service" target="_blank" rel="noopener noreferrer"> </a><a href="https://povney.myklpages.com/p/mobile-terms-of-service" target="_blank" rel="noopener noreferrer">Mobile Terms of </a>Service.</p>
 <p>Data Retention Pursuant to LSSI</p>
 <p>Store Name informs that, as a provider of data hosting service and pursuant to the provisions of Law 34/2002 of July 11 on Services of the Information Society and Electronic Commerce (LSSI), it retains for a period maximum of 12 months the essential information to identify the origin of the data hosted and the time when the service was started. The retention of this data does not affect the secrecy of communications and may only be used in the framework of a criminal investigation or for the safeguarding of public safety, making itself available to judges and / or courts or the Ministry that so requires.</p>
 <p>The communication of data to the State Forces and Bodies will be made pursuant to the provisions of the regulations on protection of personal data.</p>
@@ -292,7 +295,7 @@ The collection and / or use of personal data of other users without their expres
 <p><strong>Managing Your Subscription<br></strong>- Customers can only cancel their subscription after a 20-day window from the date of their initial order. The purpose of this policy is to allow sufficient time for customers to receive and try our product. After the 20-day period, customers can cancel their subscription. To do so, customers must log into their account on our website and follow the cancellation process. <br>The cancellation request should be made after the 20-day period has elapsed. Customers will not be charged any further fees or receive additional shipments once the subscription is canceled. For any questions or assistance with the cancellation process, customers can reach out to our customer support team.</p>
 <p>Please note that by placing an order and subscribing to our product, you agree to adhere to the cancellation policy outlined above.</p>
 <p><strong>Same Day Cancelations<br></strong>Please note that if you request the cancellation of your subscription on the same day as your Starter Kit purchase, we reserve the right to cancel both your subscription and any associated order.</p>
-<p><strong>Returns and Refunds<br></strong>- For details about returns and refunds related to subscription orders, please see our <a href="https://vitaecharm.com/policies/refund-policy">[Returns Policy]</a>.</p>
+<p><strong>Returns and Refunds<br></strong>- For details about returns and refunds related to subscription orders, please see our <a href="https://vitaecharm.com/policies/refund-policy" target="_blank" rel="noopener noreferrer">[Returns Policy]</a>.</p>
 <p>If you have any questions or need assistance, our support team is here to help.</p>
       </div>
     </div>

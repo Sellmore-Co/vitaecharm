@@ -150,6 +150,9 @@ scripts:
                             {% campaign_include 'payment-methods.html' show_paypal=true show_klarna=false show_apple_pay=false show_google_pay=false %}
                           </div>
                           <div class="submit-section">
+                            <!-- Terms line stays ABOVE the button (matches the merchant's
+                                 Shopify screenshot, and the copy says "button below") -->
+                            <div class="submit-section__disclaimer">By clicking the button below, you agree with our <a href="{{ campaign.store_terms }}" target="_blank" rel="noopener noreferrer" data-modal-target="#policy-terms" class="submit-section__policy-link next-page-modal__trigger">Terms of Use</a> and <a href="{{ campaign.store_privacy }}" target="_blank" rel="noopener noreferrer" data-modal-target="#policy-privacy" class="submit-section__policy-link next-page-modal__trigger">Privacy Policy</a>.</div>
                             <div class="submit-section__button"><button os-checkout-payment="combo" data-action="submit" type="submit" class="submit-button">
                                 <div data-pb-element="checkout-button-spinner" class="submit-button__loader">
                                   <div class="three-quarter-spinner black"></div>
@@ -162,8 +165,9 @@ scripts:
                               </button></div>
                             <!-- Subscription disclosure below the button (Shopify parity —
                                  merchant feedback round 3: must be visible to customers) -->
-                            <div class="submit-section__disclaimer">One or more items in your cart is a deferred, subscription, or recurring purchase. By continuing with your payment, you agree that your payment method will automatically be charged at the price and frequency listed on this page until it ends or you cancel. All cancellations are subject to the <a href="{{ campaign.store_cancellations }}" target="_blank" data-modal-target="#policy-cancellations" class="submit-section__policy-link next-page-modal__trigger">cancellation policy</a>.</div>
-                            <div class="submit-section__disclaimer">By clicking the button below, you agree with our <a href="{{ campaign.store_terms }}" target="_blank" data-modal-target="#policy-terms" class="submit-section__policy-link next-page-modal__trigger">Terms of Use</a> and <a href="{{ campaign.store_privacy }}" target="_blank" data-modal-target="#policy-privacy" class="submit-section__policy-link next-page-modal__trigger">Privacy Policy</a>.</div>
+                            <!-- Shown only when the cart actually contains a recurring item —
+                                 the summary decorator (checkout-shop.js) toggles [hidden] -->
+                            <div class="submit-section__disclaimer js-subscription-disclosure" hidden>One or more items in your cart is a deferred, subscription, or recurring purchase. By continuing with your payment, you agree that your payment method will automatically be charged at the price and frequency listed on this page until it ends or you cancel. All cancellations are subject to the <a href="{{ campaign.store_cancellations }}" target="_blank" rel="noopener noreferrer" data-modal-target="#policy-cancellations" class="submit-section__policy-link next-page-modal__trigger">cancellation policy</a>.</div>
                           </div>
                         </div>
                       </div>

@@ -71,7 +71,11 @@ initExpirationInput();
     2: '1 bottle', 4: '2 bottles', 5: '3 bottles',
     9: '1 bottle', 10: '2 bottles', 11: '3 bottles'
   };
+  var SUB_IDS = { 2: 1, 4: 1, 5: 1 };
   var FREE_IDS = { 3: 1, 6: 1, 7: 1, 8: 1, 12: 1 };
+  // "1X FREE OIL" is the offer's display name on the merchant's live Shopify
+  // checkout — it appears verbatim on every gift line (mask, mitt, nail oil),
+  // not just the oil. Intentional parity, not a copy bug.
   var OFFER_LABEL = '1X FREE OIL';
 
   function setText(el, text) {
@@ -86,10 +90,14 @@ initExpirationInput();
   function parseAmount(text) {
     var m = String(text).replace(/[^\d.,]/g, '');
     if (!m) return NaN;
-    // Treat the last separator as the decimal point ("1.234,56" / "1,234.56")
+    // The last separator is the decimal point ("1.234,56" / "1,234.56") only
+    // when 1-2 digits follow it; 3 digits means it's a thousands separator
+    // ("$1,234" → 1234, not 1.234).
     var lastSep = Math.max(m.lastIndexOf(','), m.lastIndexOf('.'));
     if (lastSep === -1) return parseFloat(m);
-    return parseFloat(m.slice(0, lastSep).replace(/[.,]/g, '') + '.' + m.slice(lastSep + 1));
+    var frac = m.slice(lastSep + 1);
+    if (frac.length > 2) return parseFloat(m.replace(/[.,]/g, ''));
+    return parseFloat(m.slice(0, lastSep).replace(/[.,]/g, '') + '.' + frac);
   }
 
   // Format `value` re-using the currency layout of `sample` (e.g. "60,95 $")
@@ -110,7 +118,7 @@ initExpirationInput();
     var original = line.querySelector('.cart-price.price--original');
 
     // Main Body Oil tiers: plain product name + "N bottles" line
-    if (BODY_OIL[pkg]) {
+    if (BODY_OIL[pkg] && title) {
       setText(title, 'Body Oil');
       var bottles = line.querySelector('.cart-item__bottles');
       if (!bottles) {
@@ -137,7 +145,7 @@ initExpirationInput();
       if (FREE_IDS[pkg] && original) {
         var was = original.textContent.trim();
         label = was ? OFFER_LABEL + ' (-' + was + ')' : OFFER_LABEL;
-      } else if (pkg === 2 || pkg === 4 || pkg === 5) {
+      } else if (SUB_IDS[pkg]) {
         label = OFFER_LABEL;
       }
       if (label) {
@@ -148,17 +156,24 @@ initExpirationInput();
       }
     }
 
-    // Zero price → the word FREE (strikethrough compare-at stays)
-    if (finalPrice && isZeroAmount(finalPrice.textContent)) {
+    // Zero price → the word FREE (strikethrough compare-at stays). Scoped to
+    // the known free packages so a transient $0 placeholder on a paid line
+    // can never be presented as FREE.
+    if (FREE_IDS[pkg] && finalPrice && isZeroAmount(finalPrice.textContent)) {
       setText(finalPrice, 'FREE');
     }
   }
 
   function decorateSummary(summary) {
-    summary.querySelectorAll('[data-summary-lines] [data-package-id]').forEach(decorateLine);
+    summary.querySelectorAll('[data-summary-lines] [data-package-id]').forEach(function (line) {
+      // One malformed line must not kill decoration for the rest of the summary
+      try { decorateLine(line); } catch (e) { /* leave that line undecorated */ }
+    });
 
     // SDK 0.4.x cart API is the Zustand store (same access pattern as
-    // body-oil.js / clone-adapter.js, verified against v0.4.24)
+    // body-oil.js / clone-adapter.js, verified against v0.4.24). Only the
+    // item-count label needs it — the money math below is DOM-only so it
+    // still reconciles if this internal ever disappears in an SDK bump.
     var state = null;
     try {
       var nc = window.NextCommerce;
@@ -167,25 +182,21 @@ initExpirationInput();
 
     // Subtotal: "Subtotal · N items" + post-discount value (the {subtotal}
     // token is pre-discount; with the offer rows hidden it wouldn't reconcile
-    // with Total). Taxes aren't in the SDK total, so subtotal = total − shipping.
+    // with Total). Taxes aren't in the SDK total (the taxes row reads
+    // "Calculated when you place your order"), so subtotal = total − shipping.
     var subLabel = summary.querySelector('.js-subtotal-label');
     var subValue = summary.querySelector('.js-subtotal-value');
-    if (state && subLabel && subValue) {
+    if (state && subLabel) {
       var count = state.totalQuantity ||
         (state.items || []).reduce(function (n, it) { return n + (it.quantity || 1); }, 0);
       if (count) setText(subLabel, 'Subtotal · ' + count + ' ' + (count === 1 ? 'item' : 'items'));
-
+    }
+    if (subValue) {
       var totalEl = summary.querySelector('.order-totals__value--total');
+      var shipEl = summary.querySelector('.js-shipping-value');
       var totalsText = totalEl ? totalEl.textContent.trim() : '';
-      var shipText = '';
-      summary.querySelectorAll('.order-totals__label').forEach(function (l) {
-        if (l.textContent.trim() === 'Shipping') {
-          var v = l.closest('.order-totals__line').querySelector('.order-totals__value');
-          if (v) shipText = v.textContent.trim();
-        }
-      });
       var total = parseAmount(totalsText);
-      var ship = parseAmount(shipText);
+      var ship = parseAmount(shipEl ? shipEl.textContent.trim() : '');
       if (!isNaN(total)) {
         var net = total - (isNaN(ship) ? 0 : ship);
         setText(subValue, formatLike(totalsText, net));
@@ -207,18 +218,37 @@ initExpirationInput();
         row.hidden = true;
       }
     }
+
+    // The subscription disclosure under the Pay button only applies when the
+    // cart actually contains a recurring item. Document-wide check (not this
+    // summary's subTerms): mobile and desktop summaries both run this pass,
+    // and a summary that didn't render lines must not hide the disclosure.
+    var disclosure = document.querySelector('.js-subscription-disclosure');
+    if (disclosure) {
+      var hasRecurring = !!document.querySelector('[data-next-cart-summary] .cart-item__sub-terms--true');
+      if (disclosure.hidden === hasRecurring) disclosure.hidden = !hasRecurring;
+    }
   }
 
   function initSummaryDecorator() {
     document.querySelectorAll('[data-next-cart-summary]').forEach(function (summary) {
-      decorateSummary(summary);
-      new MutationObserver(function () {
+      if (summary.dataset.vcDecorated) return; // re-init must not stack observers
+      summary.dataset.vcDecorated = '1';
+      var observer = new MutationObserver(function () {
         decorateSummary(summary);
-      }).observe(summary, { childList: true, subtree: true, characterData: true });
+        // Swallow the echo batch from our own writes — saves a second full
+        // decoration pass per SDK render and breaks any future write loop.
+        observer.takeRecords();
+      });
+      decorateSummary(summary);
+      observer.observe(summary, { childList: true, subtree: true, characterData: true });
     });
   }
 
   window.addEventListener('next:initialized', initSummaryDecorator);
+  // If the SDK initialized before this script attached its listener (CDN
+  // module vs page-script load race), the event already fired — run now.
+  if (window.NextCommerce) initSummaryDecorator();
 })();
 
 window.addEventListener('next:initialized', function() {

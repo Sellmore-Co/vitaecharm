@@ -150,6 +150,10 @@ function initExitIntentTemplate(templateName, action) {
 
     function openModal(modal) {
       if (!modal) return;
+      // Re-opening an already-open modal would overwrite _nextModalKeyHandler
+      // and orphan the first document keydown listener for the session
+      if (modal.classList.contains('next-page-modal--open')) return;
+      modal._nextModalReturnFocus = document.activeElement;
       modal.classList.add('next-page-modal--open');
       modal.setAttribute('aria-hidden', 'false');
       body.classList.add('next-page-modal-open');
@@ -190,16 +194,26 @@ function initExitIntentTemplate(templateName, action) {
         document.removeEventListener('keydown', modal._nextModalKeyHandler);
         delete modal._nextModalKeyHandler;
       }
+      // Return focus to the triggering element (WCAG 2.4.3) so keyboard
+      // users don't lose their place in the checkout
+      if (modal._nextModalReturnFocus && typeof modal._nextModalReturnFocus.focus === 'function') {
+        modal._nextModalReturnFocus.focus();
+        delete modal._nextModalReturnFocus;
+      }
     }
 
     // Trigger buttons
     document.querySelectorAll('.next-page-modal__trigger').forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        e.preventDefault();
         const targetSel = getTargetFromTrigger(btn);
-        const modal =
-          document.querySelector(targetSel) ||
-          document.querySelector(defaultTarget);
+        let modal = null;
+        try {
+          modal = document.querySelector(targetSel) || document.querySelector(defaultTarget);
+        } catch (err) { /* href fell through as the selector — not a modal target */ }
+        // No modal on this page (e.g. an include shared with a page that
+        // doesn't ship the modals) — let the link navigate normally
+        if (!modal) return;
+        e.preventDefault();
         openModal(modal);
       });
       btn.addEventListener('keydown', (e) => {

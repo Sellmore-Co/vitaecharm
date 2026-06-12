@@ -35,6 +35,14 @@
                       <span class="cart-item__onetime cart-item__onetime--{item.isRecurring}">One-time purchase</span>
                     </div>
                     <div class="cart-item__sub-terms cart-item__sub-terms--{item.isRecurring} text-2xs text-muted text-weight-normal">First payment {item.price}, then {item.recurringPrice} <span class="cart-item__sub-freq">{item.frequency}</span></div>
+                    <!-- Offer tag line ("1X FREE OIL (-$38.00)") — filled per package by the
+                         summary decorator in checkout-shop.js after each SDK render -->
+                    <div class="cart-item__tag" hidden>
+                      <svg class="cart-item__tag-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 18 18" focusable="false" aria-hidden="true" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m10.802 15.686 5.367-5.368a.15.15 0 0 0 .046-.109V4.144m-2.998-.95h-5.67a.16.16 0 0 0-.11.046L1.779 8.897a.154.154 0 0 0 0 .219l5.594 5.593c.06.06.158.06.218 0l5.658-5.657a.15.15 0 0 0 .045-.11v-5.67a.077.077 0 0 0-.077-.077Zm-3.06 3.749a.643.643 0 1 1-1.286 0 .643.643 0 0 1 1.286 0m-.648-.005h.01v.01h-.01z"></path>
+                      </svg>
+                      <span class="cart-item__tag-text"></span>
+                    </div>
                     <div class="hide">
                       <div class="text-2xs text-muted text-weight-normal diagonal-strike {item.hasDiscount}">{item.originalUnitPrice}/ea</div>
                       <div class="text-2xs text-muted text-weight-normal">{item.unitPrice}/ea</div>
@@ -54,23 +62,21 @@
 
     <div class="order-totals os-cart-summary-totals">
 
+      <!-- Shopify parity: label gains an item count and the value is rewritten to the
+           post-discount subtotal by the summary decorator in checkout-shop.js (the SDK
+           {subtotal} token is pre-discount, which no longer reconciles with Total now
+           that the per-offer discount rows are hidden). -->
       <div class="order-totals__section">
         <div class="order-totals__line">
-          <div class="order-totals__label">Subtotal</div>
-          <div class="order-totals__value">{subtotal}</div>
+          <div class="order-totals__label js-subtotal-label">Subtotal</div>
+          <div class="order-totals__value js-subtotal-value">{subtotal}</div>
         </div>
       </div>
 
-      <!-- Per-discount rows — SDK 0.4.13+: data-next-discounts works inside data-next-cart-summary -->
+      <!-- Free-gift offer rows intentionally NOT rendered (merchant feedback round 3:
+           the gift value shows on each item line instead). Typed coupon codes still
+           get a row via the voucher list below, matching Shopify. -->
       <div class="order-totals__section">
-        <ul class="order-totals__discount-list" data-next-discounts="offer" aria-label="Offer discounts">
-          <template>
-            <li class="order-totals__line">
-              <div class="order-totals__label text-muted">{discount.name}</div>
-              <div class="order-totals__value text-muted">−{discount.amount}</div>
-            </li>
-          </template>
-        </ul>
         <ul class="order-totals__discount-list" data-next-discounts="voucher" aria-label="Coupon discounts">
           <template>
             <li class="order-totals__line">
@@ -87,7 +93,9 @@
             <div class="order-totals__label">Shipping</div>
           </div>
           <div class="order-totals__value-group">
-            <div class="order-totals__value">{shipping}</div>
+            <!-- js-shipping-value: structural hook for the summary decorator's
+                 subtotal math — do not remove without updating checkout-shop.js -->
+            <div class="order-totals__value js-shipping-value">{shipping}</div>
           </div>
         </div>
       </div>
@@ -127,6 +135,27 @@
               </svg>
             </div>
             <div class="order-totals__savings-text">TOTAL SAVINGS <span>{discounts}</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recurring subtotal (Shopify parity) — value text is mirrored from the
+           subscription line's sub-terms by the summary decorator in checkout-shop.js;
+           the whole row stays hidden when the cart has no recurring item. -->
+      <div class="order-totals__section order-totals__section--recurring js-recurring-row" hidden>
+        <div class="order-totals__line">
+          <div class="order-totals__label-group">
+            <div class="order-totals__label">Recurring subtotal</div>
+            <div data-next-tooltip="The recurring subtotal does not include one-time purchases, discounts, shipping or tax. Future payments will be charged at the price and frequency listed until the subscription ends or you cancel." tabindex="0" role="note" aria-label="Recurring subtotal information" class="info-icons">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" focusable="false" aria-hidden="true" fill="none" stroke="currentColor">
+                <circle cx="7" cy="7" r="5.6" stroke="currentColor"></circle>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5.6 5.1c.2-1.3 2.6-1.3 2.8 0S6.95 6.4 6.95 7.45m.055 2.35H7v.005h.005z"></path>
+                <circle cx="7" cy="9.7" r="0.1" fill="currentColor"></circle>
+              </svg>
+            </div>
+          </div>
+          <div class="order-totals__value-group">
+            <div class="order-totals__value js-recurring-value"></div>
           </div>
         </div>
       </div>

@@ -257,7 +257,8 @@ body,
 }
 
 /* --- Cart item rows --- */
-[data-summary-lines] .cart-item { margin-bottom: .875rem; }
+/* Compact rows to match Shopify (merchant feedback round 4) */
+[data-summary-lines] .cart-item { margin-bottom: .5rem; }
 .checkout--shop .cart-item__title {
   font-size: .875rem;
   font-weight: 400;
@@ -310,6 +311,8 @@ body,
 }
 
 /* --- Totals --- */
+/* Tighter row spacing to match Shopify (merchant feedback round 4) */
+.checkout--shop .order-totals { row-gap: .5rem; }
 .checkout--shop .order-totals__label,
 .checkout--shop .order-totals__value {
   font-size: .875rem;
@@ -481,7 +484,7 @@ body,
   align-items: center;
   gap: .35rem;
 }
-.order-totals__section--recurring .order-totals__label { white-space: nowrap; }
+.order-totals__section--recurring .order-totals__label { white-space: nowrap; font-weight: 600; }
 .order-totals__section--recurring .js-recurring-value {
   font-weight: 600;
   text-align: right;
@@ -493,7 +496,7 @@ body,
 .checkout-footer-links {
   flex-wrap: nowrap;           /* merchant feedback round 3: one line */
   border-top: 1px solid #dedede;
-  margin-top: 3rem;
+  margin-top: 1.25rem;         /* round 4: tighten gap above footer links */
   padding-top: .875rem;
   /* five links must fit the 468px form column on a single line:
      13px + 8px gaps ≈ 437px used, comfortable margin */

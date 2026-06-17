@@ -45,7 +45,12 @@ body,
   border-bottom: 1px solid #dedede;
 }
 .checkout--shop .checkout-header__brand .brand-logo {
-  max-width: 300px !important; /* beats the legacy inline style */
+  max-width: 300px !important; /* beats the legacy inline style; Shopify renders 300×75 */
+  /* Block + auto-centered removes the inline-image baseline gap that left
+     uneven space below the logo, so top/bottom spacing is symmetric (round 5). */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ============================================================
@@ -304,6 +309,12 @@ body,
   font-weight: 600;
   border-width: 1px;
   border-radius: 8px;
+  /* Match the discount input's height and trim the oversized horizontal
+     padding so the button matches Shopify's compact "Apply" (round 5). */
+  height: 2.9375rem;            /* 47px — same as .input-flds */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  flex: none;
 }
 .coupon-button:hover {
   background-color: #e0e0e0;
@@ -311,8 +322,13 @@ body,
 }
 
 /* --- Totals --- */
-/* Tighter row spacing to match Shopify (merchant feedback round 4) */
-.checkout--shop .order-totals { row-gap: .5rem; }
+/* Even vertical rhythm between every summary line (merchant feedback round 5).
+   The base stylesheet adds an extra .5rem margin-top before the Total section,
+   which made the gap above Total larger than the gaps between Subtotal /
+   Shipping / Estimated taxes. Use one row-gap for all lines and remove the
+   Total section's extra top margin so the spacing is consistent. */
+.checkout--shop .order-totals { row-gap: .625rem; }
+.checkout--shop .order-totals__section.cc-total { margin-top: 0; }
 .checkout--shop .order-totals__label,
 .checkout--shop .order-totals__value {
   font-size: .875rem;
@@ -479,6 +495,9 @@ body,
   padding-top: .875rem;
 }
 .order-totals__section--recurring[hidden] { display: none; }
+/* Keep the value's first line inline (top-aligned) with the "Recurring
+   subtotal" label on the right; the terms wrap beneath it (round 5). */
+.order-totals__section--recurring .order-totals__line { align-items: flex-start; }
 .order-totals__section--recurring .order-totals__label-group {
   display: flex;
   align-items: center;

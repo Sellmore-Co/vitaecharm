@@ -203,6 +203,30 @@ initExpirationInput();
       }
     }
 
+    // Compare-at "before" total in the collapsed summary bar (Shopify shows
+    // $165.00 struck through). The SDK's cart.subtotal renders 0 for this
+    // free-gift offer, so we own the value: sum each line's original price
+    // (or its final price when no compare-at original exists — the paid Body
+    // Oil line). The element lives in the accordion trigger, OUTSIDE this
+    // [data-next-cart-summary], so it's resolved document-wide.
+    var compareEl = document.querySelector('.js-compare-total');
+    if (compareEl) try {
+      var compareSum = 0, sampleText = '';
+      summary.querySelectorAll('[data-summary-lines] [data-package-id]').forEach(function (line) {
+        var orig = line.querySelector('.cart-price.price--original');
+        var fin = line.querySelector('.checkout__line-item__final-price');
+        var o = parseAmount(orig ? orig.textContent : '');
+        var amt = (!isNaN(o) && o > 0) ? o : parseAmount(fin ? fin.textContent : '');
+        if (!isNaN(amt)) { compareSum += amt; if (!sampleText && orig) sampleText = orig.textContent.trim(); }
+      });
+      var totalSample = summary.querySelector('.order-totals__value--total');
+      sampleText = (totalSample && totalSample.textContent.trim()) || sampleText;
+      // Require a numeric sample: formatLike returns the sample unchanged when
+      // it finds no digit run, which would print a pre-hydration "{total}"
+      // placeholder into the struck total. Skip until the total has rendered.
+      if (compareSum > 0 && /\d/.test(sampleText)) setText(compareEl, formatLike(sampleText, compareSum));
+    } catch (e) { /* never let the compare-at pass abort the rest of decorateSummary */ }
+
     // Recurring subtotal row mirrors the subscription line's sub-terms text
     var row = summary.querySelector('.js-recurring-row');
     var value = summary.querySelector('.js-recurring-value');

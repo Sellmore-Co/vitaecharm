@@ -339,22 +339,47 @@
     })();
 
     // Content carousels (Natural 9 Oils, Before & Afters reviews) — generic .pf-slider tracks
-    // whose PageFly slider JS was stripped. Wire prev/next arrows to scroll one slide.
+    // whose PageFly slider JS was stripped. Wire prev/next arrows, pagination dots, and scroll.
+    // "Natural 9 Oils": nav+buttons are inside the .pf-slider.pf-c-ct container.
+    // "Before & Afters": .pf-slider.scrollfix is only the scroll track — nav+buttons are siblings
+    // inside the parent element, so we fall back to parentElement for the lookup.
     [].slice.call(document.querySelectorAll('.pf-slider')).forEach(function (track) {
       var slides = [].slice.call(track.children).filter(function (c) { return c.classList.contains('pf-slide'); });
       if (slides.length < 2) return;
+      var scope = track.parentElement || track;
+      var nav  = track.querySelector('.pf-slider-nav')   || scope.querySelector('.pf-slider-nav');
+      var prev = track.querySelector('.pf-slider-prev')  || scope.querySelector('.pf-slider-prev');
+      var next = track.querySelector('.pf-slider-next')  || scope.querySelector('.pf-slider-next');
+      var dots = nav ? [].slice.call(nav.querySelectorAll('button')) : [];
       function cur() {
         var sl = track.scrollLeft, b = 0, bd = Infinity;
         slides.forEach(function (s, i) { var d = Math.abs(s.offsetLeft - track.offsetLeft - sl); if (d < bd) { bd = d; b = i; } });
         return b;
       }
+      function updateUI(i) {
+        if (prev) prev.style.visibility = i <= 0 ? 'hidden' : '';
+        if (next) next.style.visibility = i >= slides.length - 1 ? 'hidden' : '';
+        dots.forEach(function (d, j) { d.classList.toggle('active', j === i); });
+      }
+      var scrollingTo = -1, scrollLockTimer;
       function go(i) {
         i = Math.max(0, Math.min(slides.length - 1, i));
+        scrollingTo = i;
+        clearTimeout(scrollLockTimer);
         track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+        updateUI(i);
+        scrollLockTimer = setTimeout(function () { scrollingTo = -1; }, 600);
       }
-      var prev = track.querySelector('.pf-slider-prev'), next = track.querySelector('.pf-slider-next');
       if (prev) prev.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); go(cur() - 1); }, true);
       if (next) next.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); go(cur() + 1); }, true);
+      dots.forEach(function (d, i) { d.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); go(i); }, true); });
+      var raf;
+      track.addEventListener('scroll', function () {
+        if (scrollingTo >= 0) return;
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = null; updateUI(cur()); });
+      }, { passive: true });
+      updateUI(0);
     });
 
     // ADD TO CART — stable id first, text fallback

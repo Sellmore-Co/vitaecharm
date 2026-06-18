@@ -40,8 +40,8 @@ body,
    Header — Shopify renders the same 800×200 brand image at 300px
    ============================================================ */
 .checkout--shop .checkout-header--lg {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
   border-bottom: 1px solid #dedede;
 }
 .checkout--shop .checkout-header__brand .brand-logo {
@@ -221,10 +221,10 @@ body,
 /* Disclosure paragraphs sit BELOW the button (Shopify order) */
 .checkout--shop .submit-section__disclaimer {
   color: #707070;
-  font-size: .875rem;
+  font-size: .75rem;
   line-height: 1.5;
-  margin-top: .875rem;
-  text-align: left;            /* Shopify renders the disclosure left-aligned */
+  margin-top: .0rem;
+  text-align: left;
 }
 .checkout--shop .submit-section__policy-link {
   color: inherit;
@@ -263,7 +263,7 @@ body,
 
 /* --- Cart item rows --- */
 /* Compact rows to match Shopify (merchant feedback round 4) */
-[data-summary-lines] .cart-item { margin-bottom: .5rem; }
+[data-summary-lines] .cart-item { margin-bottom: .3rem; }
 .checkout--shop .cart-item__title {
   font-size: .875rem;
   font-weight: 400;
@@ -274,7 +274,7 @@ body,
 .checkout--shop .cart-item__sub-terms {
   color: #666;
   font-size: .75rem;
-  line-height: 1.5;
+  line-height: 1.2;
 }
 /* Line price: Shopify 14px regular (not bold) */
 .checkout--shop .checkout__line-item__final-price {
@@ -302,8 +302,8 @@ body,
 
 /* --- Discount code row — input + neutral grey "Apply" (Shopify) --- */
 .coupon-button {
-  background-color: #ededed;
-  border-color: #ededed;
+  background-color: #f1f1f1;
+  border-color: #e5e5e5;
   color: #000;
   font-size: .875rem;
   font-weight: 600;
@@ -311,14 +311,21 @@ body,
   border-radius: 8px;
   /* Match the discount input's height and trim the oversized horizontal
      padding so the button matches Shopify's compact "Apply" (round 5). */
-  height: 2.9375rem;            /* 47px — same as .input-flds */
-  padding-left: 1rem;
-  padding-right: 1rem;
+  width: 65px;
+  height: 48px;
+  padding-left: 0;
+  padding-right: 0;
   flex: none;
 }
 .coupon-button:hover {
   background-color: #e0e0e0;
   border-color: #e0e0e0;
+}
+.coupon-button.next-disabled {
+  pointer-events: none;
+  color: #818181;
+  background-color: #f1f1f1;
+  border-color: #e5e5e5;
 }
 
 /* --- Totals --- */
@@ -372,7 +379,7 @@ body,
 .cart-item__onetime--true { display: none; }
 .cart-item__onetime--false { display: inline; }
 .cart-item__sub-terms {
-  margin-top: 2px;
+  margin-top: 0px;
   line-height: 1.35;
 }
 .cart-item__sub-freq {
@@ -404,11 +411,11 @@ body,
   }
   /* Shopify's mobile header renders the brand image smaller */
   .checkout--shop .checkout-header__brand .brand-logo {
-    max-width: 240px !important;
+    max-width: 269px !important;
   }
   .checkout--shop .checkout-header--lg {
-    padding-top: .875rem;
-    padding-bottom: .875rem;
+    padding-top: .49rem;
+    padding-bottom: .49rem;
   }
   .checkout--shop .order-summary__trigger {
     font-size: .875rem;
@@ -474,7 +481,7 @@ body,
 .cart-item__bottles {
   color: #666;
   font-size: .75rem;
-  line-height: 1.5;
+  line-height: 1.2;
 }
 .cart-item__tag {
   display: flex;
@@ -483,10 +490,20 @@ body,
   color: #666;
   font-size: .75rem;
   line-height: 1.5;
-  margin-top: 2px;
+  margin-top: -1px;
 }
 .cart-item__tag[hidden] { display: none; }
 .cart-item__tag-icon { flex: none; }
+.cart-item__description {
+  grid-column-gap: .15rem;
+  grid-row-gap: .05rem;
+  text-align: left;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+}
 
 /* Recurring subtotal — separated full-width row, label left / terms right */
 .order-totals__section--recurring {
@@ -495,8 +512,6 @@ body,
   padding-top: .875rem;
 }
 .order-totals__section--recurring[hidden] { display: none; }
-/* Keep the value's first line inline (top-aligned) with the "Recurring
-   subtotal" label on the right; the terms wrap beneath it (round 5). */
 .order-totals__section--recurring .order-totals__line { align-items: flex-start; }
 .order-totals__section--recurring .order-totals__label-group {
   display: flex;
@@ -507,6 +522,24 @@ body,
 .order-totals__section--recurring .js-recurring-value {
   font-weight: 600;
   text-align: right;
+}
+@media screen and (min-width: 992px) {
+  .order-totals__section--recurring .order-totals__line {
+    flex-direction: column;
+    gap: .2rem;
+  }
+  .order-totals__section--recurring .js-recurring-value {
+    text-align: left;
+  }
+}
+@media screen and (max-width: 479px) {
+  .order-totals__section--recurring .order-totals__line {
+    flex-direction: column;
+    gap: .2rem;
+  }
+  .order-totals__section--recurring .js-recurring-value {
+    text-align: left;
+  }
 }
 
 /* ============================================================
@@ -532,6 +565,17 @@ body,
 /* Five links don't fit one line on small phones — let them wrap there */
 @media screen and (max-width: 479px) {
   .checkout-footer-links { flex-wrap: wrap; }
+  .checkout--shop .checkout-header--lg {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+  }
+}
+
+/* Scroll hint — next-core.css hides it inside @media (max-width: 991px) with a
+   single-class rule; two-class selector here wins by specificity regardless of
+   source order so the hint stays visible inside the desktop summary panel. */
+.summary-desktop .cart-items__scroll-hint {
+  display: flex;
 }
 
 /* ============================================================

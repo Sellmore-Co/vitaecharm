@@ -164,6 +164,30 @@ initExpirationInput();
     }
   }
 
+  function wireScrollHint(summary) {
+    setTimeout(function () {
+      var list = summary.querySelector('.cart-items__list');
+      var hint = summary.querySelector('.cart-items__scroll-hint');
+      if (!list || !hint) return;
+      var hasItems = !!list.querySelector('[data-package-id]');
+      if (!hasItems) {
+        hint.classList.remove('cart-items__scroll-hint--active');
+        return;
+      }
+      hint.classList.add('cart-items__scroll-hint--active');
+      if (!list._scrollHintWired) {
+        list._scrollHintWired = true;
+        list.addEventListener('scroll', function () {
+          if (list.scrollTop > 4) {
+            hint.classList.remove('cart-items__scroll-hint--active');
+          } else {
+            hint.classList.add('cart-items__scroll-hint--active');
+          }
+        }, { passive: true });
+      }
+    }, 0);
+  }
+
   function decorateSummary(summary) {
     summary.querySelectorAll('[data-summary-lines] [data-package-id]').forEach(function (line) {
       // One malformed line must not kill decoration for the rest of the summary
@@ -252,6 +276,8 @@ initExpirationInput();
       var hasRecurring = !!document.querySelector('[data-next-cart-summary] .cart-item__sub-terms--true');
       if (disclosure.hidden === hasRecurring) disclosure.hidden = !hasRecurring;
     }
+
+    wireScrollHint(summary);
   }
 
   function initSummaryDecorator() {

@@ -508,8 +508,8 @@ body,
 /* Recurring subtotal — separated full-width row, label left / terms right */
 .order-totals__section--recurring {
   border-top: 1px solid #dedede;
-  margin-top: .875rem;
-  padding-top: .875rem;
+  margin-top: 0rem;
+  padding-top: .29rem;
 }
 .order-totals__section--recurring[hidden] { display: none; }
 .order-totals__section--recurring .order-totals__line { align-items: flex-start; }

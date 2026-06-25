@@ -220,8 +220,8 @@ body,
 }
 /* Disclosure paragraphs sit BELOW the button (Shopify order) */
 .checkout--shop .submit-section__disclaimer {
-  color: #707070;
-  font-size: .75rem;
+  color: #4a4a4a;
+  font-size: 14px;
   line-height: 1.5;
   margin-top: .0rem;
   text-align: left;
@@ -667,4 +667,11 @@ body,
 .order-totals .info-icons[data-next-tooltip]:focus::after {
   opacity: 1;
   visibility: visible;
+}
+.submit-section {
+  grid-column-gap: .5rem;
+  grid-row-gap: 1rem;
+  flex-flow: column;
+  margin-top: -1rem;
+  display: flex;
 }

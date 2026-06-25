@@ -150,9 +150,7 @@ scripts:
                             {% campaign_include 'payment-methods.html' show_paypal=true show_klarna=false show_apple_pay=false show_google_pay=false %}
                           </div>
                           <div class="submit-section">
-                            <!-- Terms line stays ABOVE the button (matches the merchant's
-                                 Shopify screenshot, and the copy says "button below") -->
-                            <div class="submit-section__disclaimer">By clicking the button below, you agree with our <a href="{{ campaign.store_terms }}" target="_blank" rel="noopener noreferrer" data-modal-target="#policy-terms" class="submit-section__policy-link next-page-modal__trigger">Terms of Use</a> and <a href="{{ campaign.store_privacy }}" target="_blank" rel="noopener noreferrer" data-modal-target="#policy-privacy" class="submit-section__policy-link next-page-modal__trigger">Privacy Policy</a>.</div>
+                            <div class="submit-section__disclaimer js-subscription-disclosure">Your cart contains an automatically renewing subscription. By clicking "Pay now," <strong>you expressly and affirmatively agree that you will be automatically charged the recurring amount(s) shown in your cart (plus shipping and taxes) until the subscription(s) ends or you cancel.</strong> <strong>You may cancel anytime by going to your account or contacting the store.</strong> Please see the <a href="{{ campaign.store_returns }}" target="_blank" rel="noopener noreferrer" class="submit-section__policy-link">cancellation policy</a>.</div>
                             <div class="submit-section__button"><button os-checkout-payment="combo" data-action="submit" type="submit" class="submit-button">
                                 <div data-pb-element="checkout-button-spinner" class="submit-button__loader">
                                   <div class="three-quarter-spinner black"></div>
@@ -168,7 +166,6 @@ scripts:
                             <!-- Visible by default — this campaign's cart always contains the
                                  recurring Body Oil. checkout-shop.js keeps it shown and would
                                  only hide it in the theoretical empty/non-recurring case. -->
-                            <div class="submit-section__disclaimer js-subscription-disclosure">By continuing with your payment, you agree to the future charges listed on this page and the cancellation policy.</div>
                           </div>
                         </div>
                       </div>

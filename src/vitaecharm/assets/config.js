@@ -7,7 +7,7 @@ window.nextConfig = {
   apiKey: "StD6UKebXSYe9Zprdm8YMOskyeib7lityLn61Mu1",
   
   // Currency behavior when country changes
-  currencyBehavior: 'auto', // 'auto' | 'manual'
+  currencyBehavior: 'manual', // 'auto' | 'manual'
   
   // Payment and checkout configuration
   paymentConfig: {

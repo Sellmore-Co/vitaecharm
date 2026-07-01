@@ -26,7 +26,9 @@ function initExpirationInput() {
     var year = digits.slice(2, 4);
     display.value = year.length ? month + ' / ' + year : month;
     sync(monthField, month.length === 2 ? month : '');
-    sync(yearField, year.length === 2 ? year : '');
+    // Spreedly.tokenizeCreditCard requires a 4-digit year; the SDK passes
+    // exp-year through verbatim, so widen "27" → "2027" here (SELL-619).
+    sync(yearField, year.length === 2 ? '20' + year : '');
     // The two hidden fields share one .form-group, so the SDK's per-field
     // error clearing leaves the group's has-error class behind once both
     // fields are valid again — reconcile after the SDK listeners have run.
